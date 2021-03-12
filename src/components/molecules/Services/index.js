@@ -5,12 +5,11 @@ import {
   ServicesWrapper,
   ServicesCard,
   ServicesIcon,
-  ServicesH2,
   ServicesP,
 } from './ServicesElement';
-import Icon1 from '../../images/undraw_wallet_aym5.png';
-import Icon2 from '../../images/undraw_check_boxes_m3d0.png';
-import Icon3 from '../../images/undraw_digital_nomad_9kgl.png';
+import Icon1 from '../../../images/undraw_wallet_aym5.png';
+import Icon2 from '../../../images/undraw_check_boxes_m3d0.png';
+import Icon3 from '../../../images/undraw_digital_nomad_9kgl.png';
 const Services = () => {
   return (
     <ServicesContainer id="services">

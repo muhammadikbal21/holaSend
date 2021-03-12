@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import Sidebar from '../components/Sidebar';
-import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import InfoSection from '../components/InfoSection';
+import Sidebar from '../components/molecules/Sidebar';
+import Navbar from '../components/molecules/Navbar';
+import InfoSection from '../components/molecules/InfoSection';
 import {
-  homeObjOne,
-  homeObjTwo,
-  homeObjThree,
-} from '../components/InfoSection/Data';
-import Services from '../components/Services';
-import Footer from '../components/Footer';
+  homeObjOne
+} from '../components/molecules/InfoSection/Data';
+import Services from '../components/molecules/Services';
+import Footer from '../components/molecules/Footer';
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
 

@@ -8,8 +8,6 @@ import {
   NavMenu,
   NavItem,
   NavLinks,
-  NavBtn,
-  NavBtnLink,
 } from './NavbarElement';
 // import {IconContext} from 'react-icons/lib';
 // import {animateScroll as scroll} from 'react-scroll';
