@@ -13,13 +13,13 @@ const Login = () => {
             <div className="right">
                 <p className="title">Login</p>
                 <Gap height={18} />
-                <Input label="Email" placeholder="Email" />
+                <Input label="Username" placeholder="Username" />
                 <Gap height={18} />
-                <Input label="Password" placeholder="Password" />
+                <Input label="Password" placeholder="Password" type="password" />
                 <Gap height={50} />
                 <Button title="Login" onClick={() => history.push('/')} />
                 <Gap height={100} />
-                <Link title="Belum punya akun, silahkan daftar" onClick={() => history.push('/register')} />
+                <Link title="New to holaSend!? Create an Account" onClick={() => history.push('/register')} />
             </div>
         </div>
     );

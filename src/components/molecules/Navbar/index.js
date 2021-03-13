@@ -8,6 +8,8 @@ import {
   NavMenu,
   NavItem,
   NavLinks,
+  NavBtn,
+  NavBtnLink,
 } from './NavbarElement';
 // import {IconContext} from 'react-icons/lib';
 // import {animateScroll as scroll} from 'react-scroll';
@@ -58,6 +60,9 @@ const NavBar = ({toggle}) => {
                 Services
               </NavLinks>
             </NavItem>
+            <NavBtn>
+              <NavBtnLink to="login"> Sign in</NavBtnLink>
+            </NavBtn>
           </NavMenu>
         </NavbarContainer>
       </Nav>

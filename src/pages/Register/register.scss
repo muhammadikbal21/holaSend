@@ -9,9 +9,9 @@
     flex: 1;
     background-color: white;
     .left-bg{
-        width: 100vh;
+        width: 120%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 }
 
