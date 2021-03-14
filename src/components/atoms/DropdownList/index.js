@@ -6,16 +6,16 @@ const DropdownList = ({title, label}) => {
         <div className="input-wrapper">
             <p className="label">{label}</p>
             <Dropdown>
-            <Dropdown.Toggle style={{background: '#536DFE'}} id="dropdown-basic">
-                {title}
-            </Dropdown.Toggle>
+                <Dropdown.Toggle style={{background: '#536DFE'}} id="dropdown-basic">
+                    {title}
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">KTP</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">SIM</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">PASSPORT</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">KTP</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">SIM</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">PASSPORT</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
     )
 }

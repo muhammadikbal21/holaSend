@@ -27,7 +27,7 @@ const Register = () => {
                 <Input label="Password" placeholder="Password" type="password" />
                 <Gap height={40} />
                 <DropdownList label="Identity Category" title="Select Identity" />
-                <Gap height={40} />
+                <Gap height={60} />
                 <Input label="Identification Number" placeholder="Identification Number" />
                 <Gap height={18} />
                 <Input label="Contact Number" placeholder="Contact Number" />
