@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { LoginBg } from '../../assets';
 import { Button, Gap, Input, Link } from '../../components/atoms';
 import {useHistory} from 'react-router-dom'
 import Axios from 'axios';
-import { render } from '@testing-library/react';
 
 const Login = () => {
 
@@ -11,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [validation, setValidation] = useState('');
 
     const onSubmit = () => {
         const isValid = validate();
@@ -29,6 +29,7 @@ const Login = () => {
             })
             .catch(err => {
                 console.log('error : ', err);
+                setValidation("Username or Password invalid!")
             })
         }
     }
@@ -40,7 +41,7 @@ const Login = () => {
         if (!username) {
             usernameError = "Name cannot be blank!";
         }
-
+        
         if (!password) {
             passworError = "Password cannot be blank!";
         }
@@ -54,63 +55,32 @@ const Login = () => {
         return true;
     }
 
-    const handleUsernameChange = (e) => {
-        const inputValue = e.target.value;
-        const isEmpty = inputValue === "";
-        setUsername(inputValue)
-        setUsernameError(isEmpty)
-    }
-
-    const handlePasswordChange = (e) => {
-        const inputValue = e.target.value;
-        const isEmpty = inputValue === "";
-        setPassword(inputValue)
-        setPasswordError(isEmpty)
-    }
-
     const history = useHistory();
 
-    render(); {
-        let usernameErrorText;
-        if (usernameError) {
-            usernameErrorText = (
-                <div style={{fontSize: 12, color: "red"}}>Please input username</div>
-            )
-        }
-
-        let passwordErrorText;
-        if (passwordError) {
-            passwordErrorText = (
-                <div style={{fontSize: 12, color: "red"}}>Please input password</div>
-            )
-        }
-
-        return (
-            <div className="main-page">
-                <div className="left">
-                    <img src={LoginBg} className="left-bg" alt="ilustrator" />
-                </div>
-                <div className="right">
-                    <p className="title">Login</p>
-                    <Gap height={18} />
-                    <Input label="Username" value={username} onChange={(e) => handleUsernameChange(e)} placeholder="Username" />
-                    <Gap height={8} />
-                    <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
-                    {usernameErrorText}
-                    <Gap height={18} />
-                    <Input label="Password" value={password} onChange={(e) => handlePasswordChange(e)} placeholder="Password" type="password" />
-                    <Gap height={8} />
-                    <div style={{fontSize: 12, color: "red"}}>{passwordError}</div>
-                    {passwordErrorText}
-                    <Gap height={50} />
-                    <Button title="Login" onClick={() => onSubmit()} />
-                    <Gap height={100} />
-                    <Link title="New to holaSend!? Create an account here!" onClick={() => history.push('/register')} />
-                </div>
+    return (
+        <div className="main-page">
+            <div className="left">
+                <img src={LoginBg} className="left-bg" alt="ilustrator" />
             </div>
-        );
-    }
-
+            <div className="right">
+                <p className="title">Login</p>
+                <Gap height={18} />
+                <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                <Gap height={8} />
+                <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
+                <Gap height={18} />
+                <Input label="Password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+                <Gap height={8} />
+                <div style={{fontSize: 12, color: "red"}}>{passwordError}</div>
+                <Gap height={18} />
+                <div style={{fontSize: 12, color: "red"}}>{validation}</div>
+                <Gap height={50} />
+                <Button title="Login" onClick={() => onSubmit()} />
+                <Gap height={100} />
+                <Link title="New to holaSend!? Create an account here!" onClick={() => history.push('/register')} />
+            </div>
+        </div>
+    );
 }
 
 export default Login;

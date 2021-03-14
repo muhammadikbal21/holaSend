@@ -1,21 +1,27 @@
-import React from 'react'
-import { Dropdown } from 'react-bootstrap';
+import React, { useState } from 'react'
 
-const DropdownList = ({title, label}) => {
+const DropdownList = ({value, data, placeholder, label, handleDropdown}) => {
+
+    const handleChange = (e) => {
+        handleDropdown(e.target.value)
+    } 
+
     return (
         <div className="input-wrapper">
             <p className="label">{label}</p>
-            <Dropdown>
-                <Dropdown.Toggle style={{background: '#536DFE'}} id="dropdown-basic">
-                    {title}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">KTP</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">SIM</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">PASSPORT</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            <select
+                value={value}
+                className="form-control"
+                onChange={(e) => handleChange(e)}>
+                <option value="">{placeholder}</option>
+                {data.map((item, key) => (
+                    <option
+                        key={key}
+                        value={item.label}>
+                        {item.label}
+                    </option>
+                ))}
+            </select>
         </div>
     )
 }
