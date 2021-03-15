@@ -3,6 +3,7 @@ import { RegisterBg } from '../../assets';
 import { Button, DropdownList, Gap, Input, Link } from '../../components/atoms';
 import './register.scss';
 import {useHistory} from 'react-router-dom'
+import Axios from 'axios';
 
 
 const Register = () => {
@@ -21,19 +22,39 @@ const Register = () => {
     }
 
     const onSubmit = () => {
-        // history.push('/login')
         const data = {
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            username: username,
-            password: password,
-            identityCategory: identityCategory,
-            identificationNumber: identificationNumber,
-            contactNumber: contactNumber
+            user: {
+                username: username,
+                email: email,
+                password: password
+            },
+            userDetails: {
+                identityCategory: identityCategory,
+                identificationNumber: identificationNumber,
+                firstName: firstname,
+                lastName: lastname,
+                contactNumber: contactNumber
+            }
         }
 
-        console.log(data);
+        const config = {
+            headers: {
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Access-Control-Allow-Headers' : 'Content-Type, Authorization'
+            }
+        }
+        
+        Axios.post('/user/register', data, config)
+        .then(res => {
+            console.log('success : ', res.data);
+            history.push('/login')
+        })
+        .catch(err => {
+            console.log('error : ', err);
+            // setValidation("Username or Password invalid!")
+        })
+        console.log("isian data: ", data);
     }
 
     const history = useHistory();

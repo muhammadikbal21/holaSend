@@ -20,7 +20,7 @@ const Login = () => {
                 password: password
             }
     
-            Axios.post('http://localhost:8080/authenticate', data)
+            Axios.post('/authenticate', data)
             .then(res => {
                 console.log('success : ', res.data);
                 const data = res.data.data
