@@ -17,8 +17,6 @@ const Login = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        console.log("USEEFFECT");
-        
         // jika login sukses
         if(props.data) {
             localStorage.setItem('token', props.data.token)
@@ -102,6 +100,7 @@ const Login = (props) => {
     );
 }
 
+// reducer
 const mapStateToProps = (state) => {
     return {
         data: state.loginReducer.data,
@@ -110,6 +109,7 @@ const mapStateToProps = (state) => {
     }
 }
 
+// action
 const mapDispatchToProps = {
     dispatchLoginAction : loginAction
 }
