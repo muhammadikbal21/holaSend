@@ -16,7 +16,7 @@ export function loginReducer(state = {...initialState}, action) {
             }
         case LOGIN_SUCCESS:
             return {
-                data: action.type,
+                data: action.data,
                 isLoading: false,
                 error: null
             }

@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginBg } from '../../assets';
 import { Button, Gap, Input, Link } from '../../components/atoms';
 import {useHistory} from 'react-router-dom'
-import Axios from 'axios';
 import swal from 'sweetalert';
+import { loginAction } from '../../configs/actions/login/loginAction'
+import { connect } from 'react-redux';
 
-const Login = () => {
+const Login = (props) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [validation, setValidation] = useState('');
+    
+    const history = useHistory();
+
+    useEffect(() => {
+        console.log("USEEFFECT");
+        
+        // jika login sukses
+        if(props.data) {
+            localStorage.setItem('token', props.data.token)
+            swal("Login Success!", "", "success");
+            history.push('/')
+        }
+        
+        // jika login error
+        if (props.error) {
+            setValidation("Username or Password invalid!")
+        }
+        
+    }, [props.data, props.error])
+
+    // clear error message
+    useEffect(() => {
+        setValidation("")
+        setUsernameError("")
+        setPasswordError("")
+    }, [username, password])
 
     const onSubmit = () => {
         const isValid = validate();
@@ -20,19 +47,11 @@ const Login = () => {
                 username: username,
                 password: password
             }
+            console.log(data)
+
+            // call axios dengan memanggil action/dispatch nya
+            props.dispatchLoginAction(data)
     
-            Axios.post('/authenticate', data)
-            .then(res => {
-                console.log('success : ', res.data);
-                const data = res.data.data
-                localStorage.setItem('token', JSON.stringify(data.token))
-                swal("Login Success!", "", "success");
-                history.push('/')
-            })
-            .catch(err => {
-                console.log('error : ', err);
-                setValidation("Username or Password invalid!")
-            })
         }
     }
 
@@ -56,8 +75,6 @@ const Login = () => {
 
         return true;
     }
-
-    const history = useHistory();
 
     return (
         <div className="main-page">
@@ -85,4 +102,16 @@ const Login = () => {
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        data: state.loginReducer.data,
+        isLoading: state.loginReducer.isLoading,
+        error: state.loginReducer.error
+    }
+}
+
+const mapDispatchToProps = {
+    dispatchLoginAction : loginAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Login);
