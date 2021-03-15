@@ -10,15 +10,17 @@ const Login = (props) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+
     const [validation, setValidation] = useState('');
     
     const history = useHistory();
 
     useEffect(() => {
         // jika login sukses
-        if(props.data) {
+        if (props.data) {
             localStorage.setItem('token', props.data.token)
             swal("Login Success!", "", "success");
             history.push('/')
@@ -27,6 +29,7 @@ const Login = (props) => {
         // jika login error
         if (props.error) {
             setValidation("Username or Password invalid!")
+            swal("Login Error!", "", "error");
         }
         
     }, [props.data, props.error])
@@ -68,6 +71,7 @@ const Login = (props) => {
         if (usernameError || passwordError) {
             setUsernameError(usernameError);
             setPasswordError(passwordError);
+            swal("Login Error!", "", "error");
             return false;
         } 
 

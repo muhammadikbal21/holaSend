@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RegisterBg } from '../../assets';
 import { Button, DropdownList, Gap, Input, Link } from '../../components/atoms';
 import './register.scss';
 import {useHistory} from 'react-router-dom'
-import Axios from 'axios';
 import swal from 'sweetalert';
+import { registerAction } from '../../configs/actions/register/registerAction'
+import { connect } from 'react-redux';
 
-
-const Register = () => {
+const Register = (props) => {
 
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -26,10 +26,46 @@ const Register = () => {
     const [identityCategoryError, setIdentityCategoryError] = useState('')
     const [identificationNumberError, setIdentificationNumberError] = useState('')
     const [contactNumberError, setContactNumberError] = useState('')
+    
+    const history = useHistory();
 
     const handleDropdown = (identityCategory) => {
         setIdentityCategory(identityCategory)
     }
+
+    useEffect(() => {
+        // jika register sukses
+        if (props.data) {
+            swal("Registration Success!", "", "success");
+            history.push('/login')
+        }
+        
+        // jika register error
+        if (props.error) {
+            // swal("Registration Error!", "", "error");
+        }
+    }, [props.data, props.error])
+
+    // clear error message
+    useEffect(() => {
+        setFirstnameError("")
+        setLastnameError("")
+        setEmailError("")
+        setUsernameError("")
+        setPasswordError("")
+        setIdentityCategoryError("")
+        setIdentificationNumberError("")
+        setContactNumberError("")
+    }, [
+        firstname,
+        lastname,
+        email,
+        username,
+        password,
+        identityCategory,
+        identificationNumber,
+        contactNumber
+    ])
 
     const onSubmit = () => {
         const isValid = validate();
@@ -49,24 +85,26 @@ const Register = () => {
                 }
             }
     
-            const config = {
-                headers: {
-                    'Access-Control-Allow-Origin' : '*',
-                    'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                    'Access-Control-Allow-Headers' : 'Content-Type, Authorization'
-                }
-            }
+            // const config = {
+            //     headers: {
+            //         'Access-Control-Allow-Origin' : '*',
+            //         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            //         'Access-Control-Allow-Headers' : 'Content-Type, Authorization'
+            //     }
+            // }
             
-            Axios.post('/user/register', data, config)
-            .then(res => {
-                console.log('success : ', res.data);
-                swal("Registration Success!", "", "success");
-                history.push('/login')
-            })
-            .catch(err => {
-                console.log('error : ', err);
-            })
-            console.log("isian data: ", data);
+            props.dispatchRegisterAction(data)
+
+            // Axios.post('/user/register', data, config)
+            // .then(res => {
+            //     console.log('success : ', res.data);
+            //     swal("Registration Success!", "", "success");
+            //     history.push('/login')
+            // })
+            // .catch(err => {
+            //     console.log('error : ', err);
+            // })
+            // console.log("isian data: ", data);
         }
     }
 
@@ -130,13 +168,13 @@ const Register = () => {
             setIdentityCategoryError(identityCategoryError);
             setIdentificationNumberError(identificationNumberError);
             setContactNumberError(contactNumberError);
+            swal("Registration Error!", "", "error");
             return false;
         } 
 
         return true;
     }
 
-    const history = useHistory();
 
     return (
         <div className="main-page">
@@ -191,4 +229,18 @@ const Register = () => {
     );
 }
 
-export default Register;
+// reducer
+const mapStateToProps = (state) => {
+    return {
+        data: state.registerReducer.data,
+        isLoading: state.registerReducer.isLoading,
+        error: state.registerReducer.error
+    }
+}
+
+// action
+const mapDispatchToProps = {
+    dispatchRegisterAction : registerAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Register);
