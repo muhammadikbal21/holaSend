@@ -3,6 +3,7 @@ import { LoginBg } from '../../assets';
 import { Button, Gap, Input, Link } from '../../components/atoms';
 import {useHistory} from 'react-router-dom'
 import Axios from 'axios';
+import swal from 'sweetalert';
 
 const Login = () => {
 
@@ -25,6 +26,7 @@ const Login = () => {
                 console.log('success : ', res.data);
                 const data = res.data.data
                 localStorage.setItem('token', JSON.stringify(data.token))
+                swal("Login Success!", "", "success");
                 history.push('/')
             })
             .catch(err => {
@@ -36,19 +38,19 @@ const Login = () => {
 
     const validate = () => {
         let usernameError = "";
-        let passworError = "";
+        let passwordError = "";
 
         if (!username) {
             usernameError = "Name cannot be blank!";
         }
         
         if (!password) {
-            passworError = "Password cannot be blank!";
+            passwordError = "Password cannot be blank!";
         }
 
-        if (usernameError || passworError) {
+        if (usernameError || passwordError) {
             setUsernameError(usernameError);
-            setPasswordError(passworError);
+            setPasswordError(passwordError);
             return false;
         } 
 
