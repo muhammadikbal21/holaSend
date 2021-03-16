@@ -4,7 +4,7 @@ import { registerReducer } from "./register/registerReducer"
 
 const rootReducer = combineReducers({
     loginReducer,
-    registerReducer
+    registerReducer,
 })
 
 export default rootReducer

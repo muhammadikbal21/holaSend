@@ -7,6 +7,7 @@ import {
 } from '../components/molecules/InfoSection/Data';
 import Services from '../components/molecules/Services';
 import Footer from '../components/molecules/Footer';
+
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
 

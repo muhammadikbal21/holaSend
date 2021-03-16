@@ -40,11 +40,7 @@ const Register = (props) => {
             history.push('/login')
         }
         
-        // jika register error
-        if (props.error) {
-            // swal("Registration Error!", "", "error");
-        }
-    }, [props.data, props.error])
+    }, [props.data])
 
     // clear error message
     useEffect(() => {
@@ -84,27 +80,9 @@ const Register = (props) => {
                     contactNumber: contactNumber
                 }
             }
-    
-            // const config = {
-            //     headers: {
-            //         'Access-Control-Allow-Origin' : '*',
-            //         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-            //         'Access-Control-Allow-Headers' : 'Content-Type, Authorization'
-            //     }
-            // }
-            
+           
             props.dispatchRegisterAction(data)
 
-            // Axios.post('/user/register', data, config)
-            // .then(res => {
-            //     console.log('success : ', res.data);
-            //     swal("Registration Success!", "", "success");
-            //     history.push('/login')
-            // })
-            // .catch(err => {
-            //     console.log('error : ', err);
-            // })
-            // console.log("isian data: ", data);
         }
     }
 
