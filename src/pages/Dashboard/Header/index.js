@@ -1,9 +1,8 @@
 import React from "react";
-import './header.scss'
 
 const Header = () => {
   return (
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav className="main-header navbar navbar-expand navbar-white navbar-light" style={{backgroundColor: '#152C5B'}}>
       {/* Left navbar links */}
       <ul className="navbar-nav">
         <li className="nav-item">
@@ -11,7 +10,7 @@ const Header = () => {
             <i className="fas fa-bars" style={{color: 'white'}} />
           </a>
         </li>
-        <li className="nav-item d-none d-sm-inline-block">
+        {/* <li className="nav-item d-none d-sm-inline-block">
           <a href="#" className="nav-link" style={{color: 'white'}}>
             Home
           </a>
@@ -20,10 +19,10 @@ const Header = () => {
           <a href="#" className="nav-link" style={{color: 'white'}}>
             Contact
           </a>
-        </li>
+        </li> */}
       </ul>
       {/* SEARCH FORM */}
-      <form className="form-inline ml-3">
+      {/* <form className="form-inline ml-3">
         <div className="input-group input-group-sm">
           <input
             className="form-control form-control-navbar"
@@ -37,7 +36,7 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </form>
+      </form> */}
      
     </nav>
   );

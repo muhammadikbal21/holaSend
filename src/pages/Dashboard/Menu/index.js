@@ -4,14 +4,14 @@ const Menu = () => {
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4" style={{backgroundColor: '#152C5B'}}>
       {/* Brand Logo */}
-      <a href="#" className="brand-link">
+      <div className="brand-link">
         <img
           src="dist/img/newotw.png"
-          alt="holaSend! Logo"
+          alt="hola!"
           className="brand-image img-circle elevation-3"
         />
         <span style={{color: '#536DFE', fontWeight: 'bold'}}>&nbsp; hola<span className="brand-text font-weight-light" style={{color: 'white', fontWeight: 'bold'}}>Send!</span></span>
-      </a>
+      </div>
       {/* Sidebar */}
       <div className="sidebar">
         {/* Sidebar user panel (optional) */}
@@ -41,21 +41,15 @@ const Menu = () => {
               </a>
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="./index.html" className="nav-link">
+                  <a href="./dashboard/create-task" className="nav-link">
                     <i className="far fa-circle nav-icon" />
-                    <p>Dashboard v1</p>
+                    <p>Create New Task</p>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a href="./index2.html" className="nav-link">
+                  <a href="#" className="nav-link">
                     <i className="far fa-circle nav-icon" />
-                    <p>Dashboard v2</p>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="./index3.html" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
-                    <p>Dashboard v3</p>
+                    <p>Task Lists</p>
                   </a>
                 </li>
               </ul>
@@ -132,19 +126,23 @@ const Menu = () => {
                 <li className="nav-item">
                   <a href="pages/charts/chartjs.html" className="nav-link">
                     <i className="far fa-circle nav-icon" />
-                    <p>ChartJS</p>
+                    <p>User Lists</p>
                   </a>
                 </li>
+              </ul>
+            </li>
+            <li className="nav-item has-treeview" style={{marginBottom: '10px'}}>
+              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
+                <i className="nav-icon fas fa-map-marked-alt" />
+                <p>
+                  Destinations
+                </p>
+              </a>
+              <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="pages/charts/flot.html" className="nav-link">
+                  <a href="pages/charts/chartjs.html" className="nav-link">
                     <i className="far fa-circle nav-icon" />
-                    <p>Flot</p>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a href="pages/charts/inline.html" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
-                    <p>Inline</p>
+                    <p>User Lists</p>
                   </a>
                 </li>
               </ul>
