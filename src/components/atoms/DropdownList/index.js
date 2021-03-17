@@ -17,7 +17,7 @@ const DropdownList = ({value, data, placeholder, label, handleDropdown}) => {
                 {data.map((item, key) => (
                     <option
                         key={key}
-                        value={item.label}>
+                        value={item.value}>
                         {item.label}
                     </option>
                 ))}

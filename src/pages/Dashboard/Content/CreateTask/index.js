@@ -18,17 +18,28 @@ const CreateTask = (props) => {
   
   const [dropDestination, setDropDestination] = useState([]);
 
+
+  const onReload = () => {
+    props.dispatchGetAllDestinationsAction()
+  }
+
+  useEffect(() => {
+    onReload()
+  }, [])
+
   useEffect(() => {
     if(destinations) {
-      props.dispatchGetAllDestinationsAction()
       setDestinations(props.listDestinations)
 
-      for (var i=0; i<destinations.length; i++) {
-        var valueAndLabel = {
-          value: destinations[i].id,
-          label: destinations[i].name
+      if (destinationName.length !== destinations.length) {
+        onReload()
+        for (var i=0; i<destinations.length; i++) {
+          var valueAndLabel = {
+            value: destinations[i].id,
+            label: destinations[i].name
+          }
+          destinationName.push(valueAndLabel)
         }
-        destinationName.push(valueAndLabel)
       }
     }
   }, [destinations])
@@ -41,7 +52,7 @@ const CreateTask = (props) => {
 
 
   const handleDropdownDestinations = (destinations) => {
-    setDestinations(destinations);
+    setDestinationId(destinations);
   };
 
   const handleDropdownPriority = (priority) => {
@@ -54,7 +65,6 @@ const CreateTask = (props) => {
       priority: priority,
       notes: notes
     }
-    console.log(data);
   };
   
 
@@ -93,9 +103,9 @@ const CreateTask = (props) => {
                   <DropdownList
                     label="Priority"
                     data={[
-                      { value: 1, label: "HIGH" },
-                      { value: 2, label: "MEDIUM" },
-                      { value: 3, label: "LOW" },
+                      { value: "HIGH", label: "HIGH" },
+                      { value: "MEDIUM", label: "MEDIUM" },
+                      { value: "LOW", label: "LOW" },
                     ]}
                     value={priority}
                     placeholder="Select Priority"
