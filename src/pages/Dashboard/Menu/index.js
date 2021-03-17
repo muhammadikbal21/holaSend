@@ -42,13 +42,13 @@ const Menu = () => {
               <ul className="nav nav-treeview">
                 <li className="nav-item">
                   <a href="./dashboard/create-task" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
+                    <i className="fas fa-plus nav-icon" />
                     <p>Create New Task</p>
                   </a>
                 </li>
                 <li className="nav-item">
                   <a href="#" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
+                    <i className="fas fa-list nav-icon" />
                     <p>Task Lists</p>
                   </a>
                 </li>

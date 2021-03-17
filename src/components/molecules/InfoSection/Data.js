@@ -13,7 +13,7 @@ export const homeObjOne = {
     'holaSend! is a delivery service that guarantees that your goods are safe to their destination with on time. What do you think?.',
   buttonLabel: 'Get Started',
   imgStart: false,
-  img: require('../../../images/undraw_On_the_way_re_swjt.png'),
+  img: require('../../../assets/images/holaSend-hero.png'),
   alt: 'Car',
   dark: true,
   primary: true,

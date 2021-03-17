@@ -65,7 +65,7 @@ const CreateTask = () => {
                 <TextArea label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Notes" />
                 </div>
                 <div className="card-footer">
-                  <Button title="Submit" onClick={() => onSubmit()} style={{width: '15%'}} />
+                  <Button title="Submit" onClick={() => onSubmit()} />
                 </div>
               </div>
             </div>
