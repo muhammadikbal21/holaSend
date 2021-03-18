@@ -9,6 +9,7 @@ import {
   TextArea,
 } from "../../../../components/atoms";
 import { getAllDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
+import { postTaskAction } from "../../../../configs/actions/task/taskAction";
 
 const CreateTask = (props) => {
   const [destinations, setDestinations] = useState([]);
@@ -51,20 +52,44 @@ const CreateTask = (props) => {
     }
   }, [destinations]);
 
+  useEffect(() => {
+
+    // jika sukses
+    if (props.data) {
+      swal("Create Task Success!", "", "success");
+      // history.push('./dashboard')
+    }
+
+     // jika error
+     if (props.error) {
+      swal("Create Task Error!", "", "error");
+  }
+
+  }, [props.data, props.error]);
+
+  // clear error message
+  useEffect(() => {
+    setDestinationsError("");
+    setPriorityError("");
+    setNotesError("");
+  }, [destinationId, priority, notes]);
+
   const onReload = () => {
     props.dispatchGetAllDestinationsAction();
   };
 
   const onSubmit = () => {
     const isValid = validate();
-      if (isValid) {
-        const data = {
-          destinations: destinationId,
-          priority: priority,
-          notes: notes,
-        };
-        console.log("datanya: ", data);
-      }
+    if (isValid) {
+      const data = {
+        destinationId: destinationId,
+        priority: priority,
+        notes: notes,
+      };
+      console.log("datanya: ", data);
+
+      props.dispatchPostTaskAction(data)
+    }
   };
 
   const validate = () => {
@@ -88,7 +113,7 @@ const CreateTask = (props) => {
       setDestinationsError(destinationsError);
       setPriorityError(priorityError);
       setNotesError(notesError);
-      swal("Registration Error!", "", "error");
+      swal("Create Task Error!", "", "error");
       return false;
     }
 
@@ -131,8 +156,10 @@ const CreateTask = (props) => {
                     handleDropdown={handleDropdownDestinations}
                   />
                   <Gap height={10} />
-                  <div style={{fontSize: 12, color: "red"}}>{destinationsError}</div>
-                  <Gap height={10} />
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {destinationsError}
+                  </div>
+                  <Gap height={15} />
                   <DropdownList
                     label="Priority"
                     data={[
@@ -145,17 +172,17 @@ const CreateTask = (props) => {
                     handleDropdown={handleDropdownPriority}
                   />
                   <Gap height={10} />
-                  <div style={{fontSize: 12, color: "red"}}>{priorityError}</div>
-                  <Gap height={10} />
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {priorityError}
+                  </div>
+                  <Gap height={15} />
                   <TextArea
                     label="Notes"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Notes"
                   />
-                  {/* <Gap height={10} /> */}
-                  <div style={{fontSize: 12, color: "red"}}>{notesError}</div>
-                  {/* <Gap height={10} /> */}
+                  <div style={{ fontSize: 12, color: "red" }}>{notesError}</div>
                 </div>
                 <div className="card-footer">
                   <Button title="Submit" onClick={() => onSubmit()} />
@@ -173,16 +200,17 @@ const CreateTask = (props) => {
 const mapStateToProps = (state) => {
   return {
     listDestinations: state.getAllDestinationsReducer.data,
+    data: state.postTaskReducer.data,
+    error: state.postTaskReducer.error
     // data: state.loginReducer.data,
     // isLoading: state.loginReducer.isLoading,
-    // error: state.loginReducer.error,
   };
 };
 
 // action
 const mapDispatchToProps = {
   dispatchGetAllDestinationsAction: getAllDestinationsAction,
-  // dispatchLoginAction: loginAction
+  dispatchPostTaskAction: postTaskAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTask);

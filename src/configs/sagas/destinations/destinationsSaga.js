@@ -6,7 +6,7 @@ function* getAllDestinationsSaga(action) {
     
     let result = yield axios.get('/destinations', {
         headers: {
-            Authorization: 'Bearer ' + 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxODU3MDgxNywiaWF0IjoxNjE1OTc4ODE3fQ.ASG-DuKHWkZn2W8W-GGHvBEqGLDClSxXPxBv0laglWN79Mj0czwtk0vCrJHHnqOKjtgowN1wRyzssWnIH6T51A'
+            Authorization: 'Bearer ' + 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxODY0MDExMCwiaWF0IjoxNjE2MDQ4MTEwfQ.3skYp3zuSECqyfyEekLa-G77CLbcJCrfRJhfj6rYF3XYOpjXXNurBE9RUfjptj0H0WucqdAk4GNeiEXdLs6kvw'
         }
     })
     .then(data => {

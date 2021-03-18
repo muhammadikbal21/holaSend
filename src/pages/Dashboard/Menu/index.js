@@ -33,7 +33,7 @@ const Menu = () => {
             {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
             <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
-              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
+              <a className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-edit" />
                 <p>
                   Tasks
