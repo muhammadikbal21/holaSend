@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router";
+import swal from "sweetalert";
 import {
   Button,
   DropdownList,
@@ -12,41 +14,86 @@ const CreateTask = (props) => {
   const [destinations, setDestinations] = useState([]);
   const [priority, setPriority] = useState("");
   const [destinationId, setDestinationId] = useState("");
-  const [destinationName, setDestinationName] = useState([]);
+  const [destinationsData] = useState([]);
   const [notes, setNotes] = useState("");
 
-  const [dropDestination, setDropDestination] = useState([]);
+  const [destinationsError, setDestinationsError] = useState("");
+  const [priorityError, setPriorityError] = useState("");
+  const [notesError, setNotesError] = useState("");
 
-  const onReload = () => {
-    props.dispatchGetAllDestinationsAction();
-  };
+  const history = useHistory();
 
+  //1
   useEffect(() => {
     onReload();
   }, []);
 
+  //2
+  useEffect(() => {
+    if (props.listDestinations) {
+      setDestinations(props.listDestinations);
+    }
+  }, [props.listDestinations]);
+
+  //3
   useEffect(() => {
     if (destinations) {
-      setDestinations(props.listDestinations);
-
-      if (destinationName.length !== destinations.length) {
+      if (destinationsData.length !== destinations.length) {
         onReload();
         for (var i = 0; i < destinations.length; i++) {
           var valueAndLabel = {
             value: destinations[i].id,
             label: destinations[i].name,
           };
-          destinationName.push(valueAndLabel);
+          destinationsData.push(valueAndLabel);
         }
       }
     }
   }, [destinations]);
 
-  useEffect(() => {
-    if (props.listDestinations) {
-      setDestinations(props.listDestinations);
+  const onReload = () => {
+    props.dispatchGetAllDestinationsAction();
+  };
+
+  const onSubmit = () => {
+    const isValid = validate();
+      if (isValid) {
+        const data = {
+          destinations: destinationId,
+          priority: priority,
+          notes: notes,
+        };
+        console.log("datanya: ", data);
+      }
+  };
+
+  const validate = () => {
+    let destinationsError = "";
+    let priorityError = "";
+    let notesError = "";
+
+    if (!destinationId) {
+      destinationsError = "Destination must not blank!";
     }
-  }, [props.listDestinations]);
+
+    if (!priority) {
+      priorityError = "Priority must not blank!";
+    }
+
+    if (!notes) {
+      notesError = "Notes must not blank!";
+    }
+
+    if (destinationsError || priorityError || notesError) {
+      setDestinationsError(destinationsError);
+      setPriorityError(priorityError);
+      setNotesError(notesError);
+      swal("Registration Error!", "", "error");
+      return false;
+    }
+
+    return true;
+  };
 
   const handleDropdownDestinations = (destinations) => {
     setDestinationId(destinations);
@@ -54,14 +101,6 @@ const CreateTask = (props) => {
 
   const handleDropdownPriority = (priority) => {
     setPriority(priority);
-  };
-
-  const onSubmit = () => {
-    const data = {
-      destinations: destinations,
-      priority: priority,
-      notes: notes,
-    };
   };
 
   return (
@@ -86,12 +125,13 @@ const CreateTask = (props) => {
                 <div className="card-body">
                   <DropdownList
                     label="Destination"
-                    data={destinationName}
+                    data={destinationsData}
                     value={destinationId}
                     placeholder="Select Destination"
                     handleDropdown={handleDropdownDestinations}
                   />
-
+                  <Gap height={10} />
+                  <div style={{fontSize: 12, color: "red"}}>{destinationsError}</div>
                   <Gap height={10} />
                   <DropdownList
                     label="Priority"
@@ -105,12 +145,17 @@ const CreateTask = (props) => {
                     handleDropdown={handleDropdownPriority}
                   />
                   <Gap height={10} />
+                  <div style={{fontSize: 12, color: "red"}}>{priorityError}</div>
+                  <Gap height={10} />
                   <TextArea
                     label="Notes"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Notes"
                   />
+                  {/* <Gap height={10} /> */}
+                  <div style={{fontSize: 12, color: "red"}}>{notesError}</div>
+                  {/* <Gap height={10} /> */}
                 </div>
                 <div className="card-footer">
                   <Button title="Submit" onClick={() => onSubmit()} />

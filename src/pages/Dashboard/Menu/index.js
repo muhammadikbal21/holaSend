@@ -6,7 +6,7 @@ const Menu = () => {
       {/* Brand Logo */}
       <div className="brand-link">
         <img
-          src="dist/img/newotw.png"
+          src="/dist/img/newotw.png"
           alt="hola!"
           className="brand-image img-circle elevation-3"
         />
@@ -32,7 +32,7 @@ const Menu = () => {
           >
             {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
-            <li className="nav-item has-treeview" style={{marginBottom: '10px'}}>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
               <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-edit" />
                 <p>
@@ -41,7 +41,7 @@ const Menu = () => {
               </a>
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="./dashboard/create-task" className="nav-link">
+                  <a href="/dashboard/create-task" className="nav-link">
                     <i className="fas fa-plus nav-icon" />
                     <p>Create New Task</p>
                   </a>
@@ -54,7 +54,7 @@ const Menu = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item has-treeview" style={{marginBottom: '10px'}}>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
               <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-copy" />
                 <p>
@@ -115,7 +115,7 @@ const Menu = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item has-treeview" style={{marginBottom: '10px'}}>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
               <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-user" />
                 <p>
@@ -131,7 +131,7 @@ const Menu = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item has-treeview" style={{marginBottom: '10px'}}>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
               <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-map-marked-alt" />
                 <p>

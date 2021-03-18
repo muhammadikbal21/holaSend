@@ -29,10 +29,6 @@ const Register = (props) => {
     
     const history = useHistory();
 
-    const handleDropdown = (identityCategory) => {
-        setIdentityCategory(identityCategory)
-    }
-
     useEffect(() => {
         // jika register sukses
         if (props.data) {
@@ -153,6 +149,9 @@ const Register = (props) => {
         return true;
     }
 
+    const handleDropdown = (identityCategory) => {
+        setIdentityCategory(identityCategory)
+    }
 
     return (
         <div className="main-page">
