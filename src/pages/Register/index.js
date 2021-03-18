@@ -183,9 +183,9 @@ const Register = (props) => {
                 <DropdownList
                     label="Identity Category"
                     data={[
-                        {value: 1, label: "KTP"},
-                        {value: 2, label: "SIM"},
-                        {value: 3, label: "PASSPORT"}
+                        {value: "KTP", label: "KTP"},
+                        {value: "SIM", label: "SIM"},
+                        {value: "PASSPORT", label: "PASSPORT"}
                     ]}
                     value={identityCategory}
                     placeholder="Select Identity"

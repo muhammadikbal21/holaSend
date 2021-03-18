@@ -9,47 +9,44 @@ import {
 import { getAllDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
 
 const CreateTask = (props) => {
-
   const [destinations, setDestinations] = useState([]);
   const [priority, setPriority] = useState("");
-  const [destinationId, setDestinationId] = useState("")
-  const [destinationName, setDestinationName] = useState([])
+  const [destinationId, setDestinationId] = useState("");
+  const [destinationName, setDestinationName] = useState([]);
   const [notes, setNotes] = useState("");
-  
+
   const [dropDestination, setDropDestination] = useState([]);
 
-
   const onReload = () => {
-    props.dispatchGetAllDestinationsAction()
-  }
+    props.dispatchGetAllDestinationsAction();
+  };
 
   useEffect(() => {
-    onReload()
-  }, [])
+    onReload();
+  }, []);
 
   useEffect(() => {
-    if(destinations) {
-      setDestinations(props.listDestinations)
+    if (destinations) {
+      setDestinations(props.listDestinations);
 
       if (destinationName.length !== destinations.length) {
-        onReload()
-        for (var i=0; i<destinations.length; i++) {
+        onReload();
+        for (var i = 0; i < destinations.length; i++) {
           var valueAndLabel = {
             value: destinations[i].id,
-            label: destinations[i].name
-          }
-          destinationName.push(valueAndLabel)
+            label: destinations[i].name,
+          };
+          destinationName.push(valueAndLabel);
         }
       }
     }
-  }, [destinations])
+  }, [destinations]);
 
   useEffect(() => {
-    if(props.listDestinations) {
-      setDestinations(props.listDestinations)
+    if (props.listDestinations) {
+      setDestinations(props.listDestinations);
     }
-  }, [props.listDestinations])
-
+  }, [props.listDestinations]);
 
   const handleDropdownDestinations = (destinations) => {
     setDestinationId(destinations);
@@ -63,10 +60,9 @@ const CreateTask = (props) => {
     const data = {
       destinations: destinations,
       priority: priority,
-      notes: notes
-    }
+      notes: notes,
+    };
   };
-  
 
   return (
     <div className="content-wrapper">
@@ -88,16 +84,13 @@ const CreateTask = (props) => {
                   <h3 className="card-title">Create Task</h3>
                 </div>
                 <div className="card-body">
-
-                  
-                <DropdownList
-                       label="Destination"
-                       data={destinationName}
-                       value={destinationId}
-                       placeholder="Select Destination"
-                       handleDropdown={handleDropdownDestinations}
-                     />
-                 
+                  <DropdownList
+                    label="Destination"
+                    data={destinationName}
+                    value={destinationId}
+                    placeholder="Select Destination"
+                    handleDropdown={handleDropdownDestinations}
+                  />
 
                   <Gap height={10} />
                   <DropdownList
@@ -134,7 +127,7 @@ const CreateTask = (props) => {
 // reducer
 const mapStateToProps = (state) => {
   return {
-    listDestinations: state.getAllDestinationsReducer.data
+    listDestinations: state.getAllDestinationsReducer.data,
     // data: state.loginReducer.data,
     // isLoading: state.loginReducer.isLoading,
     // error: state.loginReducer.error,
@@ -143,7 +136,7 @@ const mapStateToProps = (state) => {
 
 // action
 const mapDispatchToProps = {
-  dispatchGetAllDestinationsAction: getAllDestinationsAction
+  dispatchGetAllDestinationsAction: getAllDestinationsAction,
   // dispatchLoginAction: loginAction
 };
 
