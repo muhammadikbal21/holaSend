@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { loginReducer } from "./login/loginReducer"
 import { registerReducer } from "./register/registerReducer"
 import { getAllDestinationsReducer, postDestinationsReducer } from "./destinations/destinationsReducer"
-import { postTaskReducer, getAllTaskReducer } from "./task/taskReducer"
+import { postTaskReducer, getAllTaskReducer, deleteByIdTaskReducer } from "./task/taskReducer"
 
 const rootReducer = combineReducers({
     loginReducer,
@@ -10,7 +10,8 @@ const rootReducer = combineReducers({
     getAllDestinationsReducer,
     postTaskReducer,
     postDestinationsReducer,
-    getAllTaskReducer
+    getAllTaskReducer,
+    deleteByIdTaskReducer
 })
 
 export default rootReducer

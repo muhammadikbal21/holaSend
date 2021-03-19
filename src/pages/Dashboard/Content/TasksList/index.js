@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import { getAllTaskAction } from "../../../../configs/actions/task/taskAction";
+import { deleteByIdTaskAction, getAllTaskAction } from "../../../../configs/actions/task/taskAction";
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
@@ -17,12 +17,17 @@ const TasksList = (props) => {
         }
     }, [props.listTask]);
 
+    useEffect(() => {
+        if (props.isDelete) {
+            onReload();
+        }
+    }, [props.isDelete])
+
     const onReload = () => {
         props.dispatchGetAllTaskAction();
     };
 
     const onDelete = (id) => {
-        console.log("Test Delete", id);
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this Task!",
@@ -32,6 +37,7 @@ const TasksList = (props) => {
           })
           .then((willDelete) => {
             if (willDelete) {
+              props.dispatchDeleteByIdTaskAction(id)
               swal("Poof! Your Task has been deleted!", {
                 icon: "success",
               });
@@ -146,10 +152,9 @@ const TasksList = (props) => {
 // reducer
 const mapStateToProps = (state) => {
     return {
-        listTask: state.getAllTaskReducer.data
-        //   data: state.postTaskReducer.data,
+        listTask: state.getAllTaskReducer.data,
+        isDelete: state.deleteByIdTaskReducer.data
         //   error: state.postTaskReducer.error
-        // data: state.loginReducer.data,
         // isLoading: state.loginReducer.isLoading,
     };
 };
@@ -157,7 +162,7 @@ const mapStateToProps = (state) => {
 // action
 const mapDispatchToProps = {
     dispatchGetAllTaskAction: getAllTaskAction,
-    // dispatchPostTaskAction: postTaskAction,
+    dispatchDeleteByIdTaskAction: deleteByIdTaskAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksList);
