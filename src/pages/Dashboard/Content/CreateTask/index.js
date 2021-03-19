@@ -12,6 +12,7 @@ import { getAllDestinationsAction } from "../../../../configs/actions/destinatio
 import { postTaskAction } from "../../../../configs/actions/task/taskAction";
 
 const CreateTask = (props) => {
+  
   const [destinations, setDestinations] = useState([]);
   const [priority, setPriority] = useState("");
   const [destinationId, setDestinationId] = useState("");
