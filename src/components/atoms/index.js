@@ -4,7 +4,6 @@ import Gap from './Gap';
 import Link from './Link';
 import DropdownList from './DropdownList';
 import TextArea from './TextArea'
-import Map from './Map'
-import { WrappedMap } from './NewMap'
+import MapView from "./MapView";
 
-export {Input, Button, Gap, Link, DropdownList, TextArea, Map, WrappedMap};
+export {Input, Button, Gap, Link, DropdownList, TextArea, MapView};

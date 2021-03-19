@@ -9,6 +9,7 @@ import {
   WrappedMap,
 } from "../../../../components/atoms";
 import { postDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
+import Index from "../../../../components/atoms/MapView";
 
 const CreateDestinations = (props) => {
   const [destination, setDestination] = useState("");
@@ -27,8 +28,8 @@ const CreateDestinations = (props) => {
       swal("Create Destinations Success!", "", "success");
       setDestination("")
       setAddress("")
-      setLon(null)
-      setLat(null)
+      setLon("")
+      setLat("")
       // history.push('./dashboard')
     }
 
@@ -59,6 +60,18 @@ const CreateDestinations = (props) => {
       props.dispatchPostDestinationsAction(data)
     }
   };
+
+  const onLocate = (lat, lon) => {
+    setLat(lat)
+    setLon(lon)
+  }
+
+  const onAddressInput = (address) => {
+    console.log(address)
+    setAddress(address)
+    setLat("")
+    setLon("")
+  }
 
   const validate = () => {
     let destinationsError = "";
@@ -157,6 +170,10 @@ const CreateDestinations = (props) => {
                   <div style={{ fontSize: 12, color: "red" }}>
                     {latError}
                   </div>
+                  <Index
+                      onLocate={onLocate}
+                      onAddressInput={onAddressInput}
+                  />
                   <Gap height={15} />
                 </div>
                 <div className="card-footer" style={{ padding: "1rem 3rem" }}>

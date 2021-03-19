@@ -107,20 +107,26 @@ const TasksList = (props) => {
                                                 <th>Address</th>
                                                 <th>Pick Up Time</th>
                                                 <th>Delivered Time</th>
+                                                <th>Request By</th>
+                                                <th>Courier</th>
+                                                <th>Return Time</th>
                                                 <th>Status</th>
                                                 <th>Priority</th>
                                                 <th>Notes</th>
-                                                <th>Create At</th>
+                                                <th>Created</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {tasks.map((e) => (
+                                            { tasks.map((e) => (
                                                 <tr>
                                                     <td>{e.destination.name}</td>
                                                     <td>{e.destination.address}</td>
                                                     <td>{e.pickUpTime}</td>
                                                     <td>{e.deliveredTime}</td>
+                                                    {e.requestBy ? <td>{e.requestBy.username}</td>: <td></td>}
+                                                    {e.courier ? <td>{e.courier.username}</td>: <td></td>}
+                                                    {e.courierActivity ? <td>{e.courierActivity.returnTime}</td> : <td></td>}
                                                     <td>{e.status}</td>
                                                     <td>{e.priority}</td>
                                                     <td>{e.notes}</td>
