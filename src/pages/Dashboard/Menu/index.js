@@ -47,7 +47,7 @@ const Menu = () => {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">
+                  <a href="/dashboard/tasks-list" className="nav-link">
                     <i className="fas fa-list nav-icon" />
                     <p>Tasks Lists</p>
                   </a>
