@@ -1,4 +1,4 @@
-import { GET_ALL_DESTINATIONS_FAILURE, GET_ALL_DESTINATIONS_REQUEST, GET_ALL_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant"
+import { GET_ALL_DESTINATIONS_FAILURE, GET_ALL_DESTINATIONS_REQUEST, GET_ALL_DESTINATIONS_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant"
 
 const initialState = {
     data: null,
@@ -27,5 +27,33 @@ export function getAllDestinationsReducer(state = initialState, action) {
             }
         default:
             return state
+    }
+}
+
+export function postDestinationsReducer(state = {...initialState}, action) {
+    switch (action.type) {
+        case POST_DESTINATIONS_REQUEST:
+            return {
+                ...state,
+                data: null,
+                isLoading: true
+            }
+        case POST_DESTINATIONS_SUCCESS:
+            return {
+                data: action.data,
+                isLoading: false,
+                error: null
+            }
+        case POST_DESTINATIONS_FAILURE:
+            return {
+                data: null,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return {
+                ...state,
+                data: null
+            }
     }
 }

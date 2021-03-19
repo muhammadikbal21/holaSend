@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import swal from "sweetalert";
 import {
   Button,
@@ -7,24 +8,41 @@ import {
   Map,
   WrappedMap,
 } from "../../../../components/atoms";
+import { postDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
 
-const CreateDestinations = () => {
+const CreateDestinations = (props) => {
   const [destination, setDestination] = useState("");
   const [address, setAddress] = useState("");
-  const [lon, setLon] = useState(106.819489820);
-  const [lat, setLat] = useState(-6.3018378);
+  const [lon, setLon] = useState(null);
+  const [lat, setLat] = useState(null);
 
   const [destinationError, setDestinationError] = useState("");
   const [addressError, setAddressError] = useState("");
-  const [lonError, setLonError] = useState(null);
-  const [latError, setLatError] = useState(null);
+  const [lonError, setLonError] = useState("");
+  const [latError, setLatError] = useState("");
 
+  useEffect(() => {
+    // jika sukses
+    if (props.data) {
+      swal("Create Destinations Success!", "", "success");
+      setDestination("")
+      setAddress("")
+      setLon(null)
+      setLat(null)
+      // history.push('./dashboard')
+    }
+
+     // jika error
+     if (props.error) {
+      swal("Create Destinations Error!", "", "error");
+    }
+  }, [props.data, props.error]);
 
   useEffect(() => {
     setDestinationError("")
     setAddressError("")
-    setLonError(null)
-    setLatError(null)
+    setLonError("")
+    setLatError("")
   }, [destination, address, lon, lat])
 
   const onSubmit = () => {
@@ -37,6 +55,8 @@ const CreateDestinations = () => {
         lat: parseFloat(lat)
       }
       console.log(data);
+
+      props.dispatchPostDestinationsAction(data)
     }
   };
 
@@ -120,7 +140,7 @@ const CreateDestinations = () => {
                     label="Longitude" type="number" step="any"
                     value={lon}
                     onChange={(e) => setLon(e.target.value)}
-                    placeholder="Longitude" disabled
+                    placeholder="Longitude" 
                   />
                   <Gap height={10} />
                   <div style={{ fontSize: 12, color: "red" }}>
@@ -131,7 +151,7 @@ const CreateDestinations = () => {
                     label="Latitude" type="number" step="any"
                     value={lat}
                     onChange={(e) => setLat(e.target.value)}
-                    placeholder="Latitude" disabled
+                    placeholder="Latitude" 
                   />
                   <Gap height={10} />
                   <div style={{ fontSize: 12, color: "red" }}>
@@ -151,4 +171,21 @@ const CreateDestinations = () => {
   );
 };
 
-export default CreateDestinations;
+// reducer
+const mapStateToProps = (state) => {
+  return {
+    data: state.postDestinationsReducer.data,
+    // listDestinations: state.getAllDestinationsReducer.data,
+    // error: state.postTaskReducer.error
+    // data: state.loginReducer.data,
+    // isLoading: state.loginReducer.isLoading,
+  };
+};
+
+// action
+const mapDispatchToProps = {
+  dispatchPostDestinationsAction: postDestinationsAction,
+  // dispatchGetAllDestinationsAction: getAllDestinationsAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (CreateDestinations);

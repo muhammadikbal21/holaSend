@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects'
-import { watchGetAllDestinationsSaga } from './destinations/destinationsSaga';
+import { watchGetAllDestinationsSaga, watchPostDestinationsSaga } from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchRegisterSaga } from './register/registerSaga';
 import { watchPostTaskSaga } from './task/taskSaga';
@@ -9,6 +9,7 @@ export default function* rootSaga() {
         watchLoginSaga(),
         watchRegisterSaga(),
         watchGetAllDestinationsSaga(),
-        watchPostTaskSaga()
+        watchPostTaskSaga(),
+        watchPostDestinationsSaga()
     ])
 }
