@@ -53,18 +53,19 @@ const CreateTask = (props) => {
   }, [destinations]);
 
   useEffect(() => {
-
     // jika sukses
     if (props.data) {
       swal("Create Task Success!", "", "success");
+      setDestinationId("")
+      setPriority("")
+      setNotes("")
       // history.push('./dashboard')
     }
 
      // jika error
      if (props.error) {
       swal("Create Task Error!", "", "error");
-  }
-
+    }
   }, [props.data, props.error]);
 
   // clear error message
@@ -142,12 +143,12 @@ const CreateTask = (props) => {
               <div className="card card-primary">
                 <div
                   className="card-header"
-                  style={{ backgroundColor: "#536DFE" }}
+                  style={{ backgroundColor: "#536DFE", padding: '1rem 3rem'}}
                 >
                   <Gap height={10} />
                   <h3 className="card-title">Create Task</h3>
                 </div>
-                <div className="card-body">
+                <div className="card-body" style={{padding: '1rem 3rem'}}>
                   <DropdownList
                     label="Destination"
                     data={destinationsData}
@@ -184,7 +185,7 @@ const CreateTask = (props) => {
                   />
                   <div style={{ fontSize: 12, color: "red" }}>{notesError}</div>
                 </div>
-                <div className="card-footer">
+                <div className="card-footer" style={{padding: '1rem 3rem'}}>
                   <Button title="Submit" onClick={() => onSubmit()} />
                 </div>
               </div>

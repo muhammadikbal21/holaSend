@@ -13,7 +13,7 @@ function* postTaskSaga(action) {
         method: method,
         data: model,
         headers: {
-            Authorization: 'Bearer ' + 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxODY0MDExMCwiaWF0IjoxNjE2MDQ4MTEwfQ.3skYp3zuSECqyfyEekLa-G77CLbcJCrfRJhfj6rYF3XYOpjXXNurBE9RUfjptj0H0WucqdAk4GNeiEXdLs6kvw'
+            Authorization: 'Bearer ' + localStorage.getItem('token')
         }
     })
     .then(data => {

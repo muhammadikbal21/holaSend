@@ -33,7 +33,7 @@ const Menu = () => {
             {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
             <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
-              <a className="nav-link active" style={{backgroundColor: '#536DFE'}}>
+              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
                 <i className="nav-icon fas fa-edit" />
                 <p>
                   Tasks
@@ -43,13 +43,51 @@ const Menu = () => {
                 <li className="nav-item">
                   <a href="/dashboard/create-task" className="nav-link">
                     <i className="fas fa-plus nav-icon" />
-                    <p>Create New Task</p>
+                    <p>New Task</p>
                   </a>
                 </li>
                 <li className="nav-item">
                   <a href="#" className="nav-link">
                     <i className="fas fa-list nav-icon" />
-                    <p>Task Lists</p>
+                    <p>Tasks Lists</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
+              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
+                <i className="nav-icon fas fa-map-marked-alt" />
+                <p>
+                  Destinations
+                </p>
+              </a>
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <a href="/dashboard/create-destinations" className="nav-link">
+                    <i className="fas fa-plus nav-icon" />
+                    <p>New Destination</p>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a href="#" className="nav-link">
+                    <i className="fas fa-list nav-icon" />
+                    <p>Destination Lists</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
+              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
+                <i className="nav-icon fas fa-user" />
+                <p>
+                  Users
+                </p>
+              </a>
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <a href="pages/charts/chartjs.html" className="nav-link">
+                    <i className="fas fa-users-cog nav-icon" />
+                    <p>User Managements</p>
                   </a>
                 </li>
               </ul>
@@ -115,38 +153,7 @@ const Menu = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
-              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
-                <i className="nav-icon fas fa-user" />
-                <p>
-                  Users
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <a href="pages/charts/chartjs.html" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
-                    <p>User Lists</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item has-treeview" style={{marginBottom: '3px'}}>
-              <a href="#" className="nav-link active" style={{backgroundColor: '#536DFE'}}>
-                <i className="nav-icon fas fa-map-marked-alt" />
-                <p>
-                  Destinations
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <a href="pages/charts/chartjs.html" className="nav-link">
-                    <i className="far fa-circle nav-icon" />
-                    <p>User Lists</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            
           </ul>
         </nav>
         {/* /.sidebar-menu */}

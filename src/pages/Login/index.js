@@ -23,7 +23,7 @@ const Login = (props) => {
         if (props.data) {
             localStorage.setItem('token', props.data.token)
             swal("Login Success!", "", "success");
-            history.push('./dashboard')
+            history.push('/dashboard')
         }
         
         // jika login error
