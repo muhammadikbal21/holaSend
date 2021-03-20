@@ -63,6 +63,7 @@ export default function MapView(props) {
 
     return (
         <div>
+            <p className="label">{props.label}</p>
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}

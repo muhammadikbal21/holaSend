@@ -5,11 +5,11 @@ import {
   Button,
   Gap,
   Input,
-  Map,
+  MapView,
   WrappedMap,
 } from "../../../../components/atoms";
 import { postDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
-import Index from "../../../../components/atoms/MapView";
+// import Index from "../../../../components/atoms/MapView";
 
 const CreateDestinations = (props) => {
   const [destination, setDestination] = useState("");
@@ -19,8 +19,7 @@ const CreateDestinations = (props) => {
 
   const [destinationError, setDestinationError] = useState("");
   const [addressError, setAddressError] = useState("");
-  const [lonError, setLonError] = useState("");
-  const [latError, setLatError] = useState("");
+  const [locationError, setLocationError] = useState("");
 
   useEffect(() => {
     // jika sukses
@@ -42,8 +41,7 @@ const CreateDestinations = (props) => {
   useEffect(() => {
     setDestinationError("")
     setAddressError("")
-    setLonError("")
-    setLatError("")
+    setLocationError("")
   }, [destination, address, lon, lat])
 
   const onSubmit = () => {
@@ -76,8 +74,7 @@ const CreateDestinations = (props) => {
   const validate = () => {
     let destinationsError = "";
     let addressError = "";
-    let lonError = "";
-    let latError = ""
+    let locationError = "";
 
     if (!destination) {
       destinationsError = "Destination must not blank!";
@@ -87,19 +84,14 @@ const CreateDestinations = (props) => {
       addressError = "Address must not blank!";
     }
     
-    if (!lon) {
-      lonError = "Longitude must not blank!";
+    if (!lon && !lat) {
+      locationError = "Location must not blank!";
     }
 
-    if (!lat) {
-      latError = "Latitude must not blank!";
-    }
-
-    if (destinationsError || addressError || lonError || latError) {
+    if (destinationsError || addressError || locationError) {
       setDestinationError(destinationsError);
       setAddressError(addressError);
-      setLonError(lonError)
-      setLatError(latError)
+      setLocationError(locationError)
       swal("Create Destinations Error!", "", "error");
       return false;
     }
@@ -149,30 +141,28 @@ const CreateDestinations = (props) => {
                     {addressError}
                   </div>
                   <Gap height={15} />
-                  <Input
-                    label="Longitude" type="number" step="any"
-                    value={lon}
-                    onChange={(e) => setLon(e.target.value)}
-                    placeholder="Longitude" 
+                  <MapView
+                      label="Pick Locations"
+                      onLocate={onLocate}
+                      onAddressInput={onAddressInput}
                   />
                   <Gap height={10} />
                   <div style={{ fontSize: 12, color: "red" }}>
-                    {lonError}
+                    {locationError}
                   </div>
                   <Gap height={15} />
                   <Input
-                    label="Latitude" type="number" step="any"
+                     type="number" step="any"
+                    value={lon}
+                    onChange={(e) => setLon(e.target.value)}
+                    placeholder="Longitude" hidden
+                  />
+                  <Gap height={15} />
+                  <Input
+                     type="number" step="any"
                     value={lat}
                     onChange={(e) => setLat(e.target.value)}
-                    placeholder="Latitude" 
-                  />
-                  <Gap height={10} />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {latError}
-                  </div>
-                  <Index
-                      onLocate={onLocate}
-                      onAddressInput={onAddressInput}
+                    placeholder="Latitude" hidden
                   />
                   <Gap height={15} />
                 </div>

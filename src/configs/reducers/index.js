@@ -11,7 +11,8 @@ const rootReducer = combineReducers({
     postTaskReducer,
     postDestinationsReducer,
     getAllTaskReducer,
-    deleteByIdTaskReducer
+    deleteByIdTaskReducer,
+    
 })
 
 export default rootReducer

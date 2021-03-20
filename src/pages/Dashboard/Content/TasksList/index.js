@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
+import { ModalView } from "../../../../components/atoms";
 import { deleteByIdTaskAction, getAllTaskAction } from "../../../../configs/actions/task/taskAction";
 
 const TasksList = (props) => {
+
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
@@ -47,10 +49,6 @@ const TasksList = (props) => {
           });
     };
 
-    //   useEffect(() => {
-    // console.log("ini apa?", tasks);
-    //   }, [tasks])
-
     return (
         <div className="content-wrapper">
             <div className="content-header">
@@ -73,7 +71,7 @@ const TasksList = (props) => {
                                         className="card-title"
                                         style={{ margin: "1rem" }}
                                     >
-                                        Fixed Header Table
+                                        List of Table
                                     </h3>
                                     {/* Search Features */}
                                     {/* <div className="card-tools">
@@ -100,43 +98,50 @@ const TasksList = (props) => {
                                     className="card-body table-responsive p-0"
                                     style={{ height: "60vh" }}
                                 >
-                                    <table className="table table-head-fixed text-nowrap">
-                                        <thead>
+                                    <table className="table text-nowrap table-bordered table-head-fixed">
+                                        <thead >
                                             <tr>
+                                                <th>Created Date</th>
                                                 <th>Destination</th>
-                                                <th>Address</th>
-                                                <th>Pick Up Time</th>
-                                                <th>Delivered Time</th>
-                                                <th>Request By</th>
-                                                <th>Courier</th>
-                                                <th>Return Time</th>
                                                 <th>Status</th>
                                                 <th>Priority</th>
                                                 <th>Notes</th>
-                                                <th>Created</th>
+                                                <th>Requested By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             { tasks.map((e) => (
                                                 <tr>
+                                                    <td>{e.createDate}</td>
                                                     <td>{e.destination.name}</td>
-                                                    <td>{e.destination.address}</td>
-                                                    <td>{e.pickUpTime}</td>
-                                                    <td>{e.deliveredTime}</td>
-                                                    {e.requestBy ? <td>{e.requestBy.username}</td>: <td></td>}
-                                                    {e.courier ? <td>{e.courier.username}</td>: <td></td>}
-                                                    {e.courierActivity ? <td>{e.courierActivity.returnTime}</td> : <td></td>}
                                                     <td>{e.status}</td>
                                                     <td>{e.priority}</td>
                                                     <td>{e.notes}</td>
-                                                    <td>{e.createDate}</td>
+                                                    <td>{e.requestBy ? e.requestBy.username : ""}</td>
                                                     <td>
                                                         <Button
                                                             className="fas fa-trash-alt btn-danger"
                                                             onClick={() =>
                                                                 onDelete(e.id)
                                                             }
+                                                        />
+                                                        <span style={{margin: '3px'}} />
+                                                        <ModalView 
+                                                        className="fas fa-eye btn-info" 
+                                                        data={e} 
+                                                        title="Detail Task"
+                                                        p1="Requested"
+                                                        p2="Destination"
+                                                        p3="Address"
+                                                        p4="Pick Up Time"
+                                                        p5="Delivered Time"
+                                                        p6="Request By"
+                                                        p7="Courier"
+                                                        p8="Return Time"
+                                                        p9="Status"
+                                                        p10="Priority"
+                                                        p11="Notes"
                                                         />
                                                     </td>
                                                 </tr>

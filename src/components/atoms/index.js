@@ -5,5 +5,6 @@ import Link from './Link';
 import DropdownList from './DropdownList';
 import TextArea from './TextArea'
 import MapView from "./MapView";
+import ModalView from './ModalView'
 
-export {Input, Button, Gap, Link, DropdownList, TextArea, MapView};
+export {Input, Button, Gap, Link, DropdownList, TextArea, MapView, ModalView};
