@@ -6,10 +6,8 @@ import {
   Gap,
   Input,
   MapView,
-  WrappedMap,
 } from "../../../../components/atoms";
 import { postDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
-// import Index from "../../../../components/atoms/MapView";
 
 const CreateDestinations = (props) => {
   const [destination, setDestination] = useState("");

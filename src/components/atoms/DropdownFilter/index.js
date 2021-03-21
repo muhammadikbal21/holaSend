@@ -1,59 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { connect } from "react-redux";
 import { Gap } from "..";
-import { getAllDestinationsAction } from "../../../configs/actions/destinations/destinationsAction";
 
-const DropdownFilterTask = (props) => {
+const DropdownFilterTask = ({destinations, users, dataPriority, dataStatus, onResult}) => {
     const [show, setShow] = useState(false);
-    const [dataPriority, setDataPriority] = useState([
-        { value: "HIGH", label: "HIGH" },
-        { value: "MEDIUM", label: "MEDIUM" },
-        { value: "LOW", label: "LOW" },
-    ])
-    const [dataStatus, setDataStatus] = useState([
-        { value: "WAITING", label: "WAITING" },
-        { value: "ASSIGNED", label: "ASSIGNED" },
-        { value: "PICKUP", label: "PICKUP" },
-        { value: "DELIVERED", label: "DELIVERED" },
-    ])
-    const [destinations, setDestinations] = useState([])
-    // const [destinationsData] = useState([]);
-
-    useEffect(() => {
-        onReload()
-        console.log("ini reducer", props.listDestinations);
-    }, [])
-
-    useEffect(() => {
-        if (props.listDestinations) {
-          setDestinations(props.listDestinations);
-          console.log("ini use state", destinations);
-        }
-    }, [props.listDestinations]);
-
-    // useEffect(() => {
-    //     if (destinations) {
-    //       if (destinationsData.length !== destinations.length) {
-    //         onReload();
-    //         for (var i = 0; i < destinations.length; i++) {
-    //           var valueAndLabel = {
-    //             value: destinations[i].id,
-    //             label: destinations[i].name,
-    //           };
-    //           destinationsData.push(valueAndLabel);
-    //         }
-    //       }
-    //     }
-    //     console.log("ini destinations", destinations);
-    //   }, [destinations]);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const onReload = () => {
-        props.dispatchGetAllDestinationsAction();
-      };
 
     return (
         <>
@@ -82,7 +35,10 @@ const DropdownFilterTask = (props) => {
                         <Form.Check type="checkbox" inline label={item.value} key={key} value={item.value} />
                     ))}
                     <Gap height={10} />
-                    <p style={{fontWeight: 'bold'}}>req by</p>
+                    <p style={{fontWeight: 'bold'}}>Requested By</p>
+                    {users.map((item, key) => (
+                        <Form.Check type="checkbox" inline label={item.role} key={key} value={item.role} /> 
+                    ))}
                     <Gap height={10} />
                     <p style={{fontWeight: 'bold'}}>Priority</p>
                     {dataPriority.map((item, key) => (
@@ -93,7 +49,7 @@ const DropdownFilterTask = (props) => {
                     <Button variant="primary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={onResult}>
                         Result
                     </Button>
                 </Modal.Footer>
@@ -102,21 +58,4 @@ const DropdownFilterTask = (props) => {
     );
 };
 
-// reducer
-const mapStateToProps = (state) => {
-    return {
-      listDestinations: state.getAllDestinationsReducer.data,
-    //   data: state.postTaskReducer.data,
-    //   error: state.postTaskReducer.error
-      // data: state.loginReducer.data,
-      // isLoading: state.loginReducer.isLoading,
-    };
-};
-
-// action
-const mapDispatchToProps = {
-    dispatchGetAllDestinationsAction: getAllDestinationsAction,
-    // dispatchPostTaskAction: postTaskAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps) (DropdownFilterTask);
+export default DropdownFilterTask;

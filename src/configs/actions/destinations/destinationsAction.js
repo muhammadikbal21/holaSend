@@ -1,8 +1,8 @@
-import { GET_ALL_DESTINATIONS_REQUEST, POST_DESTINATIONS_REQUEST } from "../../constants/destinations/destinationsConstant";
+import { GET_ALL_DESTINATIONS_FILTER_REQUEST, POST_DESTINATIONS_REQUEST } from "../../constants/destinations/destinationsConstant";
 
-export function getAllDestinationsAction() {
+export function getAllDestinationsFilterAction() {
     return {
-        type: GET_ALL_DESTINATIONS_REQUEST
+        type: GET_ALL_DESTINATIONS_FILTER_REQUEST
     }
 }
 

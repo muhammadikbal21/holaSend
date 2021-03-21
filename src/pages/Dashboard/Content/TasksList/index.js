@@ -6,23 +6,46 @@ import {
     DropdownFilterTask,
     ModalView,
 } from "../../../../components/atoms";
+import { getAllDestinationsFilterAction } from "../../../../configs/actions/destinations/destinationsAction";
 import {
     deleteByIdTaskAction,
     getAllTaskAction,
 } from "../../../../configs/actions/task/taskAction";
+import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
+    const [destinations, setDestinations] = useState([])
+    const [users, setUsers] = useState([]);
+    const [dataPriority, setDataPriority] = useState([
+        { value: "HIGH", label: "HIGH" },
+        { value: "MEDIUM", label: "MEDIUM" },
+        { value: "LOW", label: "LOW" },
+    ])
+    const [dataStatus, setDataStatus] = useState([
+        { value: "WAITING", label: "WAITING" },
+        { value: "ASSIGNED", label: "ASSIGNED" },
+        { value: "PICKUP", label: "PICKUP" },
+        { value: "DELIVERED", label: "DELIVERED" },
+    ])
 
     useEffect(() => {
         onReload();
     }, []);
 
     useEffect(() => {
+        if (props.listDestinations) {
+            setDestinations(props.listDestinations);
+            console.log("ini use state destination", destinations);
+        }
+        if (props.listUser) {
+            setUsers(props.listUser);
+            console.log("ini use state user", users);
+        }
         if (props.listTask) {
             setTasks(props.listTask);
         }
-    }, [props.listTask]);
+    }, [props.listDestinations, props.listUser, props.listTask]);
 
     useEffect(() => {
         if (props.isDelete) {
@@ -30,8 +53,14 @@ const TasksList = (props) => {
         }
     }, [props.isDelete]);
 
+    const onResult = () => {
+        console.log();
+    }
+
     const onReload = () => {
         props.dispatchGetAllTaskAction();
+        props.dispatchGetAllDestinationsFilterAction();
+        props.dispatchGetAllUserFilterAction()
     };
 
     const onDelete = (id) => {
@@ -86,18 +115,13 @@ const TasksList = (props) => {
                                             }}
                                         >
                                             
-                                        <DropdownFilterTask />
-                                            {/* <input
-                                            type="text"
-                                            name="table_search"
-                                            className="form-control float-right"
-                                            placeholder="Search"
-                                            />
-                                            <div className="input-group-append">
-                                                <button type="submit" className="btn btn-default">
-                                                    <i className="fas fa-search" />
-                                                </button>
-                                            </div> */}
+                                            <DropdownFilterTask 
+                                            destinations={destinations} 
+                                            users={users} 
+                                            dataPriority={dataPriority} 
+                                            dataStatus={dataStatus} 
+                                            onReload={onResult}
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -181,6 +205,8 @@ const mapStateToProps = (state) => {
     return {
         listTask: state.getAllTaskReducer.data,
         isDelete: state.deleteByIdTaskReducer.data,
+        listDestinations: state.getAllDestinationsFilterReducer.data,
+        listUser: state.getAllUserFilterReducer.data
         //   error: state.postTaskReducer.error
         // isLoading: state.loginReducer.isLoading,
     };
@@ -190,6 +216,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     dispatchGetAllTaskAction: getAllTaskAction,
     dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
+    dispatchGetAllDestinationsFilterAction: getAllDestinationsFilterAction,
+    dispatchGetAllUserFilterAction: getAllUserFilterAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksList);

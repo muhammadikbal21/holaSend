@@ -1,8 +1,8 @@
 import { put, takeLatest } from "@redux-saga/core/effects";
 import axios from "axios";
-import { GET_ALL_DESTINATIONS_FAILURE, GET_ALL_DESTINATIONS_REQUEST, GET_ALL_DESTINATIONS_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant";
+import { GET_ALL_DESTINATIONS_FILTER_FAILURE, GET_ALL_DESTINATIONS_FILTER_REQUEST, GET_ALL_DESTINATIONS_FILTER_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant";
 
-function* getAllDestinationsSaga(action) {
+function* getAllDestinationsFilterSaga(action) {
     let result = yield axios.get('/destinations/all', {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -10,13 +10,13 @@ function* getAllDestinationsSaga(action) {
     })
     .then(data => {
         return ({
-            type: GET_ALL_DESTINATIONS_SUCCESS,
+            type: GET_ALL_DESTINATIONS_FILTER_SUCCESS,
             data: data
         })
     })
     .catch(e => {
         return ({
-            type: GET_ALL_DESTINATIONS_FAILURE,
+            type: GET_ALL_DESTINATIONS_FILTER_FAILURE,
             error: e
         })
     })
@@ -54,8 +54,8 @@ function* postDestinationsSaga(action) {
     yield put(result)
 }
 
-export function* watchGetAllDestinationsSaga() {
-    yield takeLatest(GET_ALL_DESTINATIONS_REQUEST, getAllDestinationsSaga)
+export function* watchGetAllDestinationsFilterSaga() {
+    yield takeLatest(GET_ALL_DESTINATIONS_FILTER_REQUEST, getAllDestinationsFilterSaga)
 }
 
 export function* watchPostDestinationsSaga() {

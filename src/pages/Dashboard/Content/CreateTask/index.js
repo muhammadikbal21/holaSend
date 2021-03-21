@@ -8,7 +8,7 @@ import {
   Gap,
   TextArea,
 } from "../../../../components/atoms";
-import { getAllDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
+import { getAllDestinationsFilterAction } from "../../../../configs/actions/destinations/destinationsAction";
 import { postTaskAction } from "../../../../configs/actions/task/taskAction";
 
 const CreateTask = (props) => {
@@ -77,7 +77,7 @@ const CreateTask = (props) => {
   }, [destinationId, priority, notes]);
 
   const onReload = () => {
-    props.dispatchGetAllDestinationsAction();
+    props.dispatchGetAllDestinationsFilterAction();
   };
 
   const onSubmit = () => {
@@ -201,7 +201,7 @@ const CreateTask = (props) => {
 // reducer
 const mapStateToProps = (state) => {
   return {
-    listDestinations: state.getAllDestinationsReducer.data,
+    listDestinations: state.getAllDestinationsFilterReducer.data,
     data: state.postTaskReducer.data,
     error: state.postTaskReducer.error
     // data: state.loginReducer.data,
@@ -211,7 +211,7 @@ const mapStateToProps = (state) => {
 
 // action
 const mapDispatchToProps = {
-  dispatchGetAllDestinationsAction: getAllDestinationsAction,
+  dispatchGetAllDestinationsFilterAction: getAllDestinationsFilterAction,
   dispatchPostTaskAction: postTaskAction,
 };
 
