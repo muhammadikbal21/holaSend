@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import { ModalView } from "../../../../components/atoms";
-import { deleteByIdTaskAction, getAllTaskAction } from "../../../../configs/actions/task/taskAction";
+import {
+    DropdownFilterTask,
+    ModalView,
+} from "../../../../components/atoms";
+import {
+    deleteByIdTaskAction,
+    getAllTaskAction,
+} from "../../../../configs/actions/task/taskAction";
 
 const TasksList = (props) => {
-
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
@@ -23,7 +28,7 @@ const TasksList = (props) => {
         if (props.isDelete) {
             onReload();
         }
-    }, [props.isDelete])
+    }, [props.isDelete]);
 
     const onReload = () => {
         props.dispatchGetAllTaskAction();
@@ -36,17 +41,16 @@ const TasksList = (props) => {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
+        }).then((willDelete) => {
             if (willDelete) {
-              props.dispatchDeleteByIdTaskAction(id)
-              swal("Poof! Your Task has been deleted!", {
-                icon: "success",
-              });
+                props.dispatchDeleteByIdTaskAction(id);
+                swal("Poof! Your Task has been deleted!", {
+                    icon: "success",
+                });
             } else {
-              swal("Your Task is safe!");
+                swal("Your Task is safe!");
             }
-          });
+        });
     };
 
     return (
@@ -73,33 +77,36 @@ const TasksList = (props) => {
                                     >
                                         List of Table
                                     </h3>
-                                    {/* Search Features */}
-                                    {/* <div className="card-tools">
-                                            <div
-                                                className="input-group input-group-sm"
-                                                style={{ width: 150, margin: '0.5rem' }}
-                                            >
-                                                <input
-                                                type="text"
-                                                name="table_search"
-                                                className="form-control float-right"
-                                                placeholder="Search"
-                                                />
-                                                <div className="input-group-append">
+                                    <div className="card-tools">
+                                        <div
+                                            className="input-group input-group-sm"
+                                            style={{
+                                                width: 150,
+                                                margin: "0.5rem",
+                                            }}
+                                        >
+                                            
+                                        <DropdownFilterTask />
+                                            {/* <input
+                                            type="text"
+                                            name="table_search"
+                                            className="form-control float-right"
+                                            placeholder="Search"
+                                            />
+                                            <div className="input-group-append">
                                                 <button type="submit" className="btn btn-default">
                                                     <i className="fas fa-search" />
                                                 </button>
-                                                </div>
-                                            </div>
-                                        </div> */}
+                                            </div> */}
+                                        </div>
+                                    </div>
                                 </div>
-                                {/* /.card-header */}
                                 <div
                                     className="card-body table-responsive p-0"
                                     style={{ height: "60vh" }}
                                 >
                                     <table className="table text-nowrap table-bordered table-head-fixed">
-                                        <thead >
+                                        <thead>
                                             <tr>
                                                 <th>Created Date</th>
                                                 <th>Destination</th>
@@ -111,14 +118,21 @@ const TasksList = (props) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            { tasks.map((e) => (
+                                            {tasks.map((e) => (
                                                 <tr>
                                                     <td>{e.createDate}</td>
-                                                    <td>{e.destination.name}</td>
+                                                    <td>
+                                                        {e.destination.name}
+                                                    </td>
                                                     <td>{e.status}</td>
                                                     <td>{e.priority}</td>
                                                     <td>{e.notes}</td>
-                                                    <td>{e.requestBy ? e.requestBy.username : ""}</td>
+                                                    <td>
+                                                        {e.requestBy
+                                                            ? e.requestBy
+                                                                  .username
+                                                            : ""}
+                                                    </td>
                                                     <td>
                                                         <Button
                                                             className="fas fa-trash-alt btn-danger"
@@ -126,22 +140,26 @@ const TasksList = (props) => {
                                                                 onDelete(e.id)
                                                             }
                                                         />
-                                                        <span style={{margin: '3px'}} />
-                                                        <ModalView 
-                                                        className="fas fa-eye btn-info" 
-                                                        data={e} 
-                                                        title="Detail Task"
-                                                        p1="Requested"
-                                                        p2="Destination"
-                                                        p3="Address"
-                                                        p4="Pick Up Time"
-                                                        p5="Delivered Time"
-                                                        p6="Request By"
-                                                        p7="Courier"
-                                                        p8="Return Time"
-                                                        p9="Status"
-                                                        p10="Priority"
-                                                        p11="Notes"
+                                                        <span
+                                                            style={{
+                                                                margin: "3px",
+                                                            }}
+                                                        />
+                                                        <ModalView
+                                                            className="fas fa-eye btn-info"
+                                                            data={e}
+                                                            title="Detail Task"
+                                                            p1="Created Date"
+                                                            p2="Destination"
+                                                            p3="Address"
+                                                            p4="Pick Up Time"
+                                                            p5="Delivered Time"
+                                                            p6="Request By"
+                                                            p7="Courier"
+                                                            p8="Return Time"
+                                                            p9="Status"
+                                                            p10="Priority"
+                                                            p11="Notes"
                                                         />
                                                     </td>
                                                 </tr>
@@ -149,9 +167,7 @@ const TasksList = (props) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                {/* /.card-body */}
                             </div>
-                            {/* /.card */}
                         </div>
                     </div>
                 </div>
@@ -164,7 +180,7 @@ const TasksList = (props) => {
 const mapStateToProps = (state) => {
     return {
         listTask: state.getAllTaskReducer.data,
-        isDelete: state.deleteByIdTaskReducer.data
+        isDelete: state.deleteByIdTaskReducer.data,
         //   error: state.postTaskReducer.error
         // isLoading: state.loginReducer.isLoading,
     };
@@ -173,7 +189,7 @@ const mapStateToProps = (state) => {
 // action
 const mapDispatchToProps = {
     dispatchGetAllTaskAction: getAllTaskAction,
-    dispatchDeleteByIdTaskAction: deleteByIdTaskAction
+    dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksList);
