@@ -12,10 +12,7 @@ function* postTaskSaga(action) {
     let result = yield axios({
         url: url,
         method: method,
-        data: model,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
+        data: model
     })
     .then(data => {
         return {
@@ -79,11 +76,7 @@ function* getAllTaskSaga(action) {
     }
 
     parameter = parameter.replace(/\s+/g, '+')
-    let result = yield axios.get(`/task?${parameter}`, {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.get(`/task?${parameter}`)
     .then(data => {
         return ({
             type: GET_ALL_TASK_SUCCESS,
@@ -106,11 +99,7 @@ function* getAllTaskSaga(action) {
 }
 
 function* deleteByIdTaskSaga(action) {
-    let result = yield axios.delete(`/task/${action.id}`, {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.delete(`/task/${action.id}`)
         .then(data => {
             return {
                 type: DELETE_BY_ID_TASK_SUCCESS,

@@ -3,11 +3,7 @@ import { GET_ALL_USER_FAILURE, GET_ALL_USER_FILTER_FAILURE, GET_ALL_USER_FILTER_
 import { put, takeLatest } from "@redux-saga/core/effects";
 
 function* getAllUserFilterSaga(action) {
-    let result = yield axios.get('/user/admin-or-staff', {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.get('/user/admin-or-staff')
     .then(data => {
         return ({
             type: GET_ALL_USER_FILTER_SUCCESS,
@@ -25,11 +21,7 @@ function* getAllUserFilterSaga(action) {
 }
 
 function* getAllUserSaga(action) {
-    let result = yield axios.get('/user', {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.get('/user')
     .then(data => {
         return ({
             type: GET_ALL_USER_SUCCESS,
@@ -47,16 +39,7 @@ function* getAllUserSaga(action) {
 }
 
 function* putByUsernameMakeAdminSaga(action) {
-    let method = 'PUT'
-    let url = `/user/${action.username}/make-admin`
-
-    let result = yield axios( {
-        url: url,
-        method: method,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.put(`/user/${action.username}/make-admin`)
         .then(data => {
             return {
                 type: PUT_BY_USERNAME_MAKE_ADMIN_SUCCESS,
@@ -73,15 +56,7 @@ function* putByUsernameMakeAdminSaga(action) {
 }
 
 function* putByUsernameMakeStaffSaga(action) {
-    let method = 'PUT'
-    let url = `/user/${action.username}/make-staff`
-    let result = yield axios( {
-        url: url,
-        method: method,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.put(`/user/${action.username}/make-staff`)
         .then(data => {
             return {
                 type: PUT_BY_USERNAME_MAKE_STAFF_SUCCESS,
@@ -98,15 +73,7 @@ function* putByUsernameMakeStaffSaga(action) {
 }
 
 function* putByUsernameMakeCourierSaga(action) {
-    let method = 'PUT'
-    let url = `/user/${action.username}/make-courier`
-    let result = yield axios( {
-        url: url,
-        method: method,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.put(`/user/${action.username}/make-courier`)
         .then(data => {
             return {
                 type: PUT_BY_USERNAME_MAKE_COURIER_SUCCESS,
@@ -123,15 +90,7 @@ function* putByUsernameMakeCourierSaga(action) {
 }
 
 function* putByUsernameMakeDisabledSaga(action) {
-    let method = 'PUT'
-    let url = `/user/${action.username}/disable-user`
-    let result = yield axios( {
-        url: url,
-        method: method,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.put(`/user/${action.username}/disable-user`)
         .then(data => {
             return {
                 type: PUT_BY_USERNAME_MAKE_DISABLED_SUCCESS,

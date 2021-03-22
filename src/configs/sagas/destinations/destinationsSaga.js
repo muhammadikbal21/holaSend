@@ -3,11 +3,7 @@ import axios from "axios";
 import { GET_ALL_DESTINATIONS_FILTER_FAILURE, GET_ALL_DESTINATIONS_FILTER_REQUEST, GET_ALL_DESTINATIONS_FILTER_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant";
 
 function* getAllDestinationsFilterSaga(action) {
-    let result = yield axios.get('/destinations/all', {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
-    })
+    let result = yield axios.get('/destinations/all')
     .then(data => {
         return ({
             type: GET_ALL_DESTINATIONS_FILTER_SUCCESS,
@@ -33,10 +29,7 @@ function* postDestinationsSaga(action) {
     let result = yield axios({
         url: url,
         method: method,
-        data: model,
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
+        data: model
     })
     .then(data => {
         return {
