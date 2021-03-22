@@ -24,8 +24,8 @@ const Login = (props) => {
             localStorage.setItem('token', props.data.token)
             localStorage.setItem('role', props.data.role)
             swal({
-                title: "Good job!",
-                text: "You clicked the button!",
+                title: "Success!",
+                text: "Loggin sucess!",
                 icon: "success",
                 button: "Aww yiss!",
             }).then(() => {
