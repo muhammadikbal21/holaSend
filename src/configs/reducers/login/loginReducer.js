@@ -7,6 +7,7 @@ const initialState = {
 }
 
 export function loginReducer(state = {...initialState}, action) {
+    console.log(action)
     switch (action.type) {
         case LOGIN_REQUEST:
             return {

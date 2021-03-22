@@ -47,7 +47,12 @@ function* getAllUserSaga(action) {
 }
 
 function* putByUsernameMakeAdminSaga(action) {
-    let result = yield axios.put(`/user/${action.username}/make-admin`, {
+    let method = 'PUT'
+    let url = `/user/${action.username}/make-admin`
+
+    let result = yield axios( {
+        url: url,
+        method: method,
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         }
@@ -68,7 +73,11 @@ function* putByUsernameMakeAdminSaga(action) {
 }
 
 function* putByUsernameMakeStaffSaga(action) {
-    let result = yield axios.put(`/user/${action.username}/make-staff`, {
+    let method = 'PUT'
+    let url = `/user/${action.username}/make-staff`
+    let result = yield axios( {
+        url: url,
+        method: method,
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         }
@@ -89,7 +98,11 @@ function* putByUsernameMakeStaffSaga(action) {
 }
 
 function* putByUsernameMakeCourierSaga(action) {
-    let result = yield axios.put(`/user/${action.username}/make-courier`, {
+    let method = 'PUT'
+    let url = `/user/${action.username}/make-courier`
+    let result = yield axios( {
+        url: url,
+        method: method,
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         }
@@ -110,7 +123,11 @@ function* putByUsernameMakeCourierSaga(action) {
 }
 
 function* putByUsernameMakeDisabledSaga(action) {
-    let result = yield axios.put(`/user/${action.username}/disable-user`, {
+    let method = 'PUT'
+    let url = `/user/${action.username}/disable-user`
+    let result = yield axios( {
+        url: url,
+        method: method,
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         }
