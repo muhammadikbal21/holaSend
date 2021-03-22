@@ -7,5 +7,6 @@ import TextArea from './TextArea'
 import MapView from "./MapView";
 import ModalView from './ModalView'
 import DropdownFilterTask from './DropdownFilter'
+import {Loading} from './Loading'
 
-export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask};
+export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask, Loading};

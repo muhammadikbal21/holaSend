@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import {
   Button,
   DropdownList,
-  Gap,
+  Gap, Loading,
   TextArea,
 } from "../../../../components/atoms";
 import { getAllDestinationsFilterAction } from "../../../../configs/actions/destinations/destinationsAction";
@@ -132,10 +132,10 @@ const CreateTask = (props) => {
   };
 
   return (
-    !props.isLoading ?
+    // !props.isLoading ?
     <div className="content-wrapper">
       <div className="content-header">
-        <div className="container" style={{ marginTop: "50px" }}>
+        <Container className="container" error={props.error} loading={props.loading} style={{ marginTop: "50px" }}>
           <div className="row mb-2">
             <div className="col-sm-6">
               <h1 className="m-0 text-dark">Task Form</h1>
@@ -194,21 +194,10 @@ const CreateTask = (props) => {
               </div>
             </div>
           </div>
-        </div>
+          {props.isLoading ? <Loading /> : null}
+        </Container>
       </div>
     </div>
-    :
-    <div className="content-wrapper">
-      <div className="content-header">
-        <div className="container" style={{ marginTop: "50px" }}>
-            <Container className="mt-5">
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src={"/holasend.gif"} className="App-logo" alt="logo" />
-                </div>        
-            </Container>
-         </div>
-       </div>
-     </div>
   );
 };
 
@@ -217,8 +206,8 @@ const mapStateToProps = (state) => {
   return {
     listDestinations: state.getAllDestinationsFilterReducer.data,
     data: state.postTaskReducer.data,
-    isLoading: state.postTaskReducer.isLoading,
-    error: state.postTaskReducer.error,
+    isLoading: state.postTaskReducer.isLoading || state.getAllDestinationsFilterReducer.loading,
+    error: state.postTaskReducer.error || state.getAllDestinationsFilterReducer.error,
     // data: state.loginReducer.data,
   };
 };
