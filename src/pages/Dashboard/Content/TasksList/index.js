@@ -13,23 +13,48 @@ import {
 } from "../../../../configs/actions/task/taskAction";
 import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
 import logo from "../../../../logo.svg"
+import {PaginationButton} from "../../../../components/atoms/Button";
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
-    const [destinations, setDestinations] = useState([])
-    const [users, setUsers] = useState([]);
+    const [destinations] = useState([
+        { value: null, label: 'All'}
+    ])
+    const [users] = useState([
+        { value: null, label: 'All'}
+    ])
     const [error, setError] = useState(null)
-    const [dataPriority, setDataPriority] = useState([
+    const [dataPriority] = useState([
+        { value: null, label: "ALL" },
         { value: "HIGH", label: "HIGH" },
         { value: "MEDIUM", label: "MEDIUM" },
         { value: "LOW", label: "LOW" },
     ])
-    const [dataStatus, setDataStatus] = useState([
+    const [dataStatus] = useState([
+        { value: null, label: "ALL" },
         { value: "WAITING", label: "WAITING" },
         { value: "ASSIGNED", label: "ASSIGNED" },
         { value: "PICKUP", label: "PICKUP" },
         { value: "DELIVERED", label: "DELIVERED" },
     ])
+
+    const [filter, setFilter] = useState({
+        status: null,
+        destinationId: null,
+        requestById: null,
+        priority: null,
+        before: null,
+        after: null
+    })
+
+    const [page, setPage] = useState(0)
+    const [size, setSize] = useState(10)
+
+    const totalPage = Math.ceil(props.pageInfo.total/props.pageInfo.size)
+
+    useEffect(() => {
+        onReload()
+    }, [page, size])
 
     useEffect(() => {
         onReload();
@@ -37,12 +62,26 @@ const TasksList = (props) => {
 
     useEffect(() => {
         if (props.listDestinations) {
-            setDestinations(props.listDestinations);
-            console.log("ini use state destination", destinations);
+            if (destinations.length === 1) {
+                props.listDestinations.map(
+                    destination => {
+                        destinations.push({
+                            value: destination.id,
+                            label: destination.name
+                        })
+                    }
+                )
+            }
         }
         if (props.listUser) {
-            setUsers(props.listUser);
-            console.log("ini use state user", users);
+            if (users.length === 1) {
+                props.listUser.map(
+                    user => users.push({
+                        value: user.id,
+                        label: user.username
+                    })
+                )
+            }
         }
         if (props.listTask) {
             setTasks(props.listTask);
@@ -58,19 +97,25 @@ const TasksList = (props) => {
 
     useEffect(() => {
         if (props.isDelete) {
-            onReload();
+            // onReload();
         }
     }, [props.isDelete]);
 
-    const onResult = () => {
-        console.log();
-    }
-
     const onReload = () => {
-        props.dispatchGetAllTaskAction();
+        props.dispatchGetAllTaskAction({page: page, size: size}, filter);
         props.dispatchGetAllDestinationsFilterAction();
         props.dispatchGetAllUserFilterAction()
     };
+
+    const handleLimit = (limit) => {
+        setSize(limit)
+        setPage(0)
+    }
+
+    const onSetFilter = () => {
+        setPage(0)
+        onReload()
+    }
 
     const onDelete = (id) => {
         swal({
@@ -129,8 +174,10 @@ const TasksList = (props) => {
                                             destinations={destinations} 
                                             users={users} 
                                             dataPriority={dataPriority} 
-                                            dataStatus={dataStatus} 
-                                            onReload={onResult}
+                                            dataStatus={dataStatus}
+                                            onResult={onSetFilter}
+                                            filter={filter}
+                                            setFilter={setFilter}
                                         />
                                         </div>
                                     </div>
@@ -207,6 +254,13 @@ const TasksList = (props) => {
                             </div>
                         </div>
                     </div>
+                    <PaginationButton
+                        currentPage={page}
+                        setPage={setPage}
+                        totalPage={totalPage}
+                        handleLimit={handleLimit}
+                        size={size}
+                    />
                 </div>
             </div>
         </div>
@@ -229,6 +283,7 @@ const TasksList = (props) => {
 const mapStateToProps = (state) => {
     return {
         listTask: state.getAllTaskReducer.data,
+        pageInfo: state.getAllTaskReducer.pagination,
         isDelete: state.deleteByIdTaskReducer.data,
         listDestinations: state.getAllDestinationsFilterReducer.data,
         listUser: state.getAllUserFilterReducer.data,

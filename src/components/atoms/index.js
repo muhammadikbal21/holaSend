@@ -1,5 +1,5 @@
 import Input from './Input';
-import Button from './Button';
+import {Button, PaginationButton} from './Button';
 import Gap from './Gap';
 import Link from './Link';
 import DropdownList from './DropdownList';
@@ -8,4 +8,4 @@ import MapView from "./MapView";
 import ModalView from './ModalView'
 import DropdownFilterTask from './DropdownFilter'
 
-export {Input, Button, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask};
+export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask};
