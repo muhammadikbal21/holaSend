@@ -64,6 +64,20 @@ function* getAllTaskSaga(action) {
         parameter+=`priority=${action.search.priority}`
     }
 
+    if (action.search.before){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`before=${action.search.before}`
+    }
+
+    if (action.search.after){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`after=${action.search.after}`
+    }
+
     parameter = parameter.replace(/\s+/g, '+')
     let result = yield axios.get(`/task?${parameter}`, {
         headers: {

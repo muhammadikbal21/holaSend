@@ -1,12 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, Form, Modal, ToggleButton} from "react-bootstrap";
+import React, {useState} from "react";
+import {Button, ButtonGroup, Form, Modal, Toast, ToggleButton} from "react-bootstrap";
 import { Gap } from "..";
+import {Col, Row} from "reactstrap";
 
 const DropdownFilterTask = ({destinations, users, dataPriority, dataStatus, onResult, filter, setFilter}) => {
     const [show, setShow] = useState(false);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [showBefore, setShowBefore] = useState(filter.before !== null);
+    const [showAfter, setShowAfter] = useState(filter.after !== null);
+
+    const toggleShowA = () => {
+        if (showBefore) {
+            setFilter({...filter, before: null})
+        }
+        setShowBefore(!showBefore)
+    };
+    const toggleShowB = () => {
+        if (showAfter) {
+            setFilter({...filter, after: null})
+        }
+        setShowAfter(!showAfter)
+    };
 
     const toggleStyle = {
         flexWrap: 'wrap'
@@ -96,6 +112,30 @@ const DropdownFilterTask = ({destinations, users, dataPriority, dataStatus, onRe
                             </ToggleButton>
                         ))}
                     </ButtonGroup>
+                    <Gap height={15} />
+                    <p style={{fontWeight: 'bold'}}>Created Date</p>
+                    <Row style={{display: 'flex'}}>
+                        <Col xs={6}>
+                            <Button variant="secondary" onClick={toggleShowB}>
+                                After
+                            </Button>
+                            <Toast show={showAfter} onClose={toggleShowA}>
+                                <Toast.Body>
+                                    <input type="date" value={filter.after} onChange={(e) => {setFilter({...filter, after: e.target.value})}}/>
+                                </Toast.Body>
+                            </Toast>
+                        </Col>
+                        <Col xs={6}>
+                            <Button variant="secondary" onClick={toggleShowA}>
+                                Before
+                            </Button>
+                            <Toast show={showBefore} onClose={toggleShowA}>
+                                <Toast.Body>
+                                    <input type="date" value={filter.before} onChange={(e) => {setFilter({...filter, before: e.target.value})}}/>
+                                </Toast.Body>
+                            </Toast>
+                        </Col>
+                    </Row>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>
