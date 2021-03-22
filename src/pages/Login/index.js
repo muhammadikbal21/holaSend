@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LoginBg } from '../../assets';
 import { Button, Gap, Input, Link } from '../../components/atoms';
-import {useHistory} from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import swal from 'sweetalert';
 import { loginAction } from '../../configs/actions/login/loginAction'
 import { connect } from 'react-redux';
@@ -15,23 +15,32 @@ const Login = (props) => {
     const [passwordError, setPasswordError] = useState('');
 
     const [validation, setValidation] = useState('');
-    
+
     const history = useHistory();
 
     useEffect(() => {
         // jika login sukses
         if (props.data) {
             localStorage.setItem('token', props.data.token)
-            swal("Login Success!", "", "success");
-            history.push('/dashboard')
+            localStorage.setItem('role', props.data.role)
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success",
+                button: "Aww yiss!",
+            }).then(() => {
+                return (
+                    window.location.href = "/dashboard"
+                )
+            });
         }
-        
+
         // jika login error
         if (props.error) {
             setValidation("Username or Password invalid!")
             swal("Login Error!", "", "error");
         }
-        
+
     }, [props.data, props.error])
 
     // clear error message
@@ -41,7 +50,8 @@ const Login = (props) => {
         setPasswordError("")
     }, [username, password])
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
         const isValid = validate();
         if (isValid) {
             const data = {
@@ -52,7 +62,7 @@ const Login = (props) => {
 
             // call axios dengan memanggil action/dispatch nya
             props.dispatchLoginAction(data)
-    
+
         }
     }
 
@@ -63,7 +73,7 @@ const Login = (props) => {
         if (!username) {
             usernameError = "Name cannot be blank!";
         }
-        
+
         if (!password) {
             passwordError = "Password cannot be blank!";
         }
@@ -73,7 +83,7 @@ const Login = (props) => {
             setPasswordError(passwordError);
             swal("Login Error!", "", "error");
             return false;
-        } 
+        }
 
         return true;
     }
@@ -85,18 +95,20 @@ const Login = (props) => {
             </div>
             <div className="right">
                 <p className="title">Login</p>
-                <Gap height={18} />
-                <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-                <Gap height={8} />
-                <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
-                <Gap height={18} />
-                <Input label="Password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
-                <Gap height={8} />
-                <div style={{fontSize: 12, color: "red"}}>{passwordError}</div>
-                <Gap height={18} />
-                <div style={{fontSize: 12, color: "red"}}>{validation}</div>
-                <Gap height={50} />
-                <Button title="Login" onClick={() => onSubmit()} />
+                <form metthod="POST" onSubmit={onSubmit}>
+                    <Gap height={18} />
+                    <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                    <Gap height={8} />
+                    <div style={{ fontSize: 12, color: "red" }}>{usernameError}</div>
+                    <Gap height={18} />
+                    <Input label="Password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+                    <Gap height={8} />
+                    <div style={{ fontSize: 12, color: "red" }}>{passwordError}</div>
+                    <Gap height={18} />
+                    <div style={{ fontSize: 12, color: "red" }}>{validation}</div>
+                    <Gap height={50} />
+                    <Button title="Login" onClick={onSubmit} />
+                </form>
                 <Gap height={100} />
                 <Link title="New to holaSend!? Create an account here!" onClick={() => history.push('/register')} />
             </div>
@@ -115,7 +127,7 @@ const mapStateToProps = (state) => {
 
 // action
 const mapDispatchToProps = {
-    dispatchLoginAction : loginAction
+    dispatchLoginAction: loginAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
