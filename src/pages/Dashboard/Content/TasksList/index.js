@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import {
@@ -12,11 +12,13 @@ import {
     getAllTaskAction,
 } from "../../../../configs/actions/task/taskAction";
 import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
+import logo from "../../../../logo.svg"
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
     const [destinations, setDestinations] = useState([])
     const [users, setUsers] = useState([]);
+    const [error, setError] = useState(null)
     const [dataPriority, setDataPriority] = useState([
         { value: "HIGH", label: "HIGH" },
         { value: "MEDIUM", label: "MEDIUM" },
@@ -46,6 +48,13 @@ const TasksList = (props) => {
             setTasks(props.listTask);
         }
     }, [props.listDestinations, props.listUser, props.listTask]);
+
+    useEffect(() => {
+        if (props.error) {
+            setError(props.error)
+        }
+        console.log(error);
+    }, [props.error]);
 
     useEffect(() => {
         if (props.isDelete) {
@@ -83,6 +92,7 @@ const TasksList = (props) => {
     };
 
     return (
+        !props.isLoading ?
         <div className="content-wrapper">
             <div className="content-header">
                 <div className="container-fluid" style={{ marginTop: "50px" }}>
@@ -129,6 +139,9 @@ const TasksList = (props) => {
                                     className="card-body table-responsive p-0"
                                     style={{ height: "60vh" }}
                                 >
+                                    <div style={{ fontSize: 12, color: "red" }}>
+                                        {console.log(error)}
+                                    </div>
                                     <table className="table text-nowrap table-bordered table-head-fixed">
                                         <thead>
                                             <tr>
@@ -197,6 +210,13 @@ const TasksList = (props) => {
                 </div>
             </div>
         </div>
+        :
+        <Container className="mt-5">
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                {/* <Spinner color="primary" style={{width: '3rem', height: '20rem'}} /> */}
+                <img src={logo} className="App-logo" alt="logo" />
+            </div>        
+        </Container>
     );
 };
 
@@ -206,9 +226,9 @@ const mapStateToProps = (state) => {
         listTask: state.getAllTaskReducer.data,
         isDelete: state.deleteByIdTaskReducer.data,
         listDestinations: state.getAllDestinationsFilterReducer.data,
-        listUser: state.getAllUserFilterReducer.data
-        //   error: state.postTaskReducer.error
-        // isLoading: state.loginReducer.isLoading,
+        listUser: state.getAllUserFilterReducer.data,
+        isLoading: state.getAllTaskReducer.isLoading,
+        error: state.getAllTaskReducer.error
     };
 };
 

@@ -29,17 +29,17 @@ const DropdownFilterTask = ({destinations, users, dataPriority, dataStatus, onRe
                     {destinations.map((item, key) => (
                         <Form.Check type="checkbox" inline label={item.name} key={key} value={item.name} />
                     ))}
-                    <Gap height={10} />
+                    <Gap height={15} />
                     <p style={{fontWeight: 'bold'}}>Status</p>
                     {dataStatus.map((item, key) => (
                         <Form.Check type="checkbox" inline label={item.value} key={key} value={item.value} />
                     ))}
-                    <Gap height={10} />
+                    <Gap height={15} />
                     <p style={{fontWeight: 'bold'}}>Requested By</p>
                     {users.map((item, key) => (
                         <Form.Check type="checkbox" inline label={item.role} key={key} value={item.role} /> 
                     ))}
-                    <Gap height={10} />
+                    <Gap height={15} />
                     <p style={{fontWeight: 'bold'}}>Priority</p>
                     {dataPriority.map((item, key) => (
                         <Form.Check type="checkbox" inline label={item.value} key={key} value={item.value} />
