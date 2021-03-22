@@ -85,7 +85,7 @@ const Menu = () => {
               </a>
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="pages/charts/chartjs.html" className="nav-link">
+                  <a href="/dashboard/user-managements" className="nav-link">
                     <i className="fas fa-users-cog nav-icon" />
                     <p>User Managements</p>
                   </a>

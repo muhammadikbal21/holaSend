@@ -120,7 +120,7 @@ const TasksList = (props) => {
                                         <div
                                             className="input-group input-group-sm"
                                             style={{
-                                                width: 150,
+                                                // width: '150%',
                                                 margin: "0.5rem",
                                             }}
                                         >
@@ -211,12 +211,17 @@ const TasksList = (props) => {
             </div>
         </div>
         :
-        <Container className="mt-5">
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                {/* <Spinner color="primary" style={{width: '3rem', height: '20rem'}} /> */}
-                <img src={logo} className="App-logo" alt="logo" />
-            </div>        
-        </Container>
+        <div className="content-wrapper">
+            <div className="content-header">
+                <div className="container" style={{ marginTop: "50px" }}>
+                    <Container className="mt-5">
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <img src={"/holasend.gif"} className="App-logo" alt="logo" />
+                        </div>        
+                    </Container>
+                </div>
+            </div>
+        </div>
     );
 };
 

@@ -3,7 +3,7 @@ import { watchGetAllDestinationsFilterSaga, watchPostDestinationsSaga } from './
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchRegisterSaga } from './register/registerSaga';
 import { watchDeleteByIdTaskSaga, watchGetAllTaskSaga, watchPostTaskSaga } from './task/taskSaga';
-import { watchGetAllUserFilterSaga } from './user/userSaga';
+import { watchGetAllUserFilterSaga, watchGetAllUserSaga, watchPutByUsernameMakeAdminSaga, watchPutByUsernameMakeCourierSaga, watchPutByUsernameMakeDisabledSaga, watchPutByUsernameMakeStaffSaga } from './user/userSaga';
 
 export default function* rootSaga() {
     yield all([
@@ -14,6 +14,11 @@ export default function* rootSaga() {
         watchPostDestinationsSaga(),
         watchGetAllTaskSaga(),
         watchDeleteByIdTaskSaga(),
-        watchGetAllUserFilterSaga()
+        watchGetAllUserFilterSaga(),
+        watchGetAllUserSaga(),
+        watchPutByUsernameMakeAdminSaga(),
+        watchPutByUsernameMakeStaffSaga(),
+        watchPutByUsernameMakeCourierSaga(),
+        watchPutByUsernameMakeDisabledSaga()
     ])
 }

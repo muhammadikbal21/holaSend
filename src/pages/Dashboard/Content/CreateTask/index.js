@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import swal from "sweetalert";
@@ -131,6 +132,7 @@ const CreateTask = (props) => {
   };
 
   return (
+    !props.isLoading ?
     <div className="content-wrapper">
       <div className="content-header">
         <div className="container" style={{ marginTop: "50px" }}>
@@ -195,6 +197,18 @@ const CreateTask = (props) => {
         </div>
       </div>
     </div>
+    :
+    <div className="content-wrapper">
+      <div className="content-header">
+        <div className="container" style={{ marginTop: "50px" }}>
+            <Container className="mt-5">
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <img src={"/holasend.gif"} className="App-logo" alt="logo" />
+                </div>        
+            </Container>
+         </div>
+       </div>
+     </div>
   );
 };
 
@@ -203,9 +217,9 @@ const mapStateToProps = (state) => {
   return {
     listDestinations: state.getAllDestinationsFilterReducer.data,
     data: state.postTaskReducer.data,
-    error: state.postTaskReducer.error
+    isLoading: state.postTaskReducer.isLoading,
+    error: state.postTaskReducer.error,
     // data: state.loginReducer.data,
-    // isLoading: state.loginReducer.isLoading,
   };
 };
 

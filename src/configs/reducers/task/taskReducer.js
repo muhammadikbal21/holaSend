@@ -65,18 +65,18 @@ export function deleteByIdTaskReducer(state = {...initialState, data: false}, ac
             return {
                 ...state,
                 data: false,
-                loading: true
+                isLoading: true
             }
         case DELETE_BY_ID_TASK_SUCCESS:
             return { 
                 data: action.data,
-                loading: false,
+                isLoading: false,
                 error: null
             }
         case DELETE_BY_ID_TASK_FAILURE:
             return { 
                 data: false,
-                loading: false,
+                isLoading: false,
                 error: action.error
             }
         default:
