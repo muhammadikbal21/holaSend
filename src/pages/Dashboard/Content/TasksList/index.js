@@ -16,20 +16,44 @@ import logo from "../../../../logo.svg"
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
-    const [destinations, setDestinations] = useState([])
-    const [users, setUsers] = useState([]);
+    const [destinations] = useState([
+        { value: null, label: 'All'}
+    ])
+    const [users] = useState([
+        { value: null, label: 'All'}
+    ])
     const [error, setError] = useState(null)
-    const [dataPriority, setDataPriority] = useState([
+    const [dataPriority] = useState([
+        { value: null, label: "ALL" },
         { value: "HIGH", label: "HIGH" },
         { value: "MEDIUM", label: "MEDIUM" },
         { value: "LOW", label: "LOW" },
     ])
-    const [dataStatus, setDataStatus] = useState([
+    const [dataStatus] = useState([
+        { value: null, label: "ALL" },
         { value: "WAITING", label: "WAITING" },
         { value: "ASSIGNED", label: "ASSIGNED" },
         { value: "PICKUP", label: "PICKUP" },
         { value: "DELIVERED", label: "DELIVERED" },
     ])
+
+    const [filter, setFilter] = useState({
+        status: null,
+        destinationId: null,
+        requestById: null,
+        priority: null,
+        before: null,
+        after: null
+    })
+
+    const [pagination, setPagination] = useState({
+        page: 1,
+        size: 10
+    })
+
+    useEffect(() => {
+        console.log(filter)
+    }, [filter])
 
     useEffect(() => {
         onReload();
@@ -37,12 +61,26 @@ const TasksList = (props) => {
 
     useEffect(() => {
         if (props.listDestinations) {
-            setDestinations(props.listDestinations);
-            console.log("ini use state destination", destinations);
+            if (destinations.length === 1) {
+                props.listDestinations.map(
+                    destination => {
+                        destinations.push({
+                            value: destination.id,
+                            label: destination.name
+                        })
+                    }
+                )
+            }
         }
         if (props.listUser) {
-            setUsers(props.listUser);
-            console.log("ini use state user", users);
+            if (users.length === 1) {
+                props.listUser.map(
+                    user => users.push({
+                        value: user.id,
+                        label: user.username
+                    })
+                )
+            }
         }
         if (props.listTask) {
             setTasks(props.listTask);
@@ -58,16 +96,17 @@ const TasksList = (props) => {
 
     useEffect(() => {
         if (props.isDelete) {
-            onReload();
+            // onReload();
         }
     }, [props.isDelete]);
 
     const onResult = () => {
-        console.log();
+        console.log(filter)
+        onReload()
     }
 
     const onReload = () => {
-        props.dispatchGetAllTaskAction();
+        props.dispatchGetAllTaskAction(pagination, filter);
         props.dispatchGetAllDestinationsFilterAction();
         props.dispatchGetAllUserFilterAction()
     };
@@ -129,8 +168,10 @@ const TasksList = (props) => {
                                             destinations={destinations} 
                                             users={users} 
                                             dataPriority={dataPriority} 
-                                            dataStatus={dataStatus} 
-                                            onReload={onResult}
+                                            dataStatus={dataStatus}
+                                            onResult={onReload}
+                                            filter={filter}
+                                            setFilter={setFilter}
                                         />
                                         </div>
                                     </div>

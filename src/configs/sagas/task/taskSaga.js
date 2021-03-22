@@ -1,6 +1,7 @@
 import axios from "../../api"
 import { put, takeLatest } from 'redux-saga/effects'
 import { DELETE_BY_ID_TASK_FAILURE, DELETE_BY_ID_TASK_REQUEST, DELETE_BY_ID_TASK_SUCCESS, GET_ALL_TASK_FAILURE, GET_ALL_TASK_REQUEST, GET_ALL_TASK_SUCCESS, POST_TASK_FAILURE, POST_TASK_REQUEST, POST_TASK_SUCCESS } from "../../constants/task/taskConstant"
+import pagination from "../pagination";
 
 function* postTaskSaga(action) {
     
@@ -33,7 +34,38 @@ function* postTaskSaga(action) {
 }
 
 function* getAllTaskSaga(action) {
-    let result = yield axios.get('/task', {
+    let parameter = pagination(action)
+
+    if (action.search.status){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`status=${action.search.status}`
+    }
+
+    if (action.search.destinationId){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`destinationId=${action.search.destinationId}`
+    }
+
+    if (action.search.requestById){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`requestById=${action.search.requestById}`
+    }
+
+    if (action.search.priority){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`priority=${action.search.priority}`
+    }
+
+    parameter = parameter.replace(/\s+/g, '+')
+    let result = yield axios.get(`/task?${parameter}`, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         }

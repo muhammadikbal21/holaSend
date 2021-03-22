@@ -7,9 +7,11 @@ export function postTaskAction(model) {
     }
 }
 
-export function getAllTaskAction() {
+export function getAllTaskAction(pagination, search) {
     return {
-        type: GET_ALL_TASK_REQUEST
+        type: GET_ALL_TASK_REQUEST,
+        pagination: pagination,
+        search: search
     }
 }
 
