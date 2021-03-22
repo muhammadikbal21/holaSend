@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {FaBars} from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaBars } from 'react-icons/fa';
 import {
   Nav,
   NavbarContainer,
@@ -13,8 +13,9 @@ import {
 } from './NavbarElement';
 // import {IconContext} from 'react-icons/lib';
 // import {animateScroll as scroll} from 'react-scroll';
-const NavBar = ({toggle}) => {
+const NavBar = ({ toggle }) => {
   const [scrollNav, setSrcollNav] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"))
   const changeNav = () => {
     return window.scrollY >= 80 ? setSrcollNav(true) : setSrcollNav(false);
   };
@@ -23,14 +24,14 @@ const NavBar = ({toggle}) => {
     window.addEventListener('scroll', changeNav);
   }, []);
 
-  const toggleHome = () => {};
+  const toggleHome = () => { };
 
   return (
     <>
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
-            hola<span style={{color: '#152C5B'}}>Send!</span>
+            hola<span style={{ color: '#152C5B' }}>Send!</span>
           </NavLogo>
           <MobileIcon onClick={toggle}>
             <FaBars />
@@ -61,7 +62,11 @@ const NavBar = ({toggle}) => {
               </NavLinks>
             </NavItem>
             <NavBtn>
-              <NavBtnLink to="login"> Sign in</NavBtnLink>
+              {
+                token ?
+                  <NavBtnLink to="profile"> Profile</NavBtnLink> :
+                  <NavBtnLink to="login"> Sign in</NavBtnLink>
+              }
             </NavBtn>
           </NavMenu>
         </NavbarContainer>
