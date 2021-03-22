@@ -13,6 +13,7 @@ import {
 } from "../../../../configs/actions/task/taskAction";
 import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
 import logo from "../../../../logo.svg"
+import {PaginationButton} from "../../../../components/atoms/Button";
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
@@ -46,14 +47,14 @@ const TasksList = (props) => {
         after: null
     })
 
-    const [pagination, setPagination] = useState({
-        page: 1,
-        size: 10
-    })
+    const [page, setPage] = useState(0)
+    const [size, setSize] = useState(10)
+
+    const totalPage = Math.ceil(props.pageInfo.total/props.pageInfo.size)
 
     useEffect(() => {
-        console.log(filter)
-    }, [filter])
+        onReload()
+    }, [page, size])
 
     useEffect(() => {
         onReload();
@@ -100,16 +101,21 @@ const TasksList = (props) => {
         }
     }, [props.isDelete]);
 
-    const onResult = () => {
-        console.log(filter)
-        onReload()
-    }
-
     const onReload = () => {
-        props.dispatchGetAllTaskAction(pagination, filter);
+        props.dispatchGetAllTaskAction({page: page, size: size}, filter);
         props.dispatchGetAllDestinationsFilterAction();
         props.dispatchGetAllUserFilterAction()
     };
+
+    const handleLimit = (limit) => {
+        setSize(limit)
+        setPage(0)
+    }
+
+    const onSetFilter = () => {
+        setPage(0)
+        onReload()
+    }
 
     const onDelete = (id) => {
         swal({
@@ -169,7 +175,7 @@ const TasksList = (props) => {
                                             users={users} 
                                             dataPriority={dataPriority} 
                                             dataStatus={dataStatus}
-                                            onResult={onReload}
+                                            onResult={onSetFilter}
                                             filter={filter}
                                             setFilter={setFilter}
                                         />
@@ -248,6 +254,13 @@ const TasksList = (props) => {
                             </div>
                         </div>
                     </div>
+                    <PaginationButton
+                        currentPage={page}
+                        setPage={setPage}
+                        totalPage={totalPage}
+                        handleLimit={handleLimit}
+                        size={size}
+                    />
                 </div>
             </div>
         </div>
@@ -265,6 +278,7 @@ const TasksList = (props) => {
 const mapStateToProps = (state) => {
     return {
         listTask: state.getAllTaskReducer.data,
+        pageInfo: state.getAllTaskReducer.pagination,
         isDelete: state.deleteByIdTaskReducer.data,
         listDestinations: state.getAllDestinationsFilterReducer.data,
         listUser: state.getAllUserFilterReducer.data,

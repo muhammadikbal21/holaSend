@@ -73,7 +73,12 @@ function* getAllTaskSaga(action) {
     .then(data => {
         return ({
             type: GET_ALL_TASK_SUCCESS,
-            data: data.list
+            data: data.list,
+            pagination: {
+                size: data.size,
+                total: data.total,
+                page: data.page
+            }
         })
     })
     .catch(e => {
