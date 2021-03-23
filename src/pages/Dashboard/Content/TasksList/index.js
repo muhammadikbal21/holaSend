@@ -14,6 +14,7 @@ import {
 import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
 import logo from "../../../../logo.svg"
 import {PaginationButton} from "../../../../components/atoms/Button";
+import {ButtonGroup} from "reactstrap";
 
 const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
@@ -169,16 +170,18 @@ const TasksList = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            <ExportModal />
-                                            <DropdownFilterTask 
-                                            destinations={destinations} 
-                                            users={users} 
-                                            dataPriority={dataPriority} 
-                                            dataStatus={dataStatus}
-                                            onResult={onSetFilter}
-                                            filter={filter}
-                                            setFilter={setFilter}
-                                        />
+                                            <ButtonGroup>
+                                                <ExportModal />
+                                                <DropdownFilterTask
+                                                    destinations={destinations}
+                                                    users={users}
+                                                    dataPriority={dataPriority}
+                                                    dataStatus={dataStatus}
+                                                    onResult={onSetFilter}
+                                                    filter={filter}
+                                                    setFilter={setFilter}
+                                                />
+                                            </ButtonGroup>
                                         </div>
                                     </div>
                                 </div>
