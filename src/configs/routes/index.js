@@ -19,11 +19,17 @@ const Routes = () => {
           (role == ADMIN || role == STAFF) && token ?
             <Redirect to="/dashboard" /> : <Login />
         )} />
-        <Route path="/register" component={Register} exact />
+
+        <Route path="/register" exact render={() => (
+          (role == ADMIN || role == STAFF) && token ?
+            <Redirect to="/dashboard" /> : <Register />
+        )}/>
+
         <Route path="/dashboard" render={() => (
           (role == ADMIN || role == STAFF) && token ?
             <Dashboard /> : <Redirect to="/login" />
         )} />
+
         <Route path="/" component={Home} exact />
       </Switch>
     </Router>
