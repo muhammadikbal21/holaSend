@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_ALL_USER_FAILURE, GET_ALL_USER_FILTER_FAILURE, GET_ALL_USER_FILTER_REQUEST, GET_ALL_USER_FILTER_SUCCESS, GET_ALL_USER_REQUEST, GET_ALL_USER_SUCCESS, PUT_BY_USERNAME_MAKE_ADMIN_FAILURE, PUT_BY_USERNAME_MAKE_ADMIN_REQUEST, PUT_BY_USERNAME_MAKE_ADMIN_SUCCESS, PUT_BY_USERNAME_MAKE_COURIER_FAILURE, PUT_BY_USERNAME_MAKE_COURIER_REQUEST, PUT_BY_USERNAME_MAKE_COURIER_SUCCESS, PUT_BY_USERNAME_MAKE_DISABLED_REQUEST, PUT_BY_USERNAME_MAKE_DISABLED_SUCCESS, PUT_BY_USERNAME_MAKE_STAFF_FAILURE, PUT_BY_USERNAME_MAKE_STAFF_REQUEST, PUT_BY_USERNAME_MAKE_STAFF_SUCCESS } from "../../constants/user/userConstant";
 import { put, takeLatest } from "@redux-saga/core/effects";
+import pagination from "../pagination";
 
 function* getAllUserFilterSaga(action) {
     let result = yield axios.get('/user/admin-or-staff')
@@ -21,11 +22,19 @@ function* getAllUserFilterSaga(action) {
 }
 
 function* getAllUserSaga(action) {
-    let result = yield axios.get('/user')
+    let parameter = pagination(action)
+    console.log("PARAMETER", parameter)
+
+    let result = yield axios.get(`/user?${parameter}`)
     .then(data => {
         return ({
             type: GET_ALL_USER_SUCCESS,
-            data: data.list
+            data: data.list,
+            pagination: {
+                size: data.size,
+                total: data.total,
+                page: data.page
+            }
         })
     })
     .catch(e => {

@@ -22,6 +22,11 @@ import {
 const initialState = {
     data: null,
     isLoading: false,
+    pagination: {
+        size: null,
+        total: null,
+        page: null
+    },
     error: null
 }
 
@@ -54,11 +59,21 @@ export function getAllUserReducer(state = initialState, action) {
         case GET_ALL_USER_REQUEST:
             return {
                 ...state,
+                pagination: {
+                    size: null,
+                    total: null,
+                    page: null
+                },
                 isLoading: true
             }
         case GET_ALL_USER_SUCCESS:
             return {
                 data: action.data,
+                pagination: {
+                    size: action.pagination.size,
+                    total: action.pagination.total,
+                    page: action.pagination.page
+                },
                 isLoading: false,
                 error: null
             }

@@ -9,10 +9,20 @@ import {
     putByUsernameMakeDisabledAction, 
     putByUsernameMakeStaffAction 
 } from "../../../../configs/actions/user/userAction";
+import {PaginationButton} from "../../../../components/atoms";
 
 const UserManagements = (props) => {
 
     const [users, setUsers] = useState([])
+
+    const [page, setPage] = useState(0)
+    const [size, setSize] = useState(10)
+
+    const totalPage = Math.ceil(props.pageInfo.total/props.pageInfo.size)
+
+    useEffect(() => {
+        onReload()
+    }, [page, size])
 
     useEffect(() => {
         onReload()
@@ -57,7 +67,7 @@ const UserManagements = (props) => {
     }, [props.isAdmin, props.isStaff, props.isCourier, props.isDisability]);
 
     const onReload = () => {
-        props.dispatchGetAllUserAction()
+        props.dispatchGetAllUserAction({page: page, size: size})
     }
 
     const onAdmin = (username) => {
@@ -74,6 +84,17 @@ const UserManagements = (props) => {
 
     const onDisabled = (username) => {
         props.dispatchPutByUsernameMakeDisabledAction(username)
+    }
+
+
+    const handleLimit = (limit) => {
+        setSize(limit)
+        setPage(0)
+    }
+
+    const onSetFilter = () => {
+        setPage(0)
+        onReload()
     }
 
     return (
@@ -163,6 +184,13 @@ const UserManagements = (props) => {
                             </div>
                         </div>
                     </div>
+                    <PaginationButton
+                        currentPage={page}
+                        setPage={setPage}
+                        totalPage={totalPage}
+                        handleLimit={handleLimit}
+                        size={size}
+                    />
                 </div>
             </div>
         </div>
@@ -173,6 +201,7 @@ const UserManagements = (props) => {
 const mapStateToProps = (state) => {
     return {
         listUser: state.getAllUserReducer.data,
+        pageInfo:state.getAllUserReducer.pagination,
         isAdmin: state.putByUsernameMakeAdminReducer.data,
         isStaff: state.putByUsernameMakeStaffReducer.data,
         isCourier: state.putByUsernameMakeCourierReducer.data,

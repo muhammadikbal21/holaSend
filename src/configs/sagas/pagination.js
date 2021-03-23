@@ -2,7 +2,7 @@ const pagination = (action) => {
     let parameter = ''
 
     if (action.pagination.page) {
-        parameter+=`page=${action.pagination.page - 1}`
+        parameter+=`page=${action.pagination.page}`
     }
 
     if (action.pagination.size) {

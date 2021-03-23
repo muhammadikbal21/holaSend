@@ -6,6 +6,7 @@ import {
     PUT_BY_USERNAME_MAKE_DISABLED_REQUEST, 
     PUT_BY_USERNAME_MAKE_STAFF_REQUEST 
 } from "../../constants/user/userConstant";
+import {GET_ALL_TASK_REQUEST} from "../../constants/task/taskConstant";
 
 export function getAllUserFilterAction() {
     return {
@@ -13,9 +14,10 @@ export function getAllUserFilterAction() {
     }
 }
 
-export function getAllUserAction() {
+export function getAllUserAction(pagination) {
     return {
-        type: GET_ALL_USER_REQUEST
+        type: GET_ALL_USER_REQUEST,
+        pagination: pagination
     }
 }
 
