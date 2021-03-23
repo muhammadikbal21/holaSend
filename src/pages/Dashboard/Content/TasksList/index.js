@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import {
-    DropdownFilterTask,
+    DropdownFilterTask, ExportModal,
     ModalView,
 } from "../../../../components/atoms";
 import { getAllDestinationsFilterAction } from "../../../../configs/actions/destinations/destinationsAction";
@@ -169,7 +169,7 @@ const TasksList = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            
+                                            <ExportModal />
                                             <DropdownFilterTask 
                                             destinations={destinations} 
                                             users={users} 

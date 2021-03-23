@@ -8,5 +8,6 @@ import MapView from "./MapView";
 import ModalView from './ModalView'
 import DropdownFilterTask from './DropdownFilter'
 import {Loading} from './Loading'
+import ExportModal from "./ExportModal";
 
-export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask, Loading};
+export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask, Loading, ExportModal};
