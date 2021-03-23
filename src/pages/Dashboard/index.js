@@ -14,15 +14,11 @@ const Dashboard = () => {
     <div>
       <Header />
       <Menu />
-      <Router>
-        <Switch>
-          <Route path="/dashboard/create-task" component={CreateTask} exact />
-          <Route path="/dashboard/tasks-list" component={TasksList} exact />
-          <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
-          <Route path="/dashboard/user-managements" component={UserManagements} exact />
-          <Route path="/dashboard" component={Content} exact/>
-        </Switch>
-      </Router>
+      <Route path="/dashboard/create-task" component={CreateTask} exact />
+      <Route path="/dashboard/tasks-list" component={TasksList} exact />
+      <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
+      <Route path="/dashboard/user-managements" component={UserManagements} exact />
+      <Route path="/dashboard" component={Content} exact />
       <Footer />
     </div>
   );

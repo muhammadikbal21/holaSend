@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import swal from "sweetalert"
+import { Link } from "react-router-dom"
 
 const Menu = () => {
   const [role, setRole] = useState(localStorage.getItem("role"))
@@ -61,16 +62,20 @@ const Menu = () => {
               </a>
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="/dashboard/create-task" className="nav-link">
-                    <i className="fas fa-plus nav-icon" />
-                    <p>New Task</p>
-                  </a>
+                  <Link to="/dashboard/create-task">
+                    <a href="#" className="nav-link">
+                      <i className="fas fa-plus nav-icon" />
+                      <p>New Task</p>
+                    </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="/dashboard/tasks-list" className="nav-link">
-                    <i className="fas fa-list nav-icon" />
-                    <p>Tasks Lists</p>
-                  </a>
+                  <Link to="/dashboard/tasks-list">
+                    <a href="#" className="nav-link">
+                      <i className="fas fa-list nav-icon" />
+                      <p>Tasks Lists</p>
+                    </a>
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -83,10 +88,12 @@ const Menu = () => {
               </a>
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <a href="/dashboard/create-destinations" className="nav-link">
-                    <i className="fas fa-plus nav-icon" />
-                    <p>New Destination</p>
-                  </a>
+                  <Link to="/dashboard/create-destinations">
+                    <a href="#" className="nav-link">
+                      <i className="fas fa-plus nav-icon" />
+                      <p>New Destination</p>
+                    </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a href="#" className="nav-link">
@@ -108,10 +115,12 @@ const Menu = () => {
                     </a>
                     <ul className="nav nav-treeview">
                       <li className="nav-item">
-                        <a href="/dashboard/user-managements" className="nav-link">
-                          <i className="fas fa-users-cog nav-icon" />
-                          <p>User Managements</p>
-                        </a>
+                        <Link to="/dashboard/user-managements">
+                          <a href="#" className="nav-link">
+                            <i className="fas fa-users-cog nav-icon" />
+                            <p>User Managements</p>
+                          </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
