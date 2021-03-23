@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects'
-import { watchGetAllDestinationsFilterSaga, watchPostDestinationsSaga } from './destinations/destinationsSaga';
+import { watchDeleteByIdDestinationskSaga, watchGetAllDestinationsFilterSaga, watchGetAllDestinationsSaga, watchPostDestinationsSaga } from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchRegisterSaga } from './register/registerSaga';
 import { watchDeleteByIdTaskSaga, watchGetAllTaskSaga, watchPostTaskSaga } from './task/taskSaga';
@@ -19,6 +19,8 @@ export default function* rootSaga() {
         watchPutByUsernameMakeAdminSaga(),
         watchPutByUsernameMakeStaffSaga(),
         watchPutByUsernameMakeCourierSaga(),
-        watchPutByUsernameMakeDisabledSaga()
+        watchPutByUsernameMakeDisabledSaga(),
+        watchGetAllDestinationsSaga(),
+        watchDeleteByIdDestinationskSaga()
     ])
 }

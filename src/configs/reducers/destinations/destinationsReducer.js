@@ -1,4 +1,4 @@
-import { GET_ALL_DESTINATIONS_FILTER_FAILURE, GET_ALL_DESTINATIONS_FILTER_REQUEST, GET_ALL_DESTINATIONS_FILTER_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant"
+import { DELETE_BY_ID_DESTINATIONS_FAILURE, DELETE_BY_ID_DESTINATIONS_REQUEST, DELETE_BY_ID_DESTINATIONS_SUCCESS, GET_ALL_DESTINATIONS_FAILURE, GET_ALL_DESTINATIONS_FILTER_FAILURE, GET_ALL_DESTINATIONS_FILTER_REQUEST, GET_ALL_DESTINATIONS_FILTER_SUCCESS, GET_ALL_DESTINATIONS_REQUEST, GET_ALL_DESTINATIONS_SUCCESS, POST_DESTINATIONS_FAILURE, POST_DESTINATIONS_REQUEST, POST_DESTINATIONS_SUCCESS } from "../../constants/destinations/destinationsConstant"
 
 const initialState = {
     data: null,
@@ -54,6 +54,58 @@ export function postDestinationsReducer(state = {...initialState}, action) {
             return {
                 ...state,
                 data: null
+            }
+    }
+}
+
+export function getAllDestinationsReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_DESTINATIONS_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case GET_ALL_DESTINATIONS_SUCCESS:
+            return {
+                data: action.data,
+                isLoading: false,
+                error: null
+            }
+        case GET_ALL_DESTINATIONS_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return state
+    }
+}
+
+export function deleteByIdDestinationsReducer(state = {...initialState, data: false}, action) {
+    switch (action.type) {
+        case DELETE_BY_ID_DESTINATIONS_REQUEST:
+            return {
+                ...state,
+                data: false,
+                isLoading: true
+            }
+        case DELETE_BY_ID_DESTINATIONS_SUCCESS:
+            return { 
+                data: action.data,
+                isLoading: false,
+                error: null
+            }
+        case DELETE_BY_ID_DESTINATIONS_FAILURE:
+            return { 
+                data: false,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return {
+                ...state,
+                data: false
             }
     }
 }

@@ -97,7 +97,7 @@ const TasksList = (props) => {
 
     useEffect(() => {
         if (props.isDelete) {
-            // onReload();
+            onReload();
         }
     }, [props.isDelete]);
 

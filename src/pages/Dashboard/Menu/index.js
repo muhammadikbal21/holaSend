@@ -96,10 +96,12 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">
-                    <i className="fas fa-list nav-icon" />
-                    <p>Destination Lists</p>
-                  </a>
+                  <Link to="/dashboard/destinations-list">
+                    <a href="#" className="nav-link">
+                      <i className="fas fa-list nav-icon" />
+                      <p>Destination Lists</p>
+                    </a>
+                  </Link>
                 </li>
               </ul>
             </li>

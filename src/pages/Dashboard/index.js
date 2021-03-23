@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateDestinations from "./Content/CreateDestinations";
 import CreateTask from "./Content/CreateTask/index";
+import DestinationsList from "./Content/DestinationsList";
 import Content from "./Content/index";
 import TasksList from "./Content/TasksList";
 import UserManagements from "./Content/UserManagements";
@@ -14,6 +15,7 @@ const Dashboard = () => {
     <div>
       <Header />
       <Menu />
+      <Route path="/dashboard/destinations-list" component={DestinationsList} exact />
       <Route path="/dashboard/create-task" component={CreateTask} exact />
       <Route path="/dashboard/tasks-list" component={TasksList} exact />
       <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
