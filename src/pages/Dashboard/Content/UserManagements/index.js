@@ -9,12 +9,11 @@ import {
     putByUsernameMakeDisabledAction, 
     putByUsernameMakeStaffAction 
 } from "../../../../configs/actions/user/userAction";
-import {PaginationButton} from "../../../../components/atoms";
+import {Loading, PaginationButton} from "../../../../components/atoms";
 
 const UserManagements = (props) => {
 
     const [users, setUsers] = useState([])
-
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
 
@@ -38,32 +37,22 @@ const UserManagements = (props) => {
         // jika sukses
         if (props.isAdmin) {
             swal("Confirm Role Success!", "", "success");
-            onReload()
-            console.log("ini admin");
         }
         
         if (props.isStaff) {
             swal("Confirm Role Success!", "", "success");
-            onReload()
-            console.log("ini staff");
         }
         
         if (props.isCourier) {
             swal("Confirm Role Success!", "", "success");
-            onReload()
-            console.log("ini courier");
         }
 
         if (props.isDisability) {
             swal("Confirm Role Success!", "", "success");
-            onReload()
-            console.log("ini disabled", props.isDisability);
         }
-    
-        //  // jika error
-        //  if (props.error) {
-        //   swal("Create Destinations Error!", "", "error");
-        // }
+
+        onReload()
+
     }, [props.isAdmin, props.isStaff, props.isCourier, props.isDisability]);
 
     const onReload = () => {
@@ -86,7 +75,6 @@ const UserManagements = (props) => {
         props.dispatchPutByUsernameMakeDisabledAction(username)
     }
 
-
     const handleLimit = (limit) => {
         setSize(limit)
         setPage(0)
@@ -98,6 +86,7 @@ const UserManagements = (props) => {
     }
 
     return (
+        !props.isLoading ?
         <div className="content-wrapper">
             <div className="content-header">
                 <div className="container-fluid" style={{ marginTop: "50px" }}>
@@ -141,7 +130,7 @@ const UserManagements = (props) => {
                                 </div>
                                 <div
                                     className="card-body table-responsive p-0"
-                                    style={{ height: "60vh" }}
+                                    style={{ height: "52vh" }}
                                 >
                                     <table className="table text-nowrap table-bordered table-head-fixed">
                                         <thead>
@@ -154,7 +143,6 @@ const UserManagements = (props) => {
                                         </thead>
                                         <tbody>
                                             {users.map((e) => (
-
                                                 e.username !== "admin" ? 
                                                 <tr>
                                                     <td>{e.username}</td>
@@ -194,6 +182,14 @@ const UserManagements = (props) => {
                 </div>
             </div>
         </div>
+        :
+        <div className="content-wrapper">
+            <div className="content-header">
+                <div className="container" style={{ marginTop: "50px" }}>
+                    <Loading />
+                </div>
+            </div>
+        </div>
     );
 };
 
@@ -201,16 +197,13 @@ const UserManagements = (props) => {
 const mapStateToProps = (state) => {
     return {
         listUser: state.getAllUserReducer.data,
+        isLoading: state.getAllUserReducer.isLoading,
+        error: state.getAllUserReducer.error,
         pageInfo:state.getAllUserReducer.pagination,
         isAdmin: state.putByUsernameMakeAdminReducer.data,
         isStaff: state.putByUsernameMakeStaffReducer.data,
         isCourier: state.putByUsernameMakeCourierReducer.data,
-        isDisability: state.putByUsernameMakeDisabledReducer.data,
-        // listTask: state.getAllTaskReducer.data,
-        // isDelete: state.deleteByIdTaskReducer.data,
-        // listDestinations: state.getAllDestinationsFilterReducer.data,
-        // isLoading: state.getAllTaskReducer.isLoading,
-        // error: state.getAllTaskReducer.error
+        isDisability: state.putByUsernameMakeDisabledReducer.data
     };
 };
 
@@ -221,8 +214,6 @@ const mapDispatchToProps = {
     dispatchPutByUsernameMakeStaffAction: putByUsernameMakeStaffAction,
     dispatchPutByUsernameMakeCourierAction: putByUsernameMakeCourierAction,
     dispatchPutByUsernameMakeDisabledAction: putByUsernameMakeDisabledAction,
-    // dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
-    // dispatchGetAllDestinationsFilterAction: getAllDestinationsFilterAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManagements);

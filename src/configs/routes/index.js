@@ -4,9 +4,8 @@ import Home from "../../pages";
 import Dashboard from "../../pages/Dashboard";
 import Login from "../../pages/Login";
 import Register from "../../pages/Register";
-
-import TasksList from "../../pages/Dashboard/Content/TasksList";
 import { ADMIN, STAFF } from "../constants/roles/roleConstant";
+import ErrorCommon from "../../pages/Error/ErrorCommon";
 
 const Routes = () => {
   const [token, setToken] = useState(localStorage.getItem("token"))
@@ -31,6 +30,7 @@ const Routes = () => {
         )} />
 
         <Route path="/" component={Home} exact />
+        <Route path="*" component={ErrorCommon} exact />
       </Switch>
     </Router>
   );

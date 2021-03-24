@@ -1,4 +1,4 @@
-import { DELETE_BY_ID_TASK_FAILURE, DELETE_BY_ID_TASK_REQUEST, DELETE_BY_ID_TASK_SUCCESS, GET_ALL_TASK_FAILURE, GET_ALL_TASK_REQUEST, GET_ALL_TASK_SUCCESS, POST_TASK_FAILURE, POST_TASK_REQUEST, POST_TASK_SUCCESS } from "../../constants/task/taskConstant"
+import { DELETE_BY_ID_TASK_FAILURE, DELETE_BY_ID_TASK_REQUEST, DELETE_BY_ID_TASK_SUCCESS, GET_ALL_TASK_FAILURE, GET_ALL_TASK_FINISHED_FAILURE, GET_ALL_TASK_FINISHED_REQUEST, GET_ALL_TASK_FINISHED_SUCCESS, GET_ALL_TASK_REQUEST, GET_ALL_TASK_SUCCESS, GET_ALL_TASK_UNFINISHED_FAILURE, GET_ALL_TASK_UNFINISHED_REQUEST, GET_ALL_TASK_UNFINISHED_SUCCESS, POST_TASK_FAILURE, POST_TASK_REQUEST, POST_TASK_SUCCESS } from "../../constants/task/taskConstant"
 
 const initialState = {
     data: null,
@@ -99,5 +99,75 @@ export function deleteByIdTaskReducer(state = {...initialState, data: false}, ac
                 ...state,
                 data: false
             }
+    }
+}
+
+export function getAllTaskFinishedReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_TASK_FINISHED_REQUEST:
+            return {
+                ...state,
+                data: null,
+                pagination: {
+                    size: null,
+                    total: null,
+                    page: null
+                },
+                isLoading: true
+            }
+        case GET_ALL_TASK_FINISHED_SUCCESS:
+            return {
+                data: action.data,
+                pagination: {
+                    size: action.pagination.size,
+                    total: action.pagination.total,
+                    page: action.pagination.page
+                },
+                isLoading: false,
+                error: null
+            }
+        case GET_ALL_TASK_FINISHED_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return state
+    }
+}
+
+export function getAllTaskUnfinishedReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_TASK_UNFINISHED_REQUEST:
+            return {
+                ...state,
+                data: null,
+                pagination: {
+                    size: null,
+                    total: null,
+                    page: null
+                },
+                isLoading: true
+            }
+        case GET_ALL_TASK_UNFINISHED_SUCCESS:
+            return {
+                data: action.data,
+                pagination: {
+                    size: action.pagination.size,
+                    total: action.pagination.total,
+                    page: action.pagination.page
+                },
+                isLoading: false,
+                error: null
+            }
+        case GET_ALL_TASK_UNFINISHED_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        default:
+            return state
     }
 }

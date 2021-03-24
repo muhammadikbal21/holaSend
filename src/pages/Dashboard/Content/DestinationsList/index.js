@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import swal from 'sweetalert';
-import { deleteByIdDestinationsAction, getAllDestinationsAction } from '../../../../configs/actions/destinations/destinationsAction';
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import swal from "sweetalert";
+import { Loading } from "../../../../components/atoms";
+import {
+    deleteByIdDestinationsAction,
+    getAllDestinationsAction,
+} from "../../../../configs/actions/destinations/destinationsAction";
 
 const DestinationsList = (props) => {
-
     const [destinations, setDestinations] = useState([]);
 
     useEffect(() => {
@@ -14,7 +17,7 @@ const DestinationsList = (props) => {
 
     useEffect(() => {
         if (props.listDestinations) {
-            setDestinations(props.listDestinations)
+            setDestinations(props.listDestinations);
         }
     }, [props.listDestinations]);
 
@@ -25,7 +28,7 @@ const DestinationsList = (props) => {
     }, [props.isDelete]);
 
     const onReload = () => {
-        props.dispatchGetAllDestinationsAction()
+        props.dispatchGetAllDestinationsAction();
     };
 
     const onDelete = (id) => {
@@ -48,6 +51,7 @@ const DestinationsList = (props) => {
     };
 
     return (
+        !props.isLoading ?
         <div className="content-wrapper">
             <div className="content-header">
                 <div className="container-fluid" style={{ marginTop: "50px" }}>
@@ -60,28 +64,25 @@ const DestinationsList = (props) => {
                                 Destinations List
                             </h1>
                         </div>
-                        
                     </div>
                     <div className="row">
-                            <div className="col-12">
-                                <div className="card">
-                                    <div className="card-header">
-                                        <h3
-                                            className="card-title"
-                                            style={{ margin: "1rem" }}
+                        <div className="col-12">
+                            <div className="card">
+                                <div className="card-header">
+                                    <h3
+                                        className="card-title"
+                                        style={{ margin: "1rem" }}
+                                    >
+                                        List of Table
+                                    </h3>
+                                    <div className="card-tools">
+                                        <div
+                                            className="input-group input-group-sm"
+                                            style={{
+                                                margin: "0.5rem",
+                                            }}
                                         >
-                                            List of Table
-                                        </h3>
-                                        <div className="card-tools">
-                                            <div
-                                                className="input-group input-group-sm"
-                                                style={{
-                                                    // width: '150%',
-                                                    margin: "0.5rem",
-                                                }}
-                                            >
-                                                
-                                                {/* <DropdownFilterTask 
+                                            {/* <DropdownFilterTask 
                                                 destinations={destinations} 
                                                 users={users} 
                                                 dataPriority={dataPriority} 
@@ -90,31 +91,28 @@ const DestinationsList = (props) => {
                                                 filter={filter}
                                                 setFilter={setFilter}
                                             /> */}
-                                            </div>
-                                            
                                         </div>
                                     </div>
-                                    <div
-                                        className="card-body table-responsive p-0"
-                                        style={{ height: "60vh" }}
-                                        >
-                                        <table className="table text-nowrap table-bordered table-head-fixed">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Address</th>
-                                                    <th>Longitude</th>
-                                                    <th>Latitude</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                </div>
+                                <div
+                                    className="card-body table-responsive p-0"
+                                    style={{ height: "52vh" }}
+                                >
+                                    <table className="table text-nowrap table-bordered table-head-fixed">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Longitude</th>
+                                                <th>Latitude</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             {destinations.map((e) => (
                                                 <tr>
                                                     <td>{e.name}</td>
-                                                    <td>
-                                                        {e.address}
-                                                    </td>
+                                                    <td>{e.address}</td>
                                                     <td>{e.lon}</td>
                                                     <td>{e.lat}</td>
                                                     <td>
@@ -132,29 +130,33 @@ const DestinationsList = (props) => {
                                                     </td>
                                                 </tr>
                                             ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-            
         </div>
-    )
-}
+        :
+        <div className="content-wrapper">
+            <div className="content-header">
+                <div className="container" style={{ marginTop: "50px" }}>
+                    <Loading />
+                </div>
+            </div>
+        </div>
+    );
+};
 
 // reducer
 const mapStateToProps = (state) => {
     return {
         listDestinations: state.getAllDestinationsReducer.data,
+        isLoading: state.getAllDestinationsReducer.isLoading,
+        error: state.getAllDestinationsReducer.error,
         isDelete: state.deleteByIdDestinationsReducer.data,
-        // listTask: state.getAllTaskReducer.data,
-        // pageInfo: state.getAllTaskReducer.pagination,
-        // listUser: state.getAllUserFilterReducer.data,
-        // isLoading: state.getAllTaskReducer.isLoading,
-        // error: state.getAllTaskReducer.error
     };
 };
 
@@ -162,8 +164,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     dispatchGetAllDestinationsAction: getAllDestinationsAction,
     dispatchDeleteByIdDestinationsAction: deleteByIdDestinationsAction,
-    // dispatchGetAllTaskAction: getAllTaskAction,
-    // dispatchGetAllUserFilterAction: getAllUserFilterAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DestinationsList);

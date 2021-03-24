@@ -1,9 +1,27 @@
 import { all } from 'redux-saga/effects'
-import { watchDeleteByIdDestinationskSaga, watchGetAllDestinationsFilterSaga, watchGetAllDestinationsSaga, watchPostDestinationsSaga } from './destinations/destinationsSaga';
+import { 
+    watchDeleteByIdDestinationskSaga, 
+    watchGetAllDestinationsFilterSaga, 
+    watchGetAllDestinationsSaga, 
+    watchPostDestinationsSaga 
+} from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchRegisterSaga } from './register/registerSaga';
-import { watchDeleteByIdTaskSaga, watchGetAllTaskSaga, watchPostTaskSaga } from './task/taskSaga';
-import { watchGetAllUserFilterSaga, watchGetAllUserSaga, watchPutByUsernameMakeAdminSaga, watchPutByUsernameMakeCourierSaga, watchPutByUsernameMakeDisabledSaga, watchPutByUsernameMakeStaffSaga } from './user/userSaga';
+import { 
+    watchDeleteByIdTaskSaga, 
+    watchGetAllTaskSaga, 
+    watchPostTaskSaga, 
+    watchGetAllTaskFinishedSaga, 
+    watchGetAllTaskUnfinishedSaga
+} from './task/taskSaga';
+import { 
+    watchGetAllUserFilterSaga, 
+    watchGetAllUserSaga, 
+    watchPutByUsernameMakeAdminSaga, 
+    watchPutByUsernameMakeCourierSaga, 
+    watchPutByUsernameMakeDisabledSaga, 
+    watchPutByUsernameMakeStaffSaga 
+} from './user/userSaga';
 
 export default function* rootSaga() {
     yield all([
@@ -21,6 +39,8 @@ export default function* rootSaga() {
         watchPutByUsernameMakeCourierSaga(),
         watchPutByUsernameMakeDisabledSaga(),
         watchGetAllDestinationsSaga(),
-        watchDeleteByIdDestinationskSaga()
+        watchDeleteByIdDestinationskSaga(),
+        watchGetAllTaskFinishedSaga(),
+        watchGetAllTaskUnfinishedSaga()
     ])
 }

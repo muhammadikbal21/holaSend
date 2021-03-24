@@ -1,10 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ErrorDashboard from "../Error/ErrorDashboard";
 import CreateDestinations from "./Content/CreateDestinations";
 import CreateTask from "./Content/CreateTask/index";
 import DestinationsList from "./Content/DestinationsList";
 import Content from "./Content/index";
+import TasksFinished from "./Content/TasksFinished";
 import TasksList from "./Content/TasksList";
+import TasksUnfinished from "./Content/TasksUnfinished";
 import UserManagements from "./Content/UserManagements";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -15,12 +18,15 @@ const Dashboard = () => {
     <div>
       <Header />
       <Menu />
+      <Route path="/dashboard/my-tasks-unfinished" component={TasksUnfinished} exact />
+      <Route path="/dashboard/my-tasks-finished" component={TasksFinished} exact />
       <Route path="/dashboard/destinations-list" component={DestinationsList} exact />
       <Route path="/dashboard/create-task" component={CreateTask} exact />
-      <Route path="/dashboard/tasks-list" component={TasksList} exact />
+      <Route path="/dashboard/tasks-report" component={TasksList} exact />
       <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
       <Route path="/dashboard/user-managements" component={UserManagements} exact />
       <Route path="/dashboard" component={Content} exact />
+      <Route path="/dashboard/*" component={ErrorDashboard} exact />
       <Footer />
     </div>
   );

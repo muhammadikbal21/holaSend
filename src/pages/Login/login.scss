@@ -1,29 +1,29 @@
-.main-page{
+.main-page-login{
     display: flex;
     height: 100vh; //vh (viewport height), tingginya sesuai dengan tinggi screen yang kita lihat
     box-sizing: border-box;
     overflow: hidden; 
 }
 
-.left{
+.left-login{
     flex: 1;
     background-color: white;
-    .left-bg{
+    .left-bg-login{
         width: 120%;
         height: 100%;
         object-fit: contain;
     }
 }
 
-.right{
-    width: 700px;
+.right-login{
+    width: 460px;
     background-color: white;
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    .title{
+    .title-login{
         font-size: 20px;
         font-weight: bold;
         color: #2d2d2d;

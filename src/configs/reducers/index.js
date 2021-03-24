@@ -7,7 +7,13 @@ import {
     getAllDestinationsReducer,
     deleteByIdDestinationsReducer
  } from "./destinations/destinationsReducer"
-import { postTaskReducer, getAllTaskReducer, deleteByIdTaskReducer } from "./task/taskReducer"
+import { 
+    postTaskReducer, 
+    getAllTaskReducer, 
+    deleteByIdTaskReducer, 
+    getAllTaskFinishedReducer,
+    getAllTaskUnfinishedReducer
+} from "./task/taskReducer"
 import { 
     getAllUserFilterReducer, 
     getAllUserReducer, 
@@ -32,7 +38,9 @@ const rootReducer = combineReducers({
     putByUsernameMakeCourierReducer,
     putByUsernameMakeDisabledReducer,
     getAllDestinationsReducer,
-    deleteByIdDestinationsReducer
+    deleteByIdDestinationsReducer,
+    getAllTaskFinishedReducer,
+    getAllTaskUnfinishedReducer
 })
 
 export default rootReducer

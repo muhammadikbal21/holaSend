@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { RegisterBg } from '../../assets';
-import { Button, DropdownList, Gap, Input, Link } from '../../components/atoms';
+import { Button, DropdownList, Gap, Input, Link, Loading } from '../../components/atoms';
 import './register.scss';
 import {useHistory} from 'react-router-dom'
 import swal from 'sweetalert';
 import { registerAction } from '../../configs/actions/register/registerAction'
 import { connect } from 'react-redux';
+import { Container } from 'react-bootstrap';
 
 const Register = (props) => {
 
@@ -35,8 +36,13 @@ const Register = (props) => {
             swal("Registration Success!", "", "success");
             history.push('/login')
         }
+
+        // jika login error
+        if (props.error) {
+            swal("Registration Error!", `${props.error.message}`, "error");
+        }
         
-    }, [props.data])
+    }, [props.data, props.error])
 
     // clear error message
     useEffect(() => {
@@ -91,6 +97,9 @@ const Register = (props) => {
         let identityCategoryError = "";
         let identificationNumberError = "";
         let contactNumberError = "";
+        const usernameRegex = /[a-z0-9]{6,20}$/
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 
         if (!firstname) {
             firstnameError = "Firstname must not blank!"
@@ -100,16 +109,18 @@ const Register = (props) => {
             lastnameError = "Lastname must not blank!"
         }
 
-        if (!email.includes("@")) {
+        if (!email.match(emailRegex)) {
             emailError = "Invalid Email!"
         }
 
-        if (username.length < 6) {
+        if (!username.match(usernameRegex)) {
             usernameError = "Username must be more than 6 characters!";
         }
         
         if (password.length < 8) {
-            passwordError = "Password must be more than 8 characters! (include capital letters and numbers)";
+            passwordError = "Password must be more than 8 characters!";
+        } else if (!password.match(passwordRegex)) {
+            passwordError = "Password must contain capital letters and numbers";
         }
 
         if (!identityCategory) {
@@ -159,48 +170,67 @@ const Register = (props) => {
                 <img src={RegisterBg} className="left-bg" alt="ilustrator" />
             </div>
             <div className="right">
-                <p className="title">Register</p>
-                <Gap height={10} />
-                <Input label="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{firstnameError}</div>
-                <Input label="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{lastnameError}</div>
-                <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
-                <Gap height={10} />
-                <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
-                <Gap height={10} />
-                <Input label="Password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{passwordError}</div>
-                <Gap height={10} />
-                <DropdownList
-                    label="Identity Category"
-                    data={[
-                        {value: "KTP", label: "KTP"},
-                        {value: "SIM", label: "SIM"},
-                        {value: "PASSPORT", label: "PASSPORT"}
-                    ]}
-                    value={identityCategory}
-                    placeholder="Select Identity"
-                    handleDropdown={handleDropdown}
-                />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{identityCategoryError}</div>
-                <Input label="Identification Number" value={identificationNumber} onChange={(e) => setIdentificationNumber(e.target.value)} placeholder="Identification Number" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{identificationNumberError}</div>
-                <Input label="Contact Number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Contact Number" />
-                <Gap height={10} />
-                <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
-                <Button title="Register" onClick={() => onSubmit()} />
-                <Gap height={100} />
-                <Link title="Back to Login" onClick={() => history.push('/login')} />
+                    <Container
+                        className="container"
+                        error={props.error}
+                        loading={props.loading}
+                        style={{ marginTop: "50px" }}
+                    >
+                        <p className="title">Register</p>
+                        <div class="row">
+                            <div class="col">
+                                <Gap height={10} />
+                                <Input label="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{firstnameError}</div>
+                                <Gap height={20} />
+                                <Input label="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{lastnameError}</div>
+                                <Gap height={20} />
+                                <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
+                                <Gap height={20} />
+                                <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
+                            </div>
+                            <div class="col">
+                                <Gap height={10} />
+                                <Input label="Password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+                                <Gap height={27} />
+                                <div style={{fontSize: 12, color: "red"}}>{passwordError}</div>
+                                <Gap height={5} />
+                                <DropdownList
+                                    label="Identity Category"
+                                    data={[
+                                        {value: "KTP", label: "KTP"},
+                                        {value: "SIM", label: "SIM"},
+                                        {value: "PASSPORT", label: "PASSPORT"}
+                                    ]}
+                                    value={identityCategory}
+                                    placeholder="Select Identity"
+                                    handleDropdown={handleDropdown}
+                                />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{identityCategoryError}</div>
+                                <Gap height={30} />
+                                <Input label="Identification Number" value={identificationNumber} onChange={(e) => setIdentificationNumber(e.target.value)} placeholder="Identification Number" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{identificationNumberError}</div>
+                                <Gap height={20} />
+                                <Input label="Contact Number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Contact Number" />
+                                <Gap height={10} />
+                                <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
+                            </div>
+                        </div>
+                    <Gap height={10} />
+                    <Button title="Register" onClick={() => onSubmit()} />
+                    <Gap height={100} />
+                    <Link title="Back to Login" onClick={() => history.push('/login')} />
+                    {props.isLoading ? <Loading /> : null}
+                </Container>
             </div>
         </div>
     );

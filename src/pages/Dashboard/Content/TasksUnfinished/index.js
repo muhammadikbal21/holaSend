@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { connect } from "react-redux";
-import swal from "sweetalert";
-import {
-    DropdownFilterTask, ExportModal,
-    Loading,
-    ModalView,
-} from "../../../../components/atoms";
-import { getAllDestinationsFilterAction } from "../../../../configs/actions/destinations/destinationsAction";
-import {
-    deleteByIdTaskAction,
-    getAllTaskAction,
-} from "../../../../configs/actions/task/taskAction";
-import { getAllUserFilterAction } from "../../../../configs/actions/user/userAction";
-import {PaginationButton} from "../../../../components/atoms/Button";
-import {ButtonGroup} from "reactstrap";
+import React, { useEffect, useState } from 'react'
+import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { ButtonGroup } from 'reactstrap';
+import swal from 'sweetalert';
+import { DropdownFilterTask, ExportModal, Loading, ModalView, PaginationButton } from '../../../../components/atoms';
+import { getAllDestinationsFilterAction } from '../../../../configs/actions/destinations/destinationsAction';
+import { deleteByIdTaskAction, getAllTaskUnfinishedAction } from '../../../../configs/actions/task/taskAction';
+import { getAllUserFilterAction } from '../../../../configs/actions/user/userAction';
 
-const TasksList = (props) => {
+const TasksUnfinished = (props) => {
 
     const [tasks, setTasks] = useState([]);
     const [destinations] = useState([
@@ -39,6 +31,7 @@ const TasksList = (props) => {
         { value: "PICKUP", label: "PICKUP" },
         { value: "DELIVERED", label: "DELIVERED" },
     ])
+
     const [filter, setFilter] = useState({
         status: null,
         destinationId: null,
@@ -47,6 +40,7 @@ const TasksList = (props) => {
         before: null,
         after: null
     })
+
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
 
@@ -101,7 +95,7 @@ const TasksList = (props) => {
     }, [props.isDelete]);
 
     const onReload = () => {
-        props.dispatchGetAllTaskAction({page: page, size: size}, filter);
+        props.dispatchGetAllTaskUnfinishedAction({page: page, size: size}, filter);
         props.dispatchGetAllDestinationsFilterAction();
         props.dispatchGetAllUserFilterAction()
     };
@@ -146,7 +140,7 @@ const TasksList = (props) => {
                                 className="m-0 text-dark"
                                 style={{ paddingLeft: "35px" }}
                             >
-                                Tasks Report
+                                Tasks Unfinished
                             </h1>
                         </div>
                     </div>
@@ -269,28 +263,28 @@ const TasksList = (props) => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 // reducer
 const mapStateToProps = (state) => {
     return {
-        listTask: state.getAllTaskReducer.data,
-        isLoading: state.getAllTaskReducer.isLoading,
-        error: state.getAllTaskReducer.error,
-        pageInfo: state.getAllTaskReducer.pagination,
-        isDelete: state.deleteByIdTaskReducer.data,
+        listTask: state.getAllTaskUnfinishedReducer.data,
+        pageInfo: state.getAllTaskUnfinishedReducer.pagination,
         listDestinations: state.getAllDestinationsFilterReducer.data,
         listUser: state.getAllUserFilterReducer.data,
+        isLoading: state.getAllTaskUnfinishedReducer.isLoading,
+        error: state.getAllTaskUnfinishedReducer.error,
+        isDelete: state.deleteByIdTaskReducer.data,
     };
 };
 
 // action
 const mapDispatchToProps = {
-    dispatchGetAllTaskAction: getAllTaskAction,
-    dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
+    dispatchGetAllTaskUnfinishedAction: getAllTaskUnfinishedAction,
     dispatchGetAllDestinationsFilterAction: getAllDestinationsFilterAction,
     dispatchGetAllUserFilterAction: getAllUserFilterAction,
+    dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TasksList);
+export default connect(mapStateToProps, mapDispatchToProps)(TasksUnfinished);
