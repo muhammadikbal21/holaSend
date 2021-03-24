@@ -8,8 +8,8 @@ import { ADMIN, STAFF } from "../constants/roles/roleConstant";
 import ErrorCommon from "../../pages/Error/ErrorCommon";
 
 const Routes = () => {
-  const [token, setToken] = useState(localStorage.getItem("token"))
-  const [role, setRole] = useState(localStorage.getItem("role"))
+  const [token] = useState(localStorage.getItem("token"))
+  const [role] = useState(localStorage.getItem("role"))
 
   return (
     <Router>

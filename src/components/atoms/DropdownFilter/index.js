@@ -44,7 +44,6 @@ const DropdownFilterTask = ({destinations, users, dataPriority, dataStatus, onRe
                     <Modal.Title>Filter</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <p style={{fontWeight: 'bold'}}>before after</p> */}
                     <p style={{fontWeight: 'bold'}}>Destination</p>
                     <ButtonGroup toggle style={toggleStyle}>
                         {destinations.map((item) => (

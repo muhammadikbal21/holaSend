@@ -27,9 +27,6 @@ const InfoSection = ({
   alt,
   lightText,
   darkText,
-  primary,
-  buttonLabel,
-  dark,
 }) => {
   return (
     <InfoContainer lightBg={lightBg} id={id}>

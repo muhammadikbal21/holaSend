@@ -6,7 +6,6 @@ import {
     PUT_BY_USERNAME_MAKE_DISABLED_REQUEST, 
     PUT_BY_USERNAME_MAKE_STAFF_REQUEST 
 } from "../../constants/user/userConstant";
-import {GET_ALL_TASK_REQUEST} from "../../constants/task/taskConstant";
 
 export function getAllUserFilterAction() {
     return {

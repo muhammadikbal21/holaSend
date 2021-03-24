@@ -7,8 +7,8 @@ const Menu = () => {
 
   const handleLogout = (e) => {
     swal({
-      title: "Logout?",
-      text: "Are you sure want to logout now?",
+      title: "Log Out?",
+      text: "Are you sure want to log out now?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -72,7 +72,7 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/dashboard/my-tasks-unfinished">
+                  <Link to="/dashboard/tasks-unfinished">
                     <a href="#" className="nav-link">
                       <i className="fas fa-spinner nav-icon" />
                       <p>Tasks Unfinished</p>
@@ -80,7 +80,7 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/dashboard/my-tasks-finished">
+                  <Link to="/dashboard/tasks-finished">
                     <a href="#" className="nav-link">
                       <i className="fas fa-check-square nav-icon" />
                       <p>Tasks Finished</p>
@@ -160,7 +160,7 @@ const Menu = () => {
               <a href="#" className="nav-link active" style={{ backgroundColor: '#536DFE' }}>
                 <i className="nav-icon fas fa-sign-out-alt" />
                 <p>
-                  Logout
+                  Log Out
                 </p>
               </a>
             </li>

@@ -22,7 +22,6 @@ export function deleteByIdTaskAction(id) {
     }
 }
 
-// export function getAllTaskFinishedAction() {
 export function getAllTaskFinishedAction(pagination, search) {
     return {
         type: GET_ALL_TASK_FINISHED_REQUEST,
@@ -31,7 +30,6 @@ export function getAllTaskFinishedAction(pagination, search) {
     }
 } 
 
-// export function getAllTaskUnfinishedAction() {
 export function getAllTaskUnfinishedAction(pagination, search) {
     return {
         type: GET_ALL_TASK_UNFINISHED_REQUEST,

@@ -23,9 +23,8 @@ function* getAllUserFilterSaga(action) {
 
 function* getAllUserSaga(action) {
     let parameter = pagination(action)
-    console.log("PARAMETER", parameter)
-
     let result = yield axios.get(`/user?${parameter}`)
+    
     .then(data => {
         return ({
             type: GET_ALL_USER_SUCCESS,

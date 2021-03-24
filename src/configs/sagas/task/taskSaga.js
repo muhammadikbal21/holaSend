@@ -161,8 +161,7 @@ function* getAllTaskFinishedSaga(action) {
     }
 
     parameter = parameter.replace(/\s+/g, '+')
-    let result = yield axios.get(`/task/my-task/finished?${parameter}`)
-    // let result = yield axios.get('/task/my-task/finished')
+    let result = yield axios.get(`/task/my-request/finished?${parameter}`)
     .then(data => {
         return ({
             type: GET_ALL_TASK_FINISHED_SUCCESS,
@@ -230,8 +229,7 @@ function* getAllTaskUnfinishedSaga(action) {
     }
 
     parameter = parameter.replace(/\s+/g, '+')
-    let result = yield axios.get(`/task/my-task/unfinished?${parameter}`)
-    // let result = yield axios.get('/task/my-task/unfinished')
+    let result = yield axios.get(`/task/my-request/unfinished?${parameter}`)
     .then(data => {
         return ({
             type: GET_ALL_TASK_UNFINISHED_SUCCESS,

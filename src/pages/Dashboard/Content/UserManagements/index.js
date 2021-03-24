@@ -17,7 +17,7 @@ const UserManagements = (props) => {
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
 
-    const totalPage = Math.ceil(props.pageInfo.total/props.pageInfo.size)
+    const totalPage = Math.ceil(props.pageInfo.total / props.pageInfo.size)
 
     useEffect(() => {
         onReload()

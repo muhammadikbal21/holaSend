@@ -18,15 +18,17 @@ const Dashboard = () => {
     <div>
       <Header />
       <Menu />
-      <Route path="/dashboard/my-tasks-unfinished" component={TasksUnfinished} exact />
-      <Route path="/dashboard/my-tasks-finished" component={TasksFinished} exact />
-      <Route path="/dashboard/destinations-list" component={DestinationsList} exact />
-      <Route path="/dashboard/create-task" component={CreateTask} exact />
-      <Route path="/dashboard/tasks-report" component={TasksList} exact />
-      <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
-      <Route path="/dashboard/user-managements" component={UserManagements} exact />
-      <Route path="/dashboard" component={Content} exact />
-      <Route path="/dashboard/*" component={ErrorDashboard} exact />
+        <Switch>
+          <Route path="/dashboard/tasks-unfinished" component={TasksUnfinished} exact />
+          <Route path="/dashboard/tasks-finished" component={TasksFinished} exact />
+          <Route path="/dashboard/destinations-list" component={DestinationsList} exact />
+          <Route path="/dashboard/create-task" component={CreateTask} exact />
+          <Route path="/dashboard/tasks-report" component={TasksList} exact />
+          <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
+          <Route path="/dashboard/user-managements" component={UserManagements} exact />
+          <Route path="/dashboard" component={Content} exact />
+          <Route path="/dashboard/*" component={ErrorDashboard} exact />
+        </Switch>
       <Footer />
     </div>
   );
