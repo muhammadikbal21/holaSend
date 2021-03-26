@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import { Loading } from "../../../../components/atoms";
+import { Loading, PaginationButton } from "../../../../components/atoms";
 import {
     deleteByIdDestinationsAction,
     getAllDestinationsAction,
@@ -10,6 +10,14 @@ import {
 
 const DestinationsList = (props) => {
     const [destinations, setDestinations] = useState([]);
+    const [page, setPage] = useState(0)
+    const [size, setSize] = useState(10)
+
+    const totalPage = Math.ceil(props.pageInfo.total / props.pageInfo.size)
+
+    useEffect(() => {
+        onReload()
+    }, [page, size])
 
     useEffect(() => {
         onReload();
@@ -28,8 +36,13 @@ const DestinationsList = (props) => {
     }, [props.isDelete]);
 
     const onReload = () => {
-        props.dispatchGetAllDestinationsAction();
+        props.dispatchGetAllDestinationsAction({page: page, size: size});
     };
+
+    const handleLimit = (limit) => {
+        setSize(limit)
+        setPage(0)
+    }
 
     const onDelete = (id) => {
         swal({
@@ -82,15 +95,6 @@ const DestinationsList = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            {/* <DropdownFilterTask 
-                                                destinations={destinations} 
-                                                users={users} 
-                                                dataPriority={dataPriority} 
-                                                dataStatus={dataStatus}
-                                                onResult={onSetFilter}
-                                                filter={filter}
-                                                setFilter={setFilter}
-                                            /> */}
                                         </div>
                                     </div>
                                 </div>
@@ -136,6 +140,13 @@ const DestinationsList = (props) => {
                             </div>
                         </div>
                     </div>
+                    <PaginationButton
+                        currentPage={page}
+                        setPage={setPage}
+                        totalPage={totalPage}
+                        handleLimit={handleLimit}
+                        size={size}
+                    />
                 </div>
             </div>
         </div>
@@ -156,6 +167,7 @@ const mapStateToProps = (state) => {
         listDestinations: state.getAllDestinationsReducer.data,
         isLoading: state.getAllDestinationsReducer.isLoading,
         error: state.getAllDestinationsReducer.error,
+        pageInfo: state.getAllDestinationsReducer.pagination,
         isDelete: state.deleteByIdDestinationsReducer.data,
     };
 };

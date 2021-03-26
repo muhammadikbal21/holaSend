@@ -18,9 +18,10 @@ export function postDestinationsAction(model) {
     }
 }
 
-export function getAllDestinationsAction() {
+export function getAllDestinationsAction(pagination) {
     return {
-        type: GET_ALL_DESTINATIONS_REQUEST
+        type: GET_ALL_DESTINATIONS_REQUEST,
+        pagination: pagination,
     }
 }
 

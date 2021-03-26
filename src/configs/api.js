@@ -1,6 +1,7 @@
 const axios = require('axios')
 
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + (localStorage.getItem('token') != null ? localStorage.getItem('token') : "")
+axios.defaults.timeout = 10_000;
 
 axios.interceptors.response.use(function (response) {
     console.log(response);

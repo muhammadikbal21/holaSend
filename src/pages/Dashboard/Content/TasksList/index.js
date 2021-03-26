@@ -177,6 +177,7 @@ const TasksList = (props) => {
                                                     onResult={onSetFilter}
                                                     filter={filter}
                                                     setFilter={setFilter}
+                                                    task={true}
                                                 />
                                             </ButtonGroup>
                                         </div>

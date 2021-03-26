@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { ButtonGroup } from 'reactstrap';
 import swal from 'sweetalert';
-import { DropdownFilterTask, ExportModal, Loading, ModalView, PaginationButton } from '../../../../components/atoms';
+import { DropdownFilterTask, Loading, ModalView, PaginationButton } from '../../../../components/atoms';
 import { getAllDestinationsFilterAction } from '../../../../configs/actions/destinations/destinationsAction';
 import { deleteByIdTaskAction, getAllTaskFinishedAction } from '../../../../configs/actions/task/taskAction';
 import { getAllUserFilterAction } from '../../../../configs/actions/user/userAction';
@@ -161,18 +160,14 @@ const TasksFinished = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            <ButtonGroup>
-                                                <ExportModal />
-                                                <DropdownFilterTask
-                                                    destinations={destinations}
-                                                    users={users}
-                                                    dataPriority={dataPriority}
-                                                    dataStatus={dataStatus}
-                                                    onResult={onSetFilter}
-                                                    filter={filter}
-                                                    setFilter={setFilter}
-                                                />
-                                            </ButtonGroup>
+                                            <DropdownFilterTask
+                                                destinations={destinations}
+                                                dataPriority={dataPriority}
+                                                onResult={onSetFilter}
+                                                filter={filter}
+                                                setFilter={setFilter}
+                                                task={true}
+                                            />
                                         </div>
                                     </div>
                                 </div>

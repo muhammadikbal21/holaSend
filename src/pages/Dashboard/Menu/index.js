@@ -3,7 +3,8 @@ import swal from "sweetalert"
 import { Link } from "react-router-dom"
 
 const Menu = () => {
-  const [role, setRole] = useState(localStorage.getItem("role"))
+  const [role] = useState(localStorage.getItem("role"))
+  const [username] = useState(localStorage.getItem("username"))
 
   const handleLogout = (e) => {
     swal({
@@ -17,6 +18,7 @@ const Menu = () => {
         if (logout) {
           localStorage.removeItem("token")
           localStorage.removeItem("role")
+          localStorage.removeItem("username")
           window.location.href = "/"
         }
       });
@@ -41,7 +43,7 @@ const Menu = () => {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="info">
             <a className="d-block">
-              &nbsp; ADMIN
+              &nbsp; {username}
             </a>
           </div>
         </div>

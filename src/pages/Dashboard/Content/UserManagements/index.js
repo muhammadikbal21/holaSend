@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import { 
@@ -9,11 +9,22 @@ import {
     putByUsernameMakeDisabledAction, 
     putByUsernameMakeStaffAction 
 } from "../../../../configs/actions/user/userAction";
-import {Loading, PaginationButton} from "../../../../components/atoms";
+import {DropdownFilterRole, Loading, PaginationButton} from "../../../../components/atoms";
 
 const UserManagements = (props) => {
 
     const [users, setUsers] = useState([])
+    const [filter, setFilter] = useState({
+        role: null
+    })
+    const [dataRole, setDataRole] = useState([
+        { value: null, label: "ALL" },
+        { value: "ADMIN", label: "ADMIN" },
+        { value: "STAFF", label: "STAFF" },
+        { value: "COURIER", label: "COURIER" },
+        { value: "UNASSIGNED", label: "UNASSIGNED" },
+        { value: "DISABLED", label: "DISABLED" },
+    ])
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
 
@@ -56,7 +67,7 @@ const UserManagements = (props) => {
     }, [props.isAdmin, props.isStaff, props.isCourier, props.isDisability]);
 
     const onReload = () => {
-        props.dispatchGetAllUserAction({page: page, size: size})
+        props.dispatchGetAllUserAction({page: page, size: size}, filter)
     }
 
     const onAdmin = (username) => {
@@ -117,14 +128,12 @@ const UserManagements = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            
-                                            {/* <DropdownFilterTask 
-                                            destinations={destinations} 
-                                            users={users} 
-                                            dataPriority={dataPriority} 
-                                            dataStatus={dataStatus} 
-                                            onReload={onResult}
-                                        /> */}
+                                            <DropdownFilterRole
+                                            dataRole={dataRole} 
+                                            onResult={onSetFilter}
+                                            filter={filter}
+                                            setFilter={setFilter}
+                                        />
                                         </div>
                                     </div>
                                 </div>
@@ -143,28 +152,35 @@ const UserManagements = (props) => {
                                         </thead>
                                         <tbody>
                                             {users.map((e) => (
-                                                e.username !== "admin" ? 
                                                 <tr>
                                                     <td>{e.username}</td>
                                                     <td>{e.email}</td>
                                                     <td>{e.role}</td>
-                                                    <td>
-                                                        <DropdownButton id="dropdown-basic-button" title="Confirm Role as">
-                                                            <Dropdown.Item onClick={() => {
-                                                                onAdmin(e.username)
-                                                            }}>ADMIN</Dropdown.Item>
-                                                            <Dropdown.Item onClick={() => {
-                                                                onStaff(e.username)
-                                                            }}>STAFF</Dropdown.Item>
-                                                            <Dropdown.Item  onClick={() => {
-                                                                onCourier(e.username)
-                                                            }}>COURIER</Dropdown.Item>
-                                                            <Dropdown.Item  onClick={() => {
-                                                                onDisabled(e.username)
-                                                            }}>DISABLED</Dropdown.Item>
-                                                        </DropdownButton>
-                                                    </td>
-                                                </tr> : null
+                                                    {
+                                                        e.username !== localStorage.getItem("username") ? 
+                                                        <td>
+                                                            <DropdownButton id="dropdown-basic-button" title="Confirm Role as">
+                                                                <Dropdown.Item onClick={() => {
+                                                                    onAdmin(e.username)
+                                                                }}>ADMIN</Dropdown.Item>
+                                                                <Dropdown.Item onClick={() => {
+                                                                    onStaff(e.username)
+                                                                }}>STAFF</Dropdown.Item>
+                                                                <Dropdown.Item  onClick={() => {
+                                                                    onCourier(e.username)
+                                                                }}>COURIER</Dropdown.Item>
+                                                                <Dropdown.Item  onClick={() => {
+                                                                    onDisabled(e.username)
+                                                                }}>DISABLED</Dropdown.Item>
+                                                            </DropdownButton>
+                                                        </td> : 
+                                                        <td>
+                                                        <Button disabled>
+                                                            CURRENT USER
+                                                        </Button>
+                                                        </td>
+                                                    }
+                                                </tr>
                                             ))}
                                         </tbody>
                                     </table>

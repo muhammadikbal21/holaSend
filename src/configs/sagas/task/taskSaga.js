@@ -184,61 +184,11 @@ function* getAllTaskFinishedSaga(action) {
 }
 
 function* getAllTaskUnfinishedSaga(action) {
-    let parameter = pagination(action)
-
-    if (action.search.status){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`status=${action.search.status}`
-    }
-
-    if (action.search.destinationId){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`destinationId=${action.search.destinationId}`
-    }
-
-    if (action.search.requestById){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`requestById=${action.search.requestById}`
-    }
-
-    if (action.search.priority){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`priority=${action.search.priority}`
-    }
-
-    if (action.search.before){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`before=${action.search.before}`
-    }
-
-    if (action.search.after){
-        if (parameter.length > 0) {
-            parameter+="&"
-        }
-        parameter+=`after=${action.search.after}`
-    }
-
-    parameter = parameter.replace(/\s+/g, '+')
-    let result = yield axios.get(`/task/my-request/unfinished?${parameter}`)
+    let result = yield axios.get("/task/my-request/unfinished")
     .then(data => {
         return ({
             type: GET_ALL_TASK_UNFINISHED_SUCCESS,
-            data: data,
-            pagination: {
-                size: data.size,
-                total: data.total,
-                page: data.page
-            }
+            data: data
         })
     })
     .catch(e => {

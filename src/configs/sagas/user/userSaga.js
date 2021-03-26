@@ -23,6 +23,14 @@ function* getAllUserFilterSaga(action) {
 
 function* getAllUserSaga(action) {
     let parameter = pagination(action)
+
+    if (action.filter.role){
+        if (parameter.length > 0) {
+            parameter+="&"
+        }
+        parameter+=`role=${action.filter.role}`
+    }
+    
     let result = yield axios.get(`/user?${parameter}`)
     
     .then(data => {

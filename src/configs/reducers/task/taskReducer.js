@@ -143,21 +143,11 @@ export function getAllTaskUnfinishedReducer(state = initialState, action) {
             return {
                 ...state,
                 data: null,
-                pagination: {
-                    size: null,
-                    total: null,
-                    page: null
-                },
                 isLoading: true
             }
         case GET_ALL_TASK_UNFINISHED_SUCCESS:
             return {
                 data: action.data,
-                pagination: {
-                    size: action.pagination.size,
-                    total: action.pagination.total,
-                    page: action.pagination.page
-                },
                 isLoading: false,
                 error: null
             }

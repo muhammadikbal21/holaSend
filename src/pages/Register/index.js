@@ -225,9 +225,9 @@ const Register = (props) => {
                                 <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
                             </div>
                         </div>
-                    <Gap height={10} />
+                    <Gap height={20} />
                     <Button title="Register" onClick={() => onSubmit()} />
-                    <Gap height={100} />
+                    <Gap height={30} />
                     <Link title="Back to Login" onClick={() => history.push('/login')} />
                     {props.isLoading ? <Loading /> : null}
                 </Container>

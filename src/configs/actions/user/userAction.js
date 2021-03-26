@@ -13,10 +13,11 @@ export function getAllUserFilterAction() {
     }
 }
 
-export function getAllUserAction(pagination) {
+export function getAllUserAction(pagination, filter) {
     return {
         type: GET_ALL_USER_REQUEST,
-        pagination: pagination
+        pagination: pagination,
+        filter: filter
     }
 }
 

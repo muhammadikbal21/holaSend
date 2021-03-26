@@ -1,92 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { ButtonGroup } from 'reactstrap';
 import swal from 'sweetalert';
-import { DropdownFilterTask, ExportModal, Loading, ModalView, PaginationButton } from '../../../../components/atoms';
-import { getAllDestinationsFilterAction } from '../../../../configs/actions/destinations/destinationsAction';
+import { Loading, ModalView } from '../../../../components/atoms';
 import { deleteByIdTaskAction, getAllTaskUnfinishedAction } from '../../../../configs/actions/task/taskAction';
-import { getAllUserFilterAction } from '../../../../configs/actions/user/userAction';
 
 const TasksUnfinished = (props) => {
 
     const [tasks, setTasks] = useState([]);
-    const [destinations] = useState([
-        { value: null, label: 'All'}
-    ])
-    const [users] = useState([
-        { value: null, label: 'All'}
-    ])
     const [error, setError] = useState(null)
-    const [dataPriority] = useState([
-        { value: null, label: "ALL" },
-        { value: "HIGH", label: "HIGH" },
-        { value: "MEDIUM", label: "MEDIUM" },
-        { value: "LOW", label: "LOW" },
-    ])
-    const [dataStatus] = useState([
-        { value: null, label: "ALL" },
-        { value: "WAITING", label: "WAITING" },
-        { value: "ASSIGNED", label: "ASSIGNED" },
-        { value: "PICKUP", label: "PICKUP" },
-        { value: "DELIVERED", label: "DELIVERED" },
-    ])
-
-    const [filter, setFilter] = useState({
-        status: null,
-        destinationId: null,
-        requestById: null,
-        priority: null,
-        before: null,
-        after: null
-    })
-
-    const [page, setPage] = useState(0)
-    const [size, setSize] = useState(10)
-
-    const totalPage = Math.ceil(props.pageInfo.total / props.pageInfo.size)
-
-    useEffect(() => {
-        onReload()
-    }, [page, size])
-
+    
     useEffect(() => {
         onReload();
     }, []);
 
     useEffect(() => {
-        if (props.listDestinations) {
-            if (destinations.length === 1) {
-                props.listDestinations.map(
-                    destination => {
-                        destinations.push({
-                            value: destination.id,
-                            label: destination.name
-                        })
-                    }
-                )
-            }
-        }
-        if (props.listUser) {
-            if (users.length === 1) {
-                props.listUser.map(
-                    user => users.push({
-                        value: user.id,
-                        label: user.username
-                    })
-                )
-            }
-        }
         if (props.listTask) {
             setTasks(props.listTask);
         }
-    }, [props.listDestinations, props.listUser, props.listTask]);
 
-    useEffect(() => {
         if (props.error) {
             setError(props.error)
         }
-    }, [props.error]);
+    }, [props.error, props.listTask]);
 
     useEffect(() => {
         if (props.isDelete) {
@@ -95,20 +31,8 @@ const TasksUnfinished = (props) => {
     }, [props.isDelete]);
 
     const onReload = () => {
-        props.dispatchGetAllTaskUnfinishedAction({page: page, size: size}, filter);
-        props.dispatchGetAllDestinationsFilterAction();
-        props.dispatchGetAllUserFilterAction()
+        props.dispatchGetAllTaskUnfinishedAction();
     };
-
-    const handleLimit = (limit) => {
-        setSize(limit)
-        setPage(0)
-    }
-
-    const onSetFilter = () => {
-        setPage(0)
-        onReload()
-    }
 
     const onDelete = (id) => {
         swal({
@@ -161,18 +85,6 @@ const TasksUnfinished = (props) => {
                                                 margin: "0.5rem",
                                             }}
                                         >
-                                            <ButtonGroup>
-                                                <ExportModal />
-                                                <DropdownFilterTask
-                                                    destinations={destinations}
-                                                    users={users}
-                                                    dataPriority={dataPriority}
-                                                    dataStatus={dataStatus}
-                                                    onResult={onSetFilter}
-                                                    filter={filter}
-                                                    setFilter={setFilter}
-                                                />
-                                            </ButtonGroup>
                                         </div>
                                     </div>
                                 </div>
@@ -245,13 +157,6 @@ const TasksUnfinished = (props) => {
                             </div>
                         </div>
                     </div>
-                    <PaginationButton
-                        currentPage={page}
-                        setPage={setPage}
-                        totalPage={totalPage}
-                        handleLimit={handleLimit}
-                        size={size}
-                    />
                 </div>
             </div>
         </div>
@@ -270,9 +175,6 @@ const TasksUnfinished = (props) => {
 const mapStateToProps = (state) => {
     return {
         listTask: state.getAllTaskUnfinishedReducer.data,
-        pageInfo: state.getAllTaskUnfinishedReducer.pagination,
-        listDestinations: state.getAllDestinationsFilterReducer.data,
-        listUser: state.getAllUserFilterReducer.data,
         isLoading: state.getAllTaskUnfinishedReducer.isLoading,
         error: state.getAllTaskUnfinishedReducer.error,
         isDelete: state.deleteByIdTaskReducer.data,
@@ -282,8 +184,6 @@ const mapStateToProps = (state) => {
 // action
 const mapDispatchToProps = {
     dispatchGetAllTaskUnfinishedAction: getAllTaskUnfinishedAction,
-    dispatchGetAllDestinationsFilterAction: getAllDestinationsFilterAction,
-    dispatchGetAllUserFilterAction: getAllUserFilterAction,
     dispatchDeleteByIdTaskAction: deleteByIdTaskAction,
 };
 

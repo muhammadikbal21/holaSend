@@ -32,15 +32,17 @@ const ExportModal = () => {
         if (after) param+=`&after=${after}`
         return(
             <Button variant="primary" href={`http://localhost:8080/task/export?token=${localStorage.getItem('token')}${param}`}>
-                    Export
+                Export
             </Button>
         )
     }
-
+    
     return (
         <>
             <Button variant="primary" onClick={handleShow}>
                 Export
+                &nbsp;
+                <i className="fas fa-file-download" />
             </Button>
 
             <Modal

@@ -3,6 +3,11 @@ import { DELETE_BY_ID_DESTINATIONS_FAILURE, DELETE_BY_ID_DESTINATIONS_REQUEST, D
 const initialState = {
     data: null,
     isLoading: false,
+    pagination: {
+        size: null,
+        total: null,
+        page: null
+    },
     error: null
 }
 
@@ -63,11 +68,22 @@ export function getAllDestinationsReducer(state = initialState, action) {
         case GET_ALL_DESTINATIONS_REQUEST:
             return {
                 ...state,
+                data: null,
+                pagination: {
+                    size: null,
+                    total: null,
+                    page: null
+                },
                 isLoading: true
             }
         case GET_ALL_DESTINATIONS_SUCCESS:
             return {
                 data: action.data,
+                pagination: {
+                    size: action.pagination.size,
+                    total: action.pagination.total,
+                    page: action.pagination.page
+                },
                 isLoading: false,
                 error: null
             }

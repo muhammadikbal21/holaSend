@@ -30,10 +30,8 @@ export function getAllTaskFinishedAction(pagination, search) {
     }
 } 
 
-export function getAllTaskUnfinishedAction(pagination, search) {
+export function getAllTaskUnfinishedAction() {
     return {
         type: GET_ALL_TASK_UNFINISHED_REQUEST,
-        pagination: pagination,
-        search: search
     }
 } 
