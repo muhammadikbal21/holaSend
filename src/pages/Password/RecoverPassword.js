@@ -114,7 +114,7 @@ const RecoverPassword = (props) => {
                             <Gap height={30} />
                             <div className="row">
                                 <div className="col-12">
-                                    <button className="btn btn-primary btn-block"  onClick={onSubmit} style={{backgroundColor: '#536DFE', borderRadius: '10px'}}>Change password</button>
+                                    <button className="btn btn-primary btn-block" onClick={onSubmit} style={{backgroundColor: '#536DFE', borderRadius: '10px'}}>Change password</button>
                                 </div>
                             </div>
                         </div>

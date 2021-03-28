@@ -33,7 +33,6 @@ const Routes = () => {
 
         <Route path="/recover-password/:token" component={RecoverPassword} exact />
         <Route path="/forget-password" component={ForgetPassword} exact />
-        <Route path="/recover-password" component={RecoverPassword} exact />
         <Route path="/" component={Home} exact />
         <Route path="*" component={ErrorCommon} exact />
       </Switch>

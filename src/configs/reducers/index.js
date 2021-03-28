@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { loginReducer } from "./login/loginReducer"
 import { registerReducer } from "./register/registerReducer"
-import { forgetPasswordReducer, recoverPasswordReducer } from "./password/passwordReducer"
+import { forgetPasswordReducer, recoverPasswordReducer, changePasswordReducer } from "./password/passwordReducer"
 import { 
     getAllDestinationsFilterReducer, 
     postDestinationsReducer, 
@@ -43,7 +43,8 @@ const rootReducer = combineReducers({
     getAllTaskFinishedReducer,
     getAllTaskUnfinishedReducer,
     forgetPasswordReducer,
-    recoverPasswordReducer
+    recoverPasswordReducer,
+    changePasswordReducer
 })
 
 export default rootReducer

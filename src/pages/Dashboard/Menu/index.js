@@ -158,6 +158,24 @@ const Menu = () => {
                   </li>
                 </> : <></>
             }
+            <li className="nav-item has-treeview" style={{ marginBottom: '3px' }}>
+              <a href="#" className="nav-link active" style={{ backgroundColor: '#536DFE' }}>
+                <i className="nav-icon fas fa-cogs" />
+                <p>
+                  Settings
+                </p>
+              </a>
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/dashboard/change-password">
+                    <a href="#" className="nav-link">
+                      <i className="fas fa-key nav-icon" />
+                      <p>Change Password</p>
+                    </a>
+                  </Link>
+                </li>
+              </ul>
+            </li>
             <li className="nav-item has-treeview" style={{ marginBottom: '3px' }} onClick={handleLogout}>
               <a href="#" className="nav-link active" style={{ backgroundColor: '#536DFE' }}>
                 <i className="nav-icon fas fa-sign-out-alt" />
