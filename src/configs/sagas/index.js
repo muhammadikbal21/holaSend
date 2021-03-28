@@ -6,6 +6,7 @@ import {
     watchPostDestinationsSaga 
 } from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
+import { watchForgetPasswordSaga, watchRecoverPasswordSaga } from './password/passwordSaga';
 import { watchRegisterSaga } from './register/registerSaga';
 import { 
     watchDeleteByIdTaskSaga, 
@@ -41,6 +42,8 @@ export default function* rootSaga() {
         watchGetAllDestinationsSaga(),
         watchDeleteByIdDestinationskSaga(),
         watchGetAllTaskFinishedSaga(),
-        watchGetAllTaskUnfinishedSaga()
+        watchGetAllTaskUnfinishedSaga(),
+        watchForgetPasswordSaga(),
+        watchRecoverPasswordSaga()
     ])
 }

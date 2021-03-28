@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { LoginBg } from '../../assets';
-import { Button, Gap, Input, Link, Loading } from '../../components/atoms';
-import { useHistory } from 'react-router-dom'
+import { Button, Gap, Input, Loading } from '../../components/atoms';
 import swal from 'sweetalert';
 import { loginAction } from '../../configs/actions/login/loginAction'
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import './login.scss'
+import { Link } from "react-router-dom"
 
 const Login = (props) => {
 
@@ -17,8 +17,6 @@ const Login = (props) => {
     const [passwordError, setPasswordError] = useState('');
 
     const [validation, setValidation] = useState('');
-
-    const history = useHistory();
 
     useEffect(() => {
         // jika login sukses
@@ -97,11 +95,11 @@ const Login = (props) => {
                     <Container
                         className="container"
                         error={props.error}
-                        loading={props.loading}
+                        loading={props.isLoading}
                         style={{ marginTop: "50px" }}
                     >
                         <p className="title-login">Login</p>
-                        <form metthod="POST" onSubmit={onSubmit}>
+                        <form method="POST" onSubmit={onSubmit}>
                             <Gap height={18} />
                             <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
                             <Gap height={8} />
@@ -112,11 +110,26 @@ const Login = (props) => {
                             <div style={{ fontSize: 12, color: "red" }}>{passwordError}</div>
                             <Gap height={18} />
                             <div style={{ fontSize: 12, color: "red" }}>{validation}</div>
-                            <Gap height={50} />
+                            <Gap height={30} />
                             <Button title="Login" onClick={onSubmit} />
                         </form>
-                        <Gap height={100} />
-                        <Link title="New to holaSend!? Create an account here!" onClick={() => history.push('/register')} />
+                        <Gap height={50} />
+                        <div className="row" >
+                            <div className="col" style={{display: 'flex', justifyContent: 'space-around'}}>
+                                <Link to="/register">
+                                    <a href="#">
+                                    <p>Register a new member?</p>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div className="col" style={{display: 'flex', justifyContent: 'space-around'}}>
+                                <Link to="/forget-password">
+                                    <a href="#">
+                                    <p>Forget Password?</p>
+                                    </a>
+                                </Link>
+                            </div>
+                        </div>
                         {props.isLoading ? <Loading /> : null}
                     </Container>
                 </div>

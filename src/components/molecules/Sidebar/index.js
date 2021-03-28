@@ -25,7 +25,7 @@ function SiderBar({isOpen, toggle}) {
           </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to="/signin"> Sign In </SidebarRoute>
+          <SidebarRoute to="/login"> Sign In </SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>

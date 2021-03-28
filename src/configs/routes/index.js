@@ -6,6 +6,8 @@ import Login from "../../pages/Login";
 import Register from "../../pages/Register";
 import { ADMIN, STAFF } from "../constants/roles/roleConstant";
 import ErrorCommon from "../../pages/Error/ErrorCommon";
+import ForgetPassword from "../../pages/Password/ForgetPassword";
+import RecoverPassword from "../../pages/Password/RecoverPassword";
 
 const Routes = () => {
   const [token] = useState(localStorage.getItem("token"))
@@ -29,6 +31,9 @@ const Routes = () => {
             <Dashboard /> : <Redirect to="/login" />
         )} />
 
+        <Route path="/recover-password/:token" component={RecoverPassword} exact />
+        <Route path="/forget-password" component={ForgetPassword} exact />
+        <Route path="/recover-password" component={RecoverPassword} exact />
         <Route path="/" component={Home} exact />
         <Route path="*" component={ErrorCommon} exact />
       </Switch>
