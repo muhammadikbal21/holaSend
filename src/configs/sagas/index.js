@@ -4,7 +4,9 @@ import {
     watchDeleteByIdDestinationskSaga, 
     watchGetAllDestinationsFilterSaga, 
     watchGetAllDestinationsSaga, 
-    watchPostDestinationsSaga 
+    watchGetByIdDestinationskSaga, 
+    watchPostDestinationsSaga, 
+    watchPutByIdDestinationskSaga
 } from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchChangePasswordSaga, watchForgetPasswordSaga, watchRecoverPasswordSaga } from './password/passwordSaga';
@@ -48,6 +50,8 @@ export default function* rootSaga() {
         watchRecoverPasswordSaga(),
         watchChangePasswordSaga(),
         watchGetChartsUserSaga(),
-        watchGetChartsTaskSaga()
+        watchGetChartsTaskSaga(),
+        watchGetByIdDestinationskSaga(),
+        watchPutByIdDestinationskSaga()
     ])
 }

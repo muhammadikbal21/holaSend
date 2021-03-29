@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import ErrorDashboard from "../Error/ErrorDashboard";
 import ChangePassword from "./Content/ChangePassword";
 import CreateDestinations from "./Content/CreateDestinations";
@@ -13,8 +13,7 @@ import UserManagements from "./Content/UserManagements";
 import Footer from "./Footer";
 import Header from "./Header";
 import Menu from "./Menu";
-import {ADMIN, STAFF} from "../../configs/constants/roles/roleConstant";
-import Login from "../Login";
+import {STAFF} from "../../configs/constants/roles/roleConstant";
 
 const Dashboard = () => {
   const [token] = useState(localStorage.getItem("token"))
@@ -34,6 +33,7 @@ const Dashboard = () => {
                   <Redirect to="/dashboard" /> : <TasksList />
           )} />
           <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
+          <Route path="/dashboard/create-destinations/:id" component={CreateDestinations} exact />
           <Route path="/dashboard/user-managements" exact render={() => (
               (role == STAFF && token) ?
                   <Redirect to="/dashboard" /> : <UserManagements />

@@ -2,7 +2,9 @@ import {
     DELETE_BY_ID_DESTINATIONS_REQUEST, 
     GET_ALL_DESTINATIONS_FILTER_REQUEST, 
     GET_ALL_DESTINATIONS_REQUEST, 
-    POST_DESTINATIONS_REQUEST 
+    GET_BY_ID_DESTINATIONS_REQUEST, 
+    POST_DESTINATIONS_REQUEST, 
+    PUT_BY_ID_DESTINATIONS_REQUEST
 } from "../../constants/destinations/destinationsConstant";
 
 export function getAllDestinationsFilterAction() {
@@ -30,4 +32,18 @@ export function deleteByIdDestinationsAction(id) {
         type: DELETE_BY_ID_DESTINATIONS_REQUEST,
         id: id 
     }
- }
+}
+
+export function getByIdDestinationsAction(id) {
+    return {
+        type: GET_BY_ID_DESTINATIONS_REQUEST,
+        id: id 
+    }
+}
+
+export function putByIdDestinationsAction(model) {
+    return {
+        type: PUT_BY_ID_DESTINATIONS_REQUEST,
+        model: model
+    }
+}

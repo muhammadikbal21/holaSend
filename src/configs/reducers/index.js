@@ -6,7 +6,9 @@ import {
     getAllDestinationsFilterReducer, 
     postDestinationsReducer, 
     getAllDestinationsReducer,
-    deleteByIdDestinationsReducer
+    deleteByIdDestinationsReducer,
+    getByIdDestinationsReducer,
+    putByIdDestinationsReducer
  } from "./destinations/destinationsReducer"
 import { 
     postTaskReducer, 
@@ -48,7 +50,9 @@ const rootReducer = combineReducers({
     recoverPasswordReducer,
     changePasswordReducer,
     getChartsUserReducer,
-    getChartsTaskReducer
+    getChartsTaskReducer,
+    getByIdDestinationsReducer,
+    putByIdDestinationsReducer
 })
 
 export default rootReducer

@@ -7,11 +7,15 @@ import {
     deleteByIdDestinationsAction,
     getAllDestinationsAction,
 } from "../../../../configs/actions/destinations/destinationsAction";
+import { Link, useHistory } from 'react-router-dom'
 
 const DestinationsList = (props) => {
+    const [role] = useState(localStorage.getItem("role"))
     const [destinations, setDestinations] = useState([]);
     const [page, setPage] = useState(0)
     const [size, setSize] = useState(10)
+
+    const history = useHistory()
 
     const totalPage = Math.ceil(props.pageInfo.total / props.pageInfo.size)
 
@@ -62,6 +66,10 @@ const DestinationsList = (props) => {
             }
         });
     };
+
+    const onEdit = (id) => {
+        history.push(`/dashboard/create-destinations/${id}`)
+    }
 
     return (
         !props.isLoading ?
@@ -119,19 +127,43 @@ const DestinationsList = (props) => {
                                                     <td>{e.address}</td>
                                                     <td>{e.lon}</td>
                                                     <td>{e.lat}</td>
-                                                    <td>
-                                                        <Button
-                                                            className="fas fa-trash-alt btn-danger"
-                                                            onClick={() =>
-                                                                onDelete(e.id)
-                                                            }
-                                                        />
-                                                        <span
-                                                            style={{
-                                                                margin: "3px",
-                                                            }}
-                                                        />
-                                                    </td>
+                                                    {
+                                                        role == "ADMIN" ?
+                                                        <td>
+                                                            <Button
+                                                                className="fas fa-trash-alt btn-danger"
+                                                                onClick={() =>
+                                                                    onDelete(e.id)
+                                                                }
+                                                            />
+                                                            <span
+                                                                style={{
+                                                                    margin: "3px",
+                                                                }}
+                                                            />
+                                                            <Button
+                                                                className="fas fa-edit btn-warning"
+                                                                onClick={() =>
+                                                                    onEdit(e.id)
+                                                                }
+                                                            />
+                                                        </td> : 
+                                                        <td>
+                                                            <Button
+                                                                className="fas fa-trash-alt btn-danger"
+                                                                disabled
+                                                            />
+                                                            <span
+                                                                style={{
+                                                                    margin: "3px",
+                                                                }}
+                                                            />
+                                                            <Button
+                                                                className="fas fa-edit btn-warning"
+                                                                disabled
+                                                            />
+                                                        </td>
+                                                    }
                                                 </tr>
                                             ))}
                                         </tbody>

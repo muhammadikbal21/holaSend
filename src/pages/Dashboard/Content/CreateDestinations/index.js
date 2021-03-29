@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
+import { useParams } from "react-router";
 import swal from "sweetalert";
 import { Button, Gap, Input, Loading, MapView } from "../../../../components/atoms";
-import { postDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
+import { getByIdDestinationsAction, postDestinationsAction, putByIdDestinationsAction } from "../../../../configs/actions/destinations/destinationsAction";
 
 const CreateDestinations = (props) => {
     const [destination, setDestination] = useState("");
@@ -15,9 +16,26 @@ const CreateDestinations = (props) => {
     const [addressError, setAddressError] = useState("");
     const [locationError, setLocationError] = useState("");
 
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            props.dispatchGetByIdDestinationsAction(id)
+        }
+    }, [id, props.dispatchGetByIdDestinationsAction])
+
+    useEffect(() => {
+        if (id && props.getById) {
+            setDestination(props.getById.name)
+            setAddress(props.getById.address)
+            setLon(props.getById.lon)
+            setLat(props.getById.lat)
+        }
+    }, [props.getById])
+
     useEffect(() => {
         // jika sukses
-        if (props.data) {
+        if (props.data || props.putById) {
             swal("Create Destinations Success!", "", "success").then(() => {
                 return (
                     window.location.href = "/dashboard/create-destinations"
@@ -33,7 +51,7 @@ const CreateDestinations = (props) => {
         if (props.error) {
             swal("Create Destinations Error!", "", "error");
         }
-    }, [props.data, props.error]);
+    }, [props.data, props.error, props.putById]);
 
     useEffect(() => {
         setDestinationError("");
@@ -45,13 +63,17 @@ const CreateDestinations = (props) => {
         const isValid = validate();
         if (isValid) {
             const data = {
+                id: id,
                 name: destination,
                 address: address,
                 lon: parseFloat(lon),
                 lat: parseFloat(lat),
-            };
-
-            props.dispatchPostDestinationsAction(data);
+            }
+            if (id) {
+                props.dispatchPutByIdDestinationsAction(data)
+            } else {
+                props.dispatchPostDestinationsAction(data);
+            }
         }
     };
 
@@ -205,14 +227,18 @@ const CreateDestinations = (props) => {
 const mapStateToProps = (state) => {
     return {
         data: state.postDestinationsReducer.data,
-        error: state.postDestinationsReducer.error,
-        isLoading: state.postDestinationsReducer.isLoading,
+        getById: state.getByIdDestinationsReducer.data,
+        putById: state.putByIdDestinationsReducer.data,
+        error: state.postDestinationsReducer.error || state.getByIdDestinationsReducer.error || state.putByIdDestinationsReducer.error ,
+        isLoading: state.postDestinationsReducer.isLoading || state.getByIdDestinationsReducer.isLoading || state.putByIdDestinationsReducer.isLoading,
     };
 };
 
 // action
 const mapDispatchToProps = {
     dispatchPostDestinationsAction: postDestinationsAction,
+    dispatchGetByIdDestinationsAction: getByIdDestinationsAction,
+    dispatchPutByIdDestinationsAction: putByIdDestinationsAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateDestinations);
