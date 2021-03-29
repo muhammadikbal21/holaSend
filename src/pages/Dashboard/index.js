@@ -5,7 +5,7 @@ import ChangePassword from "./Content/ChangePassword";
 import CreateDestinations from "./Content/CreateDestinations";
 import CreateTask from "./Content/CreateTask/index";
 import DestinationsList from "./Content/DestinationsList";
-import Content from "./Content/index";
+import DashboardCharts from "./Content/index";
 import TasksFinished from "./Content/TasksFinished";
 import TasksList from "./Content/TasksList";
 import TasksUnfinished from "./Content/TasksUnfinished";
@@ -28,7 +28,7 @@ const Dashboard = () => {
           <Route path="/dashboard/tasks-report" component={TasksList} exact />
           <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
           <Route path="/dashboard/user-managements" component={UserManagements} exact />
-          <Route path="/dashboard" component={Content} exact />
+          <Route path="/dashboard" component={DashboardCharts} exact />
           <Route path="/dashboard/*" component={ErrorDashboard} exact />
         </Switch>
       <Footer />

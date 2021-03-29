@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects'
+import { watchGetChartsTaskSaga, watchGetChartsUserSaga } from './charts/chartsSaga';
 import { 
     watchDeleteByIdDestinationskSaga, 
     watchGetAllDestinationsFilterSaga, 
@@ -45,6 +46,8 @@ export default function* rootSaga() {
         watchGetAllTaskUnfinishedSaga(),
         watchForgetPasswordSaga(),
         watchRecoverPasswordSaga(),
-        watchChangePasswordSaga()
+        watchChangePasswordSaga(),
+        watchGetChartsUserSaga(),
+        watchGetChartsTaskSaga()
     ])
 }

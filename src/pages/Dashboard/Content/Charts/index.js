@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Doughnut } from '@reactchartjs/react-chart.js'
 
-const data = {
+const chart = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
@@ -28,8 +28,13 @@ const data = {
   ],
 }
 
-const DoughnutChart = () => (
+const DoughnutChart = ({data}) => (
+
+  
   <>
+  {
+    console.log("doughnut",data)
+  }
     <Doughnut data={data} className="mt-2" />
   </>
 )

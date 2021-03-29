@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../api"
 import { CHANGE_PASSWORD_FAILURE, CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS, FORGET_PASSWORD_FAILURE, FORGET_PASSWORD_REQUEST, FORGET_PASSWORD_SUCCESS, RECOVER_PASSWORD_FAILURE, RECOVER_PASSWORD_REQUEST, RECOVER_PASSWORD_SUCCESS } from "../../constants/password/passwordConstant"
 import { put, takeLatest } from 'redux-saga/effects'
 

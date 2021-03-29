@@ -1,7 +1,35 @@
-import React from "react";
-import UserChart from "./UserChart"
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { getChartsTaskAction, getChartsUserAction } from "../../../configs/actions/charts/chartsAction";
+import UserChart from "./Charts"
 
-const Content = () => {
+const DashboardCharts = (props) => {
+
+  const [userCharts, setUserCharts] = useState({})
+  const [taskCharts, setTaskCharts] = useState({})
+
+  useEffect(() => {
+    onReload()
+  }, [])
+
+  useEffect(() => {
+    if (props.chartUser) {
+      setUserCharts(props.chartUser)
+    }
+
+    if (props.chartTask) {
+      setTaskCharts(props.chartTask)
+    }
+  }, [props.chartUser, props.chartTask])
+
+  const onReload = () => {
+    props.dispatchGetChartsUserAction()
+    props.dispatchGetChartsTaskAction()
+  }
+
+  console.log("ini chart user", userCharts);
+  console.log("ini chart task", taskCharts);
+
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -16,7 +44,7 @@ const Content = () => {
               <div class="card">
                 <div class="card-header"> Users </div>
                 <div class="card-body">
-                  <UserChart />
+                  <UserChart data={userCharts}/>
                 </div>
               </div>
             </div>
@@ -35,4 +63,20 @@ const Content = () => {
   );
 };
 
-export default Content;
+// reducer
+const mapStateToProps = (state) => {
+  return {
+      chartUser: state.getChartsUserReducer.data,
+      chartTask: state.getChartsTaskReducer.data,
+      isLoading: state.getChartsUserReducer.isLoading || state.getChartsTaskReducer.isLoading,
+      error: state.getChartsUserReducer.error || state.getChartsTaskReducer.error
+  }
+}
+
+// action
+const mapDispatchToProps = {
+  dispatchGetChartsUserAction: getChartsUserAction,
+  dispatchGetChartsTaskAction: getChartsTaskAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardCharts);

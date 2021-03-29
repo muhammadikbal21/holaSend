@@ -24,6 +24,8 @@ import {
     putByUsernameMakeDisabledReducer
  } from "./user/userReducer"
 
+import { getChartsUserReducer, getChartsTaskReducer } from "./charts/chartsReducer"
+
 const rootReducer = combineReducers({
     loginReducer,
     registerReducer,
@@ -44,7 +46,9 @@ const rootReducer = combineReducers({
     getAllTaskUnfinishedReducer,
     forgetPasswordReducer,
     recoverPasswordReducer,
-    changePasswordReducer
+    changePasswordReducer,
+    getChartsUserReducer,
+    getChartsTaskReducer
 })
 
 export default rootReducer
