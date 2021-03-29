@@ -80,7 +80,7 @@ const CreateDestinations = (props) => {
         }
 
         if (!lon && !lat) {
-            locationError = "Location must not blank!";
+            locationError = "You must pick location from the map";
         }
 
         if (destinationsError || addressError || locationError) {
