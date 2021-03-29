@@ -39,7 +39,7 @@ const InfoSection = ({
               <Subtitle darkText={darkText}>{description}</Subtitle>
               <BtnWrap>
                 <NavBtn>
-                  <NavBtnLink to="login">Get Started</NavBtnLink>
+                  { localStorage.getItem("token") ? <NavBtnLink to="login" onClick={() => window.location.href = "/dashboard"}>Get Started</NavBtnLink> : <NavBtnLink to="login">Get Started</NavBtnLink>}
                 </NavBtn>
               </BtnWrap>
             </TextWrapper>
