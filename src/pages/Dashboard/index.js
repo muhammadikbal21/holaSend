@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, {useState} from "react";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import ErrorDashboard from "../Error/ErrorDashboard";
 import ChangePassword from "./Content/ChangePassword";
 import CreateDestinations from "./Content/CreateDestinations";
@@ -13,8 +13,12 @@ import UserManagements from "./Content/UserManagements";
 import Footer from "./Footer";
 import Header from "./Header";
 import Menu from "./Menu";
+import {ADMIN, STAFF} from "../../configs/constants/roles/roleConstant";
+import Login from "../Login";
 
 const Dashboard = () => {
+  const [token] = useState(localStorage.getItem("token"))
+  const [role] = useState(localStorage.getItem("role"))
   return (
     <div>
       <Header />
@@ -25,9 +29,15 @@ const Dashboard = () => {
           <Route path="/dashboard/tasks-finished" component={TasksFinished} exact />
           <Route path="/dashboard/destinations-list" component={DestinationsList} exact />
           <Route path="/dashboard/create-task" component={CreateTask} exact />
-          <Route path="/dashboard/tasks-report" component={TasksList} exact />
+          <Route path="/dashboard/tasks-report" exact render={() => (
+              (role == STAFF && token) ?
+                  <Redirect to="/dashboard" /> : <TasksList />
+          )} />
           <Route path="/dashboard/create-destinations" component={CreateDestinations} exact />
-          <Route path="/dashboard/user-managements" component={UserManagements} exact />
+          <Route path="/dashboard/user-managements" exact render={() => (
+              (role == STAFF && token) ?
+                  <Redirect to="/dashboard" /> : <UserManagements />
+          )} />
           <Route path="/dashboard" component={DashboardCharts} exact />
           <Route path="/dashboard/*" component={ErrorDashboard} exact />
         </Switch>
