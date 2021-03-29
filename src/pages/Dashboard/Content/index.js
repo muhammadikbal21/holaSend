@@ -7,6 +7,28 @@ const DashboardCharts = (props) => {
 
   const [userCharts, setUserCharts] = useState({})
   const [taskCharts, setTaskCharts] = useState({})
+  const [dataChartUser, setDataChartUser] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: [],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 1,
+      }
+    ],
+  })
 
   useEffect(() => {
     onReload()
@@ -15,6 +37,24 @@ const DashboardCharts = (props) => {
   useEffect(() => {
     if (props.chartUser) {
       setUserCharts(props.chartUser)
+      setDataChartUser({...dataChartUser, ['labels']: Object.keys(props.chartUser), ['datasets']: [{
+        label: '# of Votes',
+        data: Object.values(props.chartUser),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 1,
+      }]   
+      })
     }
 
     if (props.chartTask) {
@@ -29,6 +69,7 @@ const DashboardCharts = (props) => {
 
   console.log("ini chart user", userCharts);
   console.log("ini chart task", taskCharts);
+  console.log("ini chart user data", dataChartUser);
 
   return (
     <div className="content-wrapper">
@@ -44,7 +85,7 @@ const DashboardCharts = (props) => {
               <div class="card">
                 <div class="card-header"> Users </div>
                 <div class="card-body">
-                  <UserChart data={userCharts}/>
+                  <UserChart data={dataChartUser}/>
                 </div>
               </div>
             </div>
