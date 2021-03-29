@@ -204,17 +204,6 @@ const TasksFinished = (props) => {
                                                             : ""}
                                                     </td>
                                                     <td>
-                                                        <Button
-                                                            className="fas fa-trash-alt btn-danger"
-                                                            onClick={() =>
-                                                                onDelete(e.id)
-                                                            }
-                                                        />
-                                                        <span
-                                                            style={{
-                                                                margin: "3px",
-                                                            }}
-                                                        />
                                                         <ModalView
                                                             className="fas fa-eye btn-info"
                                                             data={e}
