@@ -190,7 +190,7 @@ const TasksFinished = (props) => {
                                         <tbody>
                                             {tasks.map((e) => (
                                                 <tr>
-                                                    <td>{e.createDate}</td>
+                                                    <td>{e.createDate.substring(0, 19).replace("T", " ")}</td>
                                                     <td>
                                                         {e.destination.name}
                                                     </td>

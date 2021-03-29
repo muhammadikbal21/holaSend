@@ -34,7 +34,7 @@ const ModalView = ({
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>{p1} : {data.createDate}</p>
+                    <p>{p1} : {data.createDate.substring(0, 19).replace("T", " ")}</p>
                     <p>{p2} : {data.destination.name}</p>
                     <p>{p3} : {data.destination.address}</p>
                     <p>{p4} : {data.pickUpTime}</p>
