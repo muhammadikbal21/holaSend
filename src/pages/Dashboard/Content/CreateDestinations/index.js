@@ -18,7 +18,11 @@ const CreateDestinations = (props) => {
     useEffect(() => {
         // jika sukses
         if (props.data) {
-            swal("Create Destinations Success!", "", "success");
+            swal("Create Destinations Success!", "", "success").then(() => {
+                return (
+                    window.location.href = "/dashboard/create-destinations"
+                )
+            })
             setDestination("");
             setAddress("");
             setLon("");

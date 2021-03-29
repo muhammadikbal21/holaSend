@@ -37,8 +37,11 @@ const Register = (props) => {
     useEffect(() => {
         // jika register sukses
         if (props.data) {
-            swal("Registration Success!", "", "success");
-            history.push('/login')
+            swal("Registration Success!", "", "success").then(() => {
+                return (
+                    window.location.href = "/login"
+                )
+            })
         }
 
         // jika login error
