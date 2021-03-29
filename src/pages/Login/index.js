@@ -21,18 +21,22 @@ const Login = (props) => {
     useEffect(() => {
         // jika login sukses
         if (props.data) {
-            localStorage.setItem('token', props.data.token)
-            localStorage.setItem('role', props.data.role)
-            localStorage.setItem('username', props.data.username)
-            swal({
-                title: "Login Success!",
-                icon: "success",
-                button: "OK",
-            }).then(() => {
-                return (
-                    window.location.href = "/dashboard"
-                )
-            });
+            if (props.data.role == "ADMIN" || props.data.role == "STAFF" ) {
+                localStorage.setItem('token', props.data.token)
+                localStorage.setItem('role', props.data.role)
+                localStorage.setItem('username', props.data.username)
+                swal({
+                    title: "Login Success!",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => {
+                    return (
+                        window.location.href = "/dashboard"
+                    )
+                });
+            } else {
+                swal("Login Error!", "Account not allowed!", "error");
+            }
         }
 
         // jika login error

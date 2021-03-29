@@ -216,12 +216,20 @@ const TasksList = (props) => {
                                                             : ""}
                                                     </td>
                                                     <td>
-                                                        <Button
+                                                        {
+                                                            e.status == "WAITING" || e.status == "ASSIGNED" ? 
+                                                            <Button
                                                             className="fas fa-trash-alt btn-danger"
                                                             onClick={() =>
                                                                 onDelete(e.id)
                                                             }
-                                                        />
+                                                            /> :
+                                                            <Button
+                                                            className="fas fa-trash-alt btn-danger"
+                                                            onClick={() =>
+                                                                onDelete(e.id)
+                                                            } disabled />
+                                                        }
                                                         <span
                                                             style={{
                                                                 margin: "3px",

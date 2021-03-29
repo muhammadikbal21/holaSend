@@ -4,9 +4,7 @@ import { getChartsTaskAction, getChartsUserAction } from "../../../configs/actio
 import UserChart from "./Charts"
 
 const DashboardCharts = (props) => {
-
-  const [userCharts, setUserCharts] = useState({})
-  const [taskCharts, setTaskCharts] = useState({})
+  const [username] = useState(localStorage.getItem("username"))
   const [dataChartUser, setDataChartUser] = useState({
     labels: [],
     datasets: [
@@ -29,6 +27,41 @@ const DashboardCharts = (props) => {
       }
     ],
   })
+  const [dataChartTask, setDataChartTask] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: [],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 1,
+      }
+    ],
+  })
+  const [dataStatus] = useState([
+    "WAITING",
+    "ASSIGNED",
+    "PICKUP",
+    "DELIVERED"
+  ])
+  const [dataRole] = useState([
+    "ADMIN",
+    "STAFF",
+    "COURIER",
+    "UNASSIGED",
+    "DISABLED"
+  ])
 
   useEffect(() => {
     onReload()
@@ -36,10 +69,30 @@ const DashboardCharts = (props) => {
 
   useEffect(() => {
     if (props.chartUser) {
-      setUserCharts(props.chartUser)
-      setDataChartUser({...dataChartUser, ['labels']: Object.keys(props.chartUser), ['datasets']: [{
+      setDataChartUser({...dataChartUser, ['labels']: dataRole, ['datasets']: [{
+          label: '# of Votes',
+          data: Object.values(props.chartUser),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+          ],
+          borderWidth: 1,
+        }]   
+      })
+    }
+
+    if (props.chartTask) {
+      setDataChartTask({...dataChartTask, ['labels']: dataStatus, ['datasets']: [{
         label: '# of Votes',
-        data: Object.values(props.chartUser),
+        data: Object.values(props.chartTask),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -54,11 +107,7 @@ const DashboardCharts = (props) => {
         ],
         borderWidth: 1,
       }]   
-      })
-    }
-
-    if (props.chartTask) {
-      setTaskCharts(props.chartTask)
+    })
     }
   }, [props.chartUser, props.chartTask])
 
@@ -67,23 +116,19 @@ const DashboardCharts = (props) => {
     props.dispatchGetChartsTaskAction()
   }
 
-  console.log("ini chart user", userCharts);
-  console.log("ini chart task", taskCharts);
-  console.log("ini chart user data", dataChartUser);
-
   return (
     <div className="content-wrapper">
       <div className="content-header">
         <div className="container" style={{ marginTop: '50px' }}>
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0 text-dark">Hello Admin!</h1>
+              <h1 className="m-0 text-dark">Hello {username}!</h1>
             </div>
           </div>
           <div className="row mt-5">
             <div className="col-md-6 col-sm-12">
               <div class="card">
-                <div class="card-header"> Users </div>
+                <div class="card-header">Users Charts</div>
                 <div class="card-body">
                   <UserChart data={dataChartUser}/>
                 </div>
@@ -91,9 +136,9 @@ const DashboardCharts = (props) => {
             </div>
             <div className="col-md-6 col-sm-12">
               <div class="card">
-                <div class="card-header"> Tasks </div>
+                <div class="card-header">Tasks Charts</div>
                 <div class="card-body">
-                  <UserChart />
+                  <UserChart data={dataChartTask} />
                 </div>
               </div>
             </div>
