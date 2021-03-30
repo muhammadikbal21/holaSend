@@ -14,6 +14,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Menu from "./Menu";
 import {STAFF} from "../../configs/constants/roles/roleConstant";
+import Profile from "./Content/Profile";
 
 const Dashboard = () => {
   const [token] = useState(localStorage.getItem("token"))
@@ -23,6 +24,7 @@ const Dashboard = () => {
       <Header />
       <Menu />
         <Switch>
+          <Route path="/dashboard/profile" component={Profile} exact />
           <Route path="/dashboard/change-password" component={ChangePassword} exact />
           <Route path="/dashboard/tasks-unfinished" component={TasksUnfinished} exact />
           <Route path="/dashboard/tasks-finished" component={TasksFinished} exact />

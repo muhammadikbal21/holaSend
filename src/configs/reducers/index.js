@@ -24,9 +24,9 @@ import {
     putByUsernameMakeStaffReducer,
     putByUsernameMakeCourierReducer,
     putByUsernameMakeDisabledReducer
- } from "./user/userReducer"
-
+} from "./user/userReducer"
 import { getChartsUserReducer, getChartsTaskReducer } from "./charts/chartsReducer"
+import { getProfileReducer, putProfileReducer } from "./profile/profileReducer"
 
 const rootReducer = combineReducers({
     loginReducer,
@@ -52,7 +52,9 @@ const rootReducer = combineReducers({
     getChartsUserReducer,
     getChartsTaskReducer,
     getByIdDestinationsReducer,
-    putByIdDestinationsReducer
+    putByIdDestinationsReducer,
+    getProfileReducer,
+    putProfileReducer
 })
 
 export default rootReducer

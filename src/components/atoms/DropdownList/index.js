@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DropdownList = ({value, data, placeholder, label, handleDropdown}) => {
+const DropdownList = ({value, data, placeholder, label, handleDropdown, disabled}) => {
 
     const handleChange = (e) => {
         handleDropdown(e.target.value)
@@ -12,7 +12,8 @@ const DropdownList = ({value, data, placeholder, label, handleDropdown}) => {
             <select
                 value={value}
                 className="form-control"
-                onChange={(e) => handleChange(e)}>
+                onChange={(e) => handleChange(e)}
+                disabled={disabled}>
                 <option value="">{placeholder}</option>
                 {data.map((item, key) => (
                     <option

@@ -10,6 +10,7 @@ import {
 } from './destinations/destinationsSaga';
 import { watchLoginSaga } from "./login/loginSaga";
 import { watchChangePasswordSaga, watchForgetPasswordSaga, watchRecoverPasswordSaga } from './password/passwordSaga';
+import { watchGetProfileSaga, watchPutProfileSaga } from './profile/profileSaga';
 import { watchRegisterSaga } from './register/registerSaga';
 import { 
     watchDeleteByIdTaskSaga, 
@@ -52,6 +53,8 @@ export default function* rootSaga() {
         watchGetChartsUserSaga(),
         watchGetChartsTaskSaga(),
         watchGetByIdDestinationskSaga(),
-        watchPutByIdDestinationskSaga()
+        watchPutByIdDestinationskSaga(),
+        watchGetProfileSaga(),
+        watchPutProfileSaga()
     ])
 }
