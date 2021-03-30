@@ -115,8 +115,8 @@ const DestinationsList = (props) => {
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Address</th>
-                                                <th>Longitude</th>
-                                                <th>Latitude</th>
+                                                {/* <th>Longitude</th>
+                                                <th>Latitude</th> */}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -125,8 +125,8 @@ const DestinationsList = (props) => {
                                                 <tr>
                                                     <td>{e.name}</td>
                                                     <td>{e.address}</td>
-                                                    <td>{e.lon}</td>
-                                                    <td>{e.lat}</td>
+                                                    {/* <td>{e.lon}</td>
+                                                    <td>{e.lat}</td> */}
                                                     {
                                                         role == "ADMIN" ?
                                                         <td>

@@ -10,7 +10,7 @@ const Header = () => {
             <i className="fas fa-bars" style={{color: 'white'}} />
           </a>
         </li>
-        <li className="nav-item d-none d-sm-inline-block">
+        <li className="nav-item d-sm-inline-block">
           <Link to="/dashboard">
             <a href="#" className="nav-link" style={{color: 'white'}}>
               <i className="fas fa-home" style={{color: 'white'}} />

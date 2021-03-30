@@ -21,8 +21,6 @@ const ForgetPassword = (props) => {
         setUsername("")
     }, [props.data, props.error])
 
-    console.log("ini props", props.data);
-
     const onSubmit = () => {
         props.dispatchForgetPasswordAction(username)
     }

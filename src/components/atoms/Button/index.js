@@ -30,7 +30,6 @@ export const PaginationButton = (props) => {
                 </ButtonDropdown>
                 <p style={{alignSelf: 'flex-end'}}>item per Page</p>
             </div>
-            {console.log("CURRENT PAGE", props.currentPage)}
             <Pagination size="sm" aria-label="Page navigation example">
                 <PaginationItem>
                     { props.currentPage !== 0 ? <PaginationLink first onClick={() => {props.setPage(0)}} /> : null}

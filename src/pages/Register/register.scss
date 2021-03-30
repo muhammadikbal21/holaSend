@@ -1,6 +1,6 @@
 .main-page{
     display: flex;
-    height: 100vh; //vh (viewport height), tingginya sesuai dengan tinggi screen yang kita lihat
+    height: auto;
     box-sizing: border-box;
     overflow: hidden; 
 }
@@ -9,9 +9,8 @@
     flex: 1;
     background-color: white;
     .left-bg{
-        width: 120%;
-        height: 100%;
-        object-fit: contain;
+        width: 100%;
+        height: auto;
     }
 }
 

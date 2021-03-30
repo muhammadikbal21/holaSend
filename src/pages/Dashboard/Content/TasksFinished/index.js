@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import { DropdownFilterTask, Loading, ModalView, PaginationButton } from '../../../../components/atoms';

@@ -32,7 +32,7 @@ const RecoverPassword = (props) => {
         if (props.error) {
             swal("Error!", `${props.error}`, "error");
         }
-    }, [props.data, props.error])
+    }, [props.data, props.error, history])
 
     // clear error message
     useEffect(() => {
