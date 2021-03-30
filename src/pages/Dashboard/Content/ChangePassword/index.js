@@ -52,12 +52,6 @@ const ChangePassword = (props) => {
         let confirmPasswordError = "";
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 
-        if (oldPassword.length < 8) {
-            oldPasswordError = "Password must be more than 8 characters!";
-        } else if (!oldPassword.match(passwordRegex)) {
-            oldPasswordError = "Password must contain capital letters and numbers";
-        }
-
         if (newPassword.length < 8) {
             newPasswordError = "Password must be more than 8 characters!";
         } else if (!newPassword.match(passwordRegex)) {
