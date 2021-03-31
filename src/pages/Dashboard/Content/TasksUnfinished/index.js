@@ -184,21 +184,17 @@ const TasksUnfinished = (props) => {
                                                             p3="Address"
                                                             c3={e.destination.address}
                                                             p4="Pick Up Time"
-                                                            c4={e.pickUpTime}
-                                                            p5="Delivered Time"
-                                                            c5={e.deliveredTime}
-                                                            p6="Request By"
-                                                            c6={e.requestBy ? e.requestBy.username : ""}
-                                                            p7="Courier"
-                                                            c7={e.courier ? e.courier.username : ""}
-                                                            p8="Return Time"
-                                                            c8={e.courierActivity ? e.courierActivity.returnTime : ""}
-                                                            p9="Status"
-                                                            c9={e.status}
-                                                            p10="Priority"
-                                                            c10={e.priority}
-                                                            p11="Notes"
-                                                            c11={e.notes}
+                                                            c4={e. pickUpTime ? e.pickUpTime.substring(0, 19).replace("T", " ") : "Haven't Picked Up"}
+                                                            p5="Request By"
+                                                            c5={e.requestBy ? e.requestBy.username : ""}
+                                                            p6="Courier"
+                                                            c6={e.courier ? e.courier.username : ""}
+                                                            p7="Status"
+                                                            c7={e.status}
+                                                            p8="Priority"
+                                                            c8={e.priority}
+                                                            p9="Notes"
+                                                            c9={e.notes}
                                                         />
                                                         <span
                                                             style={{
