@@ -10,5 +10,6 @@ import DropdownFilterTask from './DropdownFilterTask'
 import DropdownFilterRole from './DropdownFilterRole'
 import {Loading} from './Loading'
 import ExportModal from "./ExportModal";
+import DashboardTask from './DashboardTask'
 
-export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask, Loading, ExportModal, DropdownFilterRole};
+export {Input, Button, PaginationButton, Gap, Link, DropdownList, TextArea, MapView, ModalView, DropdownFilterTask, Loading, ExportModal, DropdownFilterRole, DashboardTask};

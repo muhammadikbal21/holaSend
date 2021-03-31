@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getChartsTaskAction, getChartsUserAction } from "../../../configs/actions/charts/chartsAction";
 import UserChart from "./Charts"
+import {DashboardTask} from "../../../components/atoms";
 
 const DashboardCharts = (props) => {
   const [username] = useState(localStorage.getItem("username"))
@@ -49,6 +50,10 @@ const DashboardCharts = (props) => {
       }
     ],
   })
+
+  const [lastRequest, setLastRequest] = useState([])
+  const [lastPickup, setLastPickup] = useState([])
+  const [lastDelivered, setLastDelivered] = useState([])
   const [dataStatus] = useState([
     "WAITING",
     "ASSIGNED",
@@ -108,6 +113,10 @@ const DashboardCharts = (props) => {
         borderWidth: 1,
       }]   
     })
+
+      setLastRequest(props.chartTask.lastRequest)
+      setLastPickup(props.chartTask.lastPickup)
+      setLastDelivered(props.chartTask.lastDelivered)
     }
   }, [props.chartUser, props.chartTask])
 
@@ -139,6 +148,30 @@ const DashboardCharts = (props) => {
                 <div class="card-header">Tasks Charts</div>
                 <div class="card-body">
                   <UserChart data={dataChartTask} />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-sm-12">
+              <div className="card">
+                <div className="card-header">Last 5 Requested Task</div>
+                <div className="card-body">
+                  <DashboardTask datas={lastRequest} />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-sm-12">
+              <div className="card">
+                <div className="card-header">Last 5 Picked Up Task</div>
+                <div className="card-body">
+                  <DashboardTask datas={lastPickup} />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-sm-12">
+              <div className="card">
+                <div className="card-header">Last 5 Delivered Task</div>
+                <div className="card-body">
+                  <DashboardTask datas={lastDelivered} />
                 </div>
               </div>
             </div>
