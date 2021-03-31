@@ -15,6 +15,7 @@ import Header from "./Header";
 import Menu from "./Menu";
 import {STAFF} from "../../configs/constants/roles/roleConstant";
 import Profile from "./Content/Profile";
+import Radius from "./Content/Radius";
 
 const Dashboard = () => {
   const [token] = useState(localStorage.getItem("token"))
@@ -39,6 +40,10 @@ const Dashboard = () => {
           <Route path="/dashboard/user-managements" exact render={() => (
               (role == STAFF && token) ?
                   <Redirect to="/dashboard" /> : <UserManagements />
+          )} />
+           <Route path="/dashboard/radius" exact render={() => (
+              (role == STAFF && token) ?
+                  <Redirect to="/dashboard" /> : <Radius />
           )} />
           <Route path="/dashboard" component={DashboardCharts} exact />
           <Route path="/dashboard/*" component={ErrorDashboard} exact />
