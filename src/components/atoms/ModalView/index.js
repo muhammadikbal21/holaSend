@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const ModalView = ({
-    data, 
     title, 
-    p1,
-    p2,
-    p3,
-    p4,
-    p5,
-    p6,
-    p7,
-    p8,
-    p9,
-    p10,
-    p11, ...rest}) => {
+    p1,c1,
+    p2,c2,
+    p3,c3,
+    p4,c4,
+    p5,c5,
+    p6,c6,
+    p7,c7,
+    p8,c8,
+    p9,c9,
+    p10,c10,
+    p11,c11, ...rest}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -34,17 +33,17 @@ const ModalView = ({
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>{p1} : {data.createDate.substring(0, 19).replace("T", " ")}</p>
-                    <p>{p2} : {data.destination.name}</p>
-                    <p>{p3} : {data.destination.address}</p>
-                    <p>{p4} : {data.pickUpTime}</p>
-                    <p>{p5} : {data.deliveredTime}</p>
-                    <p>{p6} : {data.requestBy ? data.requestBy.username : ""}</p>
-                    <p>{p7} : {data.courier ? data.courier.username : ""}</p>
-                    <p>{p8} : {data.courierActivity ? data.courierActivity.returnTime : ""}</p>
-                    <p>{p9} : {data.status}</p>
-                    <p>{p10} : {data.priority}</p>
-                    <p>{p11} : {data.notes}</p>
+                    <p>{p1} : {c1}</p>
+                    <p>{p2} : {c2}</p>
+                    <p>{p3} : {c3}</p>
+                    <p>{p4} : {c4}</p>
+                    <p>{p5} : {c5}</p>
+                    <p>{p6} : {c6}</p>
+                    <p>{p7} : {c7}</p>
+                    <p>{p8} : {c8}</p>
+                    { p9 ? <p>{p9} : {c9}</p> : null }
+                    { p10 ? <p>{p10} : {c10}</p> : null }
+                    { p11 ? <p>{p11} : {c11}</p> : null}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>

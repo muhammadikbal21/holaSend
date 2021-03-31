@@ -205,19 +205,29 @@ const TasksFinished = (props) => {
                                                     <td>
                                                         <ModalView
                                                             className="fas fa-eye btn-info"
-                                                            data={e}
                                                             title="Detail Task"
                                                             p1="Created Date"
+                                                            c1={e.createDate.substring(0, 19).replace("T", " ")}
                                                             p2="Destination"
+                                                            c2={e.destination.name}
                                                             p3="Address"
+                                                            c3={e.destination.address}
                                                             p4="Pick Up Time"
+                                                            c4={e.pickUpTime}
                                                             p5="Delivered Time"
+                                                            c5={e.deliveredTime}
                                                             p6="Request By"
+                                                            c6={e.requestBy ? e.requestBy.username : ""}
                                                             p7="Courier"
+                                                            c7={e.courier ? e.courier.username : ""}
                                                             p8="Return Time"
+                                                            c8={e.courierActivity ? e.courierActivity.returnTime : ""}
                                                             p9="Status"
+                                                            c9={e.status}
                                                             p10="Priority"
+                                                            c10={e.priority}
                                                             p11="Notes"
+                                                            c11={e.notes}
                                                         />
                                                     </td>
                                                 </tr>

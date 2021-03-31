@@ -9,7 +9,7 @@ import {
     putByUsernameMakeDisabledAction, 
     putByUsernameMakeStaffAction 
 } from "../../../../configs/actions/user/userAction";
-import {DropdownFilterRole, Loading, PaginationButton} from "../../../../components/atoms";
+import {DropdownFilterRole, Loading, ModalView, PaginationButton} from "../../../../components/atoms";
 
 const UserManagements = (props) => {
 
@@ -156,30 +156,53 @@ const UserManagements = (props) => {
                                                     <td>{e.username}</td>
                                                     <td>{e.email}</td>
                                                     <td>{e.role}</td>
+                                                    <td style={{display: 'flex', flexDirection: 'row'}}>
+                                                        <ModalView
+                                                            className="fas fa-eye btn-info"
+                                                            title="User Info"
+                                                            p1="Username"
+                                                            c1={e.username}
+                                                            p2="Email"
+                                                            c2={e.email}
+                                                            p3="Role"
+                                                            c3={e.role}
+                                                            p4="First Name"
+                                                            c4={e.userDetails.firstName}
+                                                            p5="Last Name"
+                                                            c5={e.userDetails.lastName}
+                                                            p6="Indentity Category"
+                                                            c6={e.userDetails.identityCategory}
+                                                            p7="Identification Number"
+                                                            c7={e.userDetails.identificationNumber}
+                                                            p8="Contact Number"
+                                                            c8={e.userDetails.contactNumber}
+                                                        />
+                                                        <span
+                                                            style={{
+                                                                margin: "3px",
+                                                            }}
+                                                        />
                                                     {
-                                                        e.username !== localStorage.getItem("username") ? 
-                                                        <td>
-                                                            <DropdownButton id="dropdown-basic-button" title="Confirm Role as">
-                                                                <Dropdown.Item onClick={() => {
-                                                                    onAdmin(e.username)
-                                                                }}>ADMIN</Dropdown.Item>
-                                                                <Dropdown.Item onClick={() => {
-                                                                    onStaff(e.username)
-                                                                }}>STAFF</Dropdown.Item>
-                                                                <Dropdown.Item  onClick={() => {
-                                                                    onCourier(e.username)
-                                                                }}>COURIER</Dropdown.Item>
-                                                                <Dropdown.Item  onClick={() => {
-                                                                    onDisabled(e.username)
-                                                                }}>DISABLED</Dropdown.Item>
-                                                            </DropdownButton>
-                                                        </td> : 
-                                                        <td>
+                                                        e.username !== localStorage.getItem("username") ?
+                                                        <DropdownButton id="dropdown-basic-button" title="Change Role">
+                                                            <Dropdown.Item onClick={() => {
+                                                                onAdmin(e.username)
+                                                            }}>ADMIN</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => {
+                                                                onStaff(e.username)
+                                                            }}>STAFF</Dropdown.Item>
+                                                            <Dropdown.Item  onClick={() => {
+                                                                onCourier(e.username)
+                                                            }}>COURIER</Dropdown.Item>
+                                                            <Dropdown.Item  onClick={() => {
+                                                                onDisabled(e.username)
+                                                            }}>DISABLED</Dropdown.Item>
+                                                        </DropdownButton> :
                                                         <Button disabled>
                                                             CURRENT USER
                                                         </Button>
-                                                        </td>
                                                     }
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>
