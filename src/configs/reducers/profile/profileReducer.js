@@ -31,7 +31,6 @@ export function getProfileReducer(state = initialState, action) {
 }
 
 export function putProfileReducer(state = {...initialState}, action) {
-    console.log("ini reducer", action);
     switch (action.type) {
         case PUT_PROFILE_REQUEST:
             return {

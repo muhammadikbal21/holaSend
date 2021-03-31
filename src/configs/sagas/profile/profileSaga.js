@@ -45,7 +45,6 @@ function* putProfileSaga(action) {
     })
     
     yield put(result)
-    console.log("ini saga", action)
 }
 
 export function* watchGetProfileSaga() {

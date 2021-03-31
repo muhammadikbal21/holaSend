@@ -21,7 +21,6 @@ const Profile = (props) => {
     const [lastnameError, setLastnameError] = useState('')
     const [emailError, setEmailError] = useState('')
     const [usernameError, setUsernameError] = useState('')
-    const [roleError, setRoleError] = useState('')
     const [identityCategoryError, setIdentityCategoryError] = useState('')
     const [identificationNumberError, setIdentificationNumberError] = useState('')
     const [contactNumberError, setContactNumberError] = useState('')
@@ -42,11 +41,6 @@ const Profile = (props) => {
             setContactNumber(props.data.userDetails.contactNumber)
         }
 
-        // if (props.putProfile) {
-        //     setEdited(false)
-        //     swal("Update Profile Success!", "", "success");
-        // }
-
         if (props.error) {
             swal("Error!", `${props.error.message}`, "error");
         }
@@ -60,7 +54,7 @@ const Profile = (props) => {
         }
 
         if (props.error) {
-            swal("Update Profile Error!", `${props.error}`, "error");
+            swal("Update Profile Error!", "", "error");
         }
 
     }, [props.putProfile, props.error])
@@ -111,7 +105,6 @@ const Profile = (props) => {
                 }
             }
             props.dispatchPutProfileAction(data)
-            // console.log("update data", data);
         }
     }
 
@@ -177,8 +170,6 @@ const Profile = (props) => {
         return true;
     }
 
-    console.log("ini props put", props.putProfile);
-
     return (
         <div className="content-wrapper">
             <div className="content-header">
@@ -201,113 +192,60 @@ const Profile = (props) => {
                                     <h3 className="card-title">About Me</h3>
                                 </div>
                                 <div className="card-body" style={{ padding: "1rem 3rem" }}>
-                                    {
-                                        edited == true ?
-                                        <>
-                                        <Gap height={10} />
-                                        <Input label="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{firstnameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{lastnameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Role" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{roleError}</div>
-                                        <Gap height={20} />
-                                        <DropdownList
-                                            label="Identity Category"
-                                            data={[
-                                                {value: "KTP", label: "KTP"},
-                                                {value: "SIM", label: "SIM"},
-                                                {value: "PASSPORT", label: "PASSPORT"}
-                                            ]}
-                                            value={identityCategory}
-                                            placeholder="Select Identity"
-                                            handleDropdown={handleDropdown}
-                                            disabled={false}
-                                        />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{identityCategoryError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Identification Number" value={identificationNumber} onChange={(e) => setIdentificationNumber(e.target.value)} placeholder="Identification Number" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{identificationNumberError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Contact Number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Contact Number" />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
-                                        <Gap height={20} />
-                                        </> :
-                                        <>
-                                        <Gap height={10} />
-                                        <Input label="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{firstnameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{lastnameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Role" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{roleError}</div>
-                                        <Gap height={20} />
-                                        <DropdownList
-                                            label="Identity Category"
-                                            data={[
-                                                {value: "KTP", label: "KTP"},
-                                                {value: "SIM", label: "SIM"},
-                                                {value: "PASSPORT", label: "PASSPORT"}
-                                            ]}
-                                            value={identityCategory}
-                                            placeholder="Select Identity"
-                                            handleDropdown={handleDropdown}
-                                            disabled={true}
-                                        />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{identityCategoryError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Identification Number" value={identificationNumber} onChange={(e) => setIdentificationNumber(e.target.value)} placeholder="Identification Number" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{identificationNumberError}</div>
-                                        <Gap height={20} />
-                                        <Input label="Contact Number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Contact Number" disabled />
-                                        <Gap height={10} />
-                                        <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
-                                        <Gap height={20} />
-                                        </>
-                                    }
+                                    <Gap height={10} />
+                                    <Input label="First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{firstnameError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{lastnameError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Role" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role" disabled={true} />
+                                    <Gap height={20} />
+                                    <DropdownList
+                                        label="Identity Category"
+                                        data={[
+                                            {value: "KTP", label: "KTP"},
+                                            {value: "SIM", label: "SIM"},
+                                            {value: "PASSPORT", label: "PASSPORT"}
+                                        ]}
+                                        value={identityCategory}
+                                        placeholder="Select Identity"
+                                        handleDropdown={handleDropdown}
+                                        disabled={!edited}
+                                    />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{identityCategoryError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Identification Number" value={identificationNumber} onChange={(e) => setIdentificationNumber(e.target.value)} placeholder="Identification Number" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{identificationNumberError}</div>
+                                    <Gap height={20} />
+                                    <Input label="Contact Number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} placeholder="Contact Number" disabled={!edited} />
+                                    <Gap height={10} />
+                                    <div style={{fontSize: 12, color: "red"}}>{contactNumberError}</div>
+                                    <Gap height={20} />
                                 </div>
                                 <div className="card-footer" style={{ padding: "1rem 3rem" }}>
                                     <div className="row">
                                         <div className="col">
-                                            <Button className="btn-warning" style={{width: "100%"}}
+                                            <Button className="btn-warning" style={{width: "100%", padding: "12px", borderRadius: "12px",  textTransform: "uppercase"}}
                                                 onClick={() => onEdit()} disabled={edited}
                                             >
                                                 Edit
                                             </Button>
                                         </div>
                                         <div className="col">
-                                            <Button style={{width: "100%", backgroundColor: '#536DFE'}}
+                                            <Button style={{width: "100%", backgroundColor: '#536DFE', padding: "12px", borderRadius: "12px",  textTransform: "uppercase"}}
                                                 onClick={() => onSubmit()}
                                                 disabled={!edited}
                                             >
