@@ -16,6 +16,8 @@ const Profile = (props) => {
     const [identificationNumber, setIdentificationNumber] = useState('')
     const [contactNumber, setContactNumber] = useState('')
     const [edited, setEdited] = useState(false)
+    const [buttonText, setButtonText] = useState("Edit")
+    const [buttonColor, setButtonColor] = useState('btn-warning')
 
     const [firstnameError, setFirstnameError] = useState('')
     const [lastnameError, setLastnameError] = useState('')
@@ -31,14 +33,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         if (props.data) {
-            setFirstname(props.data.userDetails.firstName)
-            setLastname(props.data.userDetails.lastName)
-            setEmail(props.data.email)
-            setUsername(props.data.username)
-            setRole(props.data.role)
-            setIdentityCategory(props.data.userDetails.identityCategory)
-            setIdentificationNumber(props.data.userDetails.identificationNumber)
-            setContactNumber(props.data.userDetails.contactNumber)
+            onFillData()
         }
 
         if (props.error) {
@@ -51,6 +46,8 @@ const Profile = (props) => {
         if (props.putProfile) {
             setEdited(false)
             swal("Update Profile Success!", "", "success");
+            setButtonText("Edit")
+            setButtonColor("btn-warning")
         }
 
         if (props.error) {
@@ -78,6 +75,17 @@ const Profile = (props) => {
         contactNumber
     ])
 
+    const onFillData = () => {
+        setFirstname(props.data.userDetails.firstName)
+        setLastname(props.data.userDetails.lastName)
+        setEmail(props.data.email)
+        setUsername(props.data.username)
+        setRole(props.data.role)
+        setIdentityCategory(props.data.userDetails.identityCategory)
+        setIdentificationNumber(props.data.userDetails.identificationNumber)
+        setContactNumber(props.data.userDetails.contactNumber)
+    }
+
     const handleDropdown = (identityCategory) => {
         setIdentityCategory(identityCategory)
     }
@@ -87,7 +95,16 @@ const Profile = (props) => {
     };
 
     const onEdit = () => {
-        setEdited(true)
+        if (edited) {
+            onFillData()
+            setEdited(false)
+            setButtonText("Edit")
+            setButtonColor("btn-warning")
+        } else {
+            setEdited(true)
+            setButtonText("Reset")
+            setButtonColor("btn-danger")
+        }
     }
 
     const onSubmit = () => {
@@ -238,10 +255,10 @@ const Profile = (props) => {
                                 <div className="card-footer" style={{ padding: "1rem 3rem" }}>
                                     <div className="row">
                                         <div className="col">
-                                            <Button className="btn-warning" style={{width: "100%", padding: "12px", borderRadius: "12px",  textTransform: "uppercase"}}
-                                                onClick={() => onEdit()} disabled={edited}
+                                            <Button className={buttonColor} style={{width: "100%", padding: "12px", borderRadius: "12px",  textTransform: "uppercase"}}
+                                                onClick={() => onEdit()}
                                             >
-                                                Edit
+                                                {buttonText}
                                             </Button>
                                         </div>
                                         <div className="col">
