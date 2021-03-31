@@ -28,6 +28,11 @@ import {
     watchPutByUsernameMakeStaffSaga 
 } from './user/userSaga';
 
+import {
+    watchGetRadiusSaga,
+    watchPutRadiusSaga
+} from './radius/radiusSaga'
+
 export default function* rootSaga() {
     yield all([
         watchLoginSaga(),
@@ -55,6 +60,8 @@ export default function* rootSaga() {
         watchGetByIdDestinationskSaga(),
         watchPutByIdDestinationskSaga(),
         watchGetProfileSaga(),
-        watchPutProfileSaga()
+        watchPutProfileSaga(),
+        watchGetRadiusSaga(),
+        watchPutRadiusSaga()
     ])
 }

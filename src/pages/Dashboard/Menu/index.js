@@ -174,7 +174,18 @@ const Menu = () => {
                     </a>
                   </Link>
                 </li>
-              </ul>
+                {
+                  role == "ADMIN" ? 
+                  <li className="nav-item">
+                  <Link to="/dashboard/radius">
+                    <a href="#" className="nav-link">
+                    <i class="fas fa-wrench nav-icon" />
+                      <p>Radius</p>
+                    </a>
+                  </Link>
+                </li> : <></>
+                }
+              </ul>   
             </li>
             <li className="nav-item has-treeview" style={{ marginBottom: '3px' }} onClick={handleLogout}>
               <a href="#" className="nav-link active" style={{ backgroundColor: '#536DFE' }}>
@@ -186,9 +197,7 @@ const Menu = () => {
             </li>
           </ul>
         </nav>
-        {/* /.sidebar-menu */}
       </div>
-      {/* /.sidebar */}
     </aside>
   );
 };

@@ -27,6 +27,7 @@ import {
 } from "./user/userReducer"
 import { getChartsUserReducer, getChartsTaskReducer } from "./charts/chartsReducer"
 import { getProfileReducer, putProfileReducer } from "./profile/profileReducer"
+import { getRadiusReducer, putRadiusReducer } from "./radius/radiusReducer"
 
 const rootReducer = combineReducers({
     loginReducer,
@@ -54,7 +55,9 @@ const rootReducer = combineReducers({
     getByIdDestinationsReducer,
     putByIdDestinationsReducer,
     getProfileReducer,
-    putProfileReducer
+    putProfileReducer,
+    getRadiusReducer,
+    putRadiusReducer
 })
 
 export default rootReducer
