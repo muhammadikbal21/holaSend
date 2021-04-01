@@ -187,7 +187,7 @@ const TasksFinished = (props) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {tasks.map((e) => (
+                                            {tasks?.map((e) => (
                                                 <tr>
                                                     <td>
                                                         {e.destination.name}
@@ -274,7 +274,7 @@ const TasksFinished = (props) => {
                                                             p7="Courier"
                                                             c7={e.courier ? e.courier.username : ""}
                                                             p8="Return Time"
-                                                            c8={e.courierActivity ? e.courierActivity.returnTime.substring(0, 19).replace("T", " ") : ""}
+                                                            c8={e.courierActivity?.returnTime?.substring(0, 19).replace("T", " ") ||  ""}
                                                             p9="Status"
                                                             c9={e.status}
                                                             p10="Priority"
