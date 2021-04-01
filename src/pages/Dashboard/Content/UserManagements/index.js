@@ -167,15 +167,15 @@ const UserManagements = (props) => {
                                                             p3="Role"
                                                             c3={e.role}
                                                             p4="First Name"
-                                                            c4={e.userDetails.firstName}
+                                                            c4={e.userDetails?.firstName || ''}
                                                             p5="Last Name"
-                                                            c5={e.userDetails.lastName}
+                                                            c5={e.userDetails?.lastName || ''}
                                                             p6="Indentity Category"
-                                                            c6={e.userDetails.identityCategory}
+                                                            c6={e.userDetails?.identityCategory || ''}
                                                             p7="Identification Number"
-                                                            c7={e.userDetails.identificationNumber}
+                                                            c7={e.userDetails?.identificationNumber || ''}
                                                             p8="Contact Number"
-                                                            c8={e.userDetails.contactNumber}
+                                                            c8={e.userDetails?.contactNumber || ''}
                                                         />
                                                         <span
                                                             style={{
