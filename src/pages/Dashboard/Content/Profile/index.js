@@ -22,7 +22,6 @@ const Profile = (props) => {
     const [firstnameError, setFirstnameError] = useState('')
     const [lastnameError, setLastnameError] = useState('')
     const [emailError, setEmailError] = useState('')
-    const [usernameError, setUsernameError] = useState('')
     const [identityCategoryError, setIdentityCategoryError] = useState('')
     const [identificationNumberError, setIdentificationNumberError] = useState('')
     const [contactNumberError, setContactNumberError] = useState('')
@@ -61,7 +60,6 @@ const Profile = (props) => {
         setFirstnameError("")
         setLastnameError("")
         setEmailError("")
-        setUsernameError("")
         setIdentityCategoryError("")
         setIdentificationNumberError("")
         setContactNumberError("")
@@ -69,7 +67,6 @@ const Profile = (props) => {
         firstname,
         lastname,
         email,
-        username,
         identityCategory,
         identificationNumber,
         contactNumber
@@ -129,11 +126,9 @@ const Profile = (props) => {
         let firstnameError = '';
         let lastnameError = "";
         let emailError = "";
-        let usernameError = "";
         let identityCategoryError = "";
         let identificationNumberError = "";
         let contactNumberError = "";
-        const usernameRegex = /[a-z0-9]{6,20}$/
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
         if (!firstname) {
@@ -146,10 +141,6 @@ const Profile = (props) => {
 
         if (!email.match(emailRegex)) {
             emailError = "Invalid Email!"
-        }
-
-        if (!username.match(usernameRegex)) {
-            usernameError = "Username must be more than 6 characters!";
         }
         
         if (!identityCategory) {
@@ -168,7 +159,6 @@ const Profile = (props) => {
             firstnameError ||
             lastnameError ||
             emailError || 
-            usernameError || 
             identityCategoryError ||
             identificationNumberError ||
             contactNumberError
@@ -176,7 +166,6 @@ const Profile = (props) => {
             setFirstnameError(firstnameError);
             setLastnameError(lastnameError);
             setEmailError(emailError);
-            setUsernameError(usernameError);
             setIdentityCategoryError(identityCategoryError);
             setIdentificationNumberError(identificationNumberError);
             setContactNumberError(contactNumberError);
@@ -222,9 +211,7 @@ const Profile = (props) => {
                                     <Gap height={10} />
                                     <div style={{fontSize: 12, color: "red"}}>{emailError}</div>
                                     <Gap height={20} />
-                                    <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" disabled={!edited} />
-                                    <Gap height={10} />
-                                    <div style={{fontSize: 12, color: "red"}}>{usernameError}</div>
+                                    <Input label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" disabled={true} />
                                     <Gap height={20} />
                                     <Input label="Role" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role" disabled={true} />
                                     <Gap height={20} />
