@@ -63,7 +63,7 @@ export default function MapView(props) {
 
     return (
         <div>
-            <p className="label">{props.label}</p>
+            <p className="label">{props.label} {props.required ? <span style={{color: 'red'}}>*</span> : null}</p>
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
