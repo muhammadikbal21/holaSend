@@ -110,30 +110,42 @@ const Register = (props) => {
 
         if (!firstname) {
             firstnameError = "Firstname must not blank!"
+        } else if (firstname.length > 40) {
+            firstnameError = "Firstname max. 40 characters";
         }
         
         if (!lastname) {
             lastnameError = "Lastname must not blank!"
+        } else if (lastname.length > 40) {
+            lastnameError = "Lastname max. 40 characters";
         }
 
         if (!email.match(emailRegex)) {
             emailError = "Invalid Email!"
+        } else if (email.length > 50) {
+            emailError = "Email max. 50 characters";
         }
 
         if (!username.match(usernameRegex)) {
             usernameError = "Username must be more than 6 characters!";
+        } else if (username.length > 40) {
+            usernameError = "Username max. 40 characters";
         }
         
         if (password.length < 8) {
             passwordError = "Password must be more than 8 characters!";
         } else if (!password.match(passwordRegex)) {
             passwordError = "Password must contain capital letters and numbers";
+        } else if (password.length > 40) {
+            passwordError = "Password max. 40 characters";
         }
 
         if (confirmPassword !== password) {
             confirmPasswordError = "Confirm Password must match to Password"
         } else if (confirmPassword.length < 8) {
             confirmPasswordError = "Password must be more than 8 characters!";
+        } else if (confirmPassword.length > 40) {
+            confirmPasswordError = "Password max. 40 characters";
         }
 
         if (!identityCategory) {
@@ -142,10 +154,14 @@ const Register = (props) => {
         
         if (!identificationNumber) {
             identificationNumberError = "Identification Number must not blank!"
+        } else if (identificationNumber.length > 16) {
+            identificationNumberError = "Identification Number max. 16 digit!"
         }
 
         if (!contactNumber) {
             contactNumberError = "Contact Number must not blank!"
+        } else if (contactNumber.length > 12) {
+            contactNumberError = "Contact Number max. 12 digit!"
         }
 
         if (
