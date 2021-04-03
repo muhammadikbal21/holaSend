@@ -22,6 +22,7 @@ const TasksUnfinished = (props) => {
         if (props.error) {
             setError(props.error)
         }
+
     }, [props.error, props.listTask]);
 
     useEffect(() => {
@@ -215,6 +216,7 @@ const TasksUnfinished = (props) => {
                                                                 onDelete(e.id)
                                                             } disabled />
                                                         }
+                                                        
                                                     </td>
                                                 </tr>
                                             ))}
