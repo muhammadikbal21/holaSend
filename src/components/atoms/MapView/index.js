@@ -33,7 +33,7 @@ const center = {
 
 export default function MapView(props) {
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: "AIzaSyAbOWCxICALjaal-MI2pNSaPbNvQZShtZ8",
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     })
     const [markers, setMarkers] = React.useState([])
