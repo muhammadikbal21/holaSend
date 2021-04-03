@@ -138,7 +138,7 @@ const TasksFinished = (props) => {
                                 className="m-0 text-dark"
                                 style={{ paddingLeft: "35px" }}
                             >
-                                Tasks Finished
+                                Delivered Tasks
                             </h1>
                         </div>
                     </div>
