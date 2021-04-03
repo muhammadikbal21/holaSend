@@ -151,6 +151,7 @@ const CreateDestinations = (props) => {
                               >
                                   <Input
                                       label="Name"
+                                      required={true}
                                       value={destination}
                                       onChange={(e) =>
                                           setDestination(e.target.value)
@@ -164,12 +165,13 @@ const CreateDestinations = (props) => {
                                   <Gap height={15} />
                                   <Input
                                       label="Address"
+                                      required={true}
                                       value={address}
                                       onChange={(e) =>
-                                          setAddress(e.target.value)
-                                      }
-                                      placeholder="Address"
-                                  />
+                                        setAddress(e.target.value)
+                                    }
+                                    placeholder="Address"
+                                    />
                                   <Gap height={10} />
                                   <div style={{ fontSize: 12, color: "red" }}>
                                       {addressError}
@@ -177,6 +179,7 @@ const CreateDestinations = (props) => {
                                   <Gap height={15} />
                                   <MapView
                                       label="Pick Locations"
+                                      required={true}
                                       onLocate={onLocate}
                                       onAddressInput={onAddressInput}
                                   />
